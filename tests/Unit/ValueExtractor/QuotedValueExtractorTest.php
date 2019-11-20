@@ -2,20 +2,20 @@
 
 namespace webignition\BasilParser\Tests\Unit\ValueExtractor;
 
-use webignition\BasilParser\ValueExtractor\ValueExtractor;
+use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
 
-class ValueExtractorTest extends \PHPUnit\Framework\TestCase
+class QuotedValueExtractorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var ValueExtractor
+     * @var QuotedValueExtractor
      */
-    private $valueExtractor;
+    private $quotedValueExtractor;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->valueExtractor = ValueExtractor::create();
+        $this->quotedValueExtractor = new QuotedValueExtractor();
     }
 
     /**
@@ -23,7 +23,7 @@ class ValueExtractorTest extends \PHPUnit\Framework\TestCase
      */
     public function testExtract(string $valueString, string $expectedValue)
     {
-        $value = $this->valueExtractor->extract($valueString);
+        $value = $this->quotedValueExtractor->extract($valueString);
 
         $this->assertSame($expectedValue, $value);
     }
@@ -54,22 +54,6 @@ class ValueExtractorTest extends \PHPUnit\Framework\TestCase
             'quoted string with escaped quotes with trailing data' => [
                 'valueString' => '"\"value\"" trailing',
                 'expectedValue' => '"\"value\""',
-            ],
-            'variable parameter' => [
-                'valueString' => '$data.data_name',
-                'expectedValue' => '$data.data_name',
-            ],
-            'variable parameter with trailing data' => [
-                'valueString' => '$data.data_name trailing',
-                'expectedValue' => '$data.data_name',
-            ],
-            'variable parameter with default' => [
-                'valueString' => '$data.data_name|"default"',
-                'expectedValue' => '$data.data_name|"default"',
-            ],
-            'variable parameter with default with trailing data' => [
-                'valueString' => '$data.data_name|"default" trailing',
-                'expectedValue' => '$data.data_name|"default"',
             ],
         ];
     }

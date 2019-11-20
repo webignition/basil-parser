@@ -10,7 +10,7 @@ use webignition\BasilDataStructure\Action\InputAction;
 use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Action\WaitAction;
 use webignition\BasilParser\IdentifierExtractor\IdentifierExtractor;
-use webignition\BasilParser\ValueExtractor\ValueExtractor;
+use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
 
 class ActionParser
 {
@@ -40,19 +40,25 @@ class ActionParser
     ];
 
     private $identifierExtractor;
-    private $valueExtractor;
+    private $quotedValueExtractor;
+    private $variableParameterExtractor;
 
-    public function __construct(IdentifierExtractor $identifierExtractor, ValueExtractor $valueExtractor)
-    {
+    public function __construct(
+        IdentifierExtractor $identifierExtractor,
+        QuotedValueExtractor $quotedValueExtractor,
+        VariableParameterExtractor $variableParameterExtractor
+    ) {
         $this->identifierExtractor = $identifierExtractor;
-        $this->valueExtractor = $valueExtractor;
+        $this->quotedValueExtractor = $quotedValueExtractor;
+        $this->variableParameterExtractor = $variableParameterExtractor;
     }
 
     public static function create(): ActionParser
     {
         return new ActionParser(
             IdentifierExtractor::create(),
-            ValueExtractor::create()
+            new QuotedValueExtractor(),
+            new VariableParameterExtractor()
         );
     }
 
@@ -128,6 +134,14 @@ class ActionParser
             $valueString = $toKeywordAndValue;
         }
 
-        return $this->valueExtractor->extract($valueString);
+        if ($this->quotedValueExtractor->handles($valueString)) {
+            return $this->quotedValueExtractor->extract($valueString);
+        }
+
+        if ($this->variableParameterExtractor->handles($valueString)) {
+            return $this->variableParameterExtractor->extract($valueString);
+        }
+
+        return '';
     }
 }

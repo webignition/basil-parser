@@ -39,6 +39,22 @@ trait VariableParameterIdentifierStringDataProviderTrait
                 'string' => '$env.KEY|"default value" is "value"',
                 'expectedIdentifierString' => '$env.KEY|"default value"',
             ],
+            'variable parameter: data parameter' => [
+                'valueString' => '$data.data_name',
+                'expectedValue' => '$data.data_name',
+            ],
+            'variable parameter: data parameter with trailing data' => [
+                'valueString' => '$data.data_name trailing',
+                'expectedValue' => '$data.data_name',
+            ],
+            'variable parameter: data parameter with default' => [
+                'valueString' => '$data.data_name|"default"',
+                'expectedValue' => '$data.data_name|"default"',
+            ],
+            'variable parameter: data parameter with default with trailing data' => [
+                'valueString' => '$data.data_name|"default" trailing',
+                'expectedValue' => '$data.data_name|"default"',
+            ],
         ];
     }
 }

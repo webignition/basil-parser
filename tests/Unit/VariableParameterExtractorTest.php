@@ -7,7 +7,7 @@ namespace webignition\BasilParser\Tests\Unit;
 use webignition\BasilParser\VariableParameterExtractor;
 use webignition\BasilParser\Tests\DataProvider\VariableParameterIdentifierStringDataProviderTrait;
 
-class VariableParameterIdentifierStringExtractorTest extends \PHPUnit\Framework\TestCase
+class VariableParameterExtractorTest extends \PHPUnit\Framework\TestCase
 {
     use VariableParameterIdentifierStringDataProviderTrait;
 
