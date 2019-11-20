@@ -9,8 +9,6 @@ use webignition\BasilDataStructure\Action\ActionInterface;
 use webignition\BasilDataStructure\Action\InputAction;
 use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Action\WaitAction;
-use webignition\BasilParser\ValueExtractor\LiteralValueExtractor;
-use webignition\BasilParser\ValueExtractor\PageElementIdentifierExtractor;
 use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
 use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 
@@ -42,29 +40,25 @@ class ActionParser
     ];
 
     private $quotedValueExtractor;
-    private $literalValueExtractor;
-    private $pageElementIdentifierExtractor;
     private $variableValueExtractor;
+    private $identifierExtractor;
 
     public function __construct(
         QuotedValueExtractor $quotedValueExtractor,
-        LiteralValueExtractor $literalValueExtractor,
-        PageElementIdentifierExtractor $pageElementIdentifierExtractor,
-        VariableValueExtractor $variableValueExtractor
+        VariableValueExtractor $variableValueExtractor,
+        IdentifierExtractor $identifierExtractor
     ) {
         $this->quotedValueExtractor = $quotedValueExtractor;
-        $this->literalValueExtractor = $literalValueExtractor;
-        $this->pageElementIdentifierExtractor = $pageElementIdentifierExtractor;
         $this->variableValueExtractor = $variableValueExtractor;
+        $this->identifierExtractor = $identifierExtractor;
     }
 
     public static function create(): ActionParser
     {
         return new ActionParser(
             new QuotedValueExtractor(),
-            new LiteralValueExtractor(),
-            new PageElementIdentifierExtractor(),
-            new VariableValueExtractor()
+            new VariableValueExtractor(),
+            IdentifierExtractor::create()
         );
     }
 
@@ -92,7 +86,7 @@ class ActionParser
         $isInputType = in_array($type, self::INPUT_TYPES);
 
         if ($isInteractionType || $isInputType) {
-            $identifier = $this->findIdentifier($arguments);
+            $identifier = $this->identifierExtractor->extract($arguments);
 
             if ($isInteractionType) {
                 return new InteractionAction($source, $type, $arguments, $identifier);
@@ -123,23 +117,6 @@ class ActionParser
         }
 
         return null;
-    }
-
-    private function findIdentifier(string $arguments): string
-    {
-        if ($this->literalValueExtractor->handles($arguments)) {
-            return $this->literalValueExtractor->extract($arguments);
-        }
-
-        if ($this->pageElementIdentifierExtractor->handles($arguments)) {
-            return $this->pageElementIdentifierExtractor->extract($arguments);
-        }
-
-        if ($this->variableValueExtractor->handles($arguments)) {
-            return $this->variableValueExtractor->extract($arguments);
-        }
-
-        return '';
     }
 
     private function findInputValue(string $identifier, string $arguments): string

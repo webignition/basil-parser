@@ -6,8 +6,6 @@ namespace webignition\BasilParser;
 
 use webignition\BasilDataStructure\Assertion;
 use webignition\BasilDataStructure\AssertionInterface;
-use webignition\BasilParser\ValueExtractor\LiteralValueExtractor;
-use webignition\BasilParser\ValueExtractor\PageElementIdentifierExtractor;
 use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
 use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 
@@ -24,29 +22,25 @@ class AssertionParser
     ];
 
     private $quotedValueExtractor;
-    private $literalValueExtractor;
-    private $pageElementIdentifierExtractor;
     private $variableValueExtractor;
+    private $identifierExtractor;
 
     public function __construct(
         QuotedValueExtractor $quotedValueExtractor,
-        LiteralValueExtractor $literalValueExtractor,
-        PageElementIdentifierExtractor $pageElementIdentifierExtractor,
-        VariableValueExtractor $variableValueExtractor
+        VariableValueExtractor $variableValueExtractor,
+        IdentifierExtractor $identifierExtractor
     ) {
         $this->quotedValueExtractor = $quotedValueExtractor;
-        $this->literalValueExtractor = $literalValueExtractor;
-        $this->pageElementIdentifierExtractor = $pageElementIdentifierExtractor;
         $this->variableValueExtractor = $variableValueExtractor;
+        $this->identifierExtractor = $identifierExtractor;
     }
 
     public static function create(): AssertionParser
     {
         return new AssertionParser(
             new QuotedValueExtractor(),
-            new LiteralValueExtractor(),
-            new PageElementIdentifierExtractor(),
-            new VariableValueExtractor()
+            new VariableValueExtractor(),
+            IdentifierExtractor::create()
         );
     }
 
@@ -57,7 +51,7 @@ class AssertionParser
             return new Assertion($source, null, null);
         }
 
-        $identifier = $this->findIdentifier($source);
+        $identifier = $this->identifierExtractor->extract($source);
         if ('' === $identifier) {
             return new Assertion($source, '', null);
         }
@@ -75,23 +69,6 @@ class AssertionParser
         $value = $this->findValue($valueString);
 
         return new Assertion($source, $identifier, $comparison, $value);
-    }
-
-    private function findIdentifier(string $string): string
-    {
-        if ($this->literalValueExtractor->handles($string)) {
-            return $this->literalValueExtractor->extract($string);
-        }
-
-        if ($this->pageElementIdentifierExtractor->handles($string)) {
-            return $this->pageElementIdentifierExtractor->extract($string);
-        }
-
-        if ($this->variableValueExtractor->handles($string)) {
-            return $this->variableValueExtractor->extract($string);
-        }
-
-        return '';
     }
 
     private function findComparison(string $source): string
