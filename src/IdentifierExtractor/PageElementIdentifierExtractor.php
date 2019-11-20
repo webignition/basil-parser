@@ -41,7 +41,7 @@ class PageElementIdentifierExtractor
             }
         }
 
-        if (self::ATTRIBUTE_NAME_DELIMITER === $remainder[0]) {
+        if ($remainder !== '' && self::ATTRIBUTE_NAME_DELIMITER === $remainder[0]) {
             $remainder = mb_substr($remainder, 1);
             $attributeName = $this->findAttributeName($remainder);
 
