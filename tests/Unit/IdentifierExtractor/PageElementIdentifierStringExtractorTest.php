@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilParser\Tests\Unit\IdentifierStringExtractor;
+namespace webignition\BasilParser\Tests\Unit\IdentifierExtractor;
 
 use webignition\BasilParser\IdentifierExtractor\PageElementIdentifierExtractor;
 use webignition\BasilParser\Tests\DataProvider\PageElementIdentifierStringDataProviderTrait;
