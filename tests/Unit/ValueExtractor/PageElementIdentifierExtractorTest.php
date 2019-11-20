@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilParser\Tests\Unit\IdentifierExtractor;
+namespace webignition\BasilParser\Tests\Unit\ValueExtractor;
 
-use webignition\BasilParser\IdentifierExtractor\LiteralParameterIdentifierExtractor;
-use webignition\BasilParser\Tests\DataProvider\LiteralParameterStringDataProviderTrait;
+use webignition\BasilParser\ValueExtractor\PageElementIdentifierExtractor;
+use webignition\BasilParser\Tests\DataProvider\PageElementIdentifierStringDataProviderTrait;
 
-class LiteralParameterIdentifierStringExtractorTest extends \PHPUnit\Framework\TestCase
+class PageElementIdentifierExtractorTest extends \PHPUnit\Framework\TestCase
 {
-    use LiteralParameterStringDataProviderTrait;
+    use PageElementIdentifierStringDataProviderTrait;
 
     /**
-     * @var LiteralParameterIdentifierExtractor
+     * @var \webignition\BasilParser\ValueExtractor\PageElementIdentifierExtractor
      */
     private $extractor;
 
@@ -20,7 +20,7 @@ class LiteralParameterIdentifierStringExtractorTest extends \PHPUnit\Framework\T
     {
         parent::setUp();
 
-        $this->extractor = new LiteralParameterIdentifierExtractor();
+        $this->extractor = new PageElementIdentifierExtractor();
     }
 
     /**
@@ -33,7 +33,7 @@ class LiteralParameterIdentifierStringExtractorTest extends \PHPUnit\Framework\T
 
     public function testHandlesReturnsTrue()
     {
-        $this->assertTrue($this->extractor->handles('reference'));
+        $this->assertTrue($this->extractor->handles('"quoted"'));
     }
 
     /**
@@ -50,9 +50,6 @@ class LiteralParameterIdentifierStringExtractorTest extends \PHPUnit\Framework\T
             'empty' => [
                 'string' => '',
             ],
-            'quoted value' => [
-                'string' => '"not handled"',
-            ],
             'variable value' => [
                 'string' => '$elements.element_name',
             ],
@@ -60,7 +57,7 @@ class LiteralParameterIdentifierStringExtractorTest extends \PHPUnit\Framework\T
     }
 
     /**
-     * @dataProvider literalParameterStringDataProvider
+     * @dataProvider pageElementIdentifierStringDataProvider
      */
     public function testExtractFromStartReturnsString(string $string, string $expectedIdentifierString)
     {

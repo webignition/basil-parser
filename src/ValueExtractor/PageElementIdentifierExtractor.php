@@ -1,6 +1,6 @@
 <?php
 
-namespace webignition\BasilParser\IdentifierExtractor;
+namespace webignition\BasilParser\ValueExtractor;
 
 class PageElementIdentifierExtractor
 {

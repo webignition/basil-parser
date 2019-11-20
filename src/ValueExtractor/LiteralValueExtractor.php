@@ -1,8 +1,8 @@
 <?php
 
-namespace webignition\BasilParser\IdentifierExtractor;
+namespace webignition\BasilParser\ValueExtractor;
 
-class LiteralParameterIdentifierExtractor
+class LiteralValueExtractor
 {
     public function handles(string $string): bool
     {
