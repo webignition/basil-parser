@@ -1,8 +1,8 @@
 <?php
 
-namespace webignition\BasilParser;
+namespace webignition\BasilParser\ValueExtractor;
 
-class VariableParameterExtractor
+class VariableValueExtractor
 {
     private const VARIABLE_START_CHARACTER = '$';
 

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilParser\Tests\Unit;
+namespace webignition\BasilParser\Tests\Unit\ValueExtractor;
 
-use webignition\BasilParser\VariableParameterExtractor;
+use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 use webignition\BasilParser\Tests\DataProvider\VariableParameterIdentifierStringDataProviderTrait;
 
-class VariableParameterExtractorTest extends \PHPUnit\Framework\TestCase
+class VariableValueExtractorTest extends \PHPUnit\Framework\TestCase
 {
     use VariableParameterIdentifierStringDataProviderTrait;
 
     /**
-     * @var VariableParameterExtractor
+     * @var \webignition\BasilParser\ValueExtractor\VariableValueExtractor
      */
     private $extractor;
 
@@ -20,7 +20,7 @@ class VariableParameterExtractorTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
 
-        $this->extractor = new VariableParameterExtractor();
+        $this->extractor = new VariableValueExtractor();
     }
 
     /**

@@ -12,6 +12,7 @@ use webignition\BasilDataStructure\Action\WaitAction;
 use webignition\BasilParser\ValueExtractor\LiteralValueExtractor;
 use webignition\BasilParser\ValueExtractor\PageElementIdentifierExtractor;
 use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
+use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 
 class ActionParser
 {
@@ -41,20 +42,20 @@ class ActionParser
     ];
 
     private $quotedValueExtractor;
-    private $literalParameterExtractor;
+    private $literalValueExtractor;
     private $pageElementIdentifierExtractor;
-    private $variableParameterExtractor;
+    private $variableValueExtractor;
 
     public function __construct(
         QuotedValueExtractor $quotedValueExtractor,
-        LiteralValueExtractor $literalParameterExtractor,
+        LiteralValueExtractor $literalValueExtractor,
         PageElementIdentifierExtractor $pageElementIdentifierExtractor,
-        VariableParameterExtractor $variableParameterExtractor
+        VariableValueExtractor $variableValueExtractor
     ) {
         $this->quotedValueExtractor = $quotedValueExtractor;
-        $this->literalParameterExtractor = $literalParameterExtractor;
+        $this->literalValueExtractor = $literalValueExtractor;
         $this->pageElementIdentifierExtractor = $pageElementIdentifierExtractor;
-        $this->variableParameterExtractor = $variableParameterExtractor;
+        $this->variableValueExtractor = $variableValueExtractor;
     }
 
     public static function create(): ActionParser
@@ -63,7 +64,7 @@ class ActionParser
             new QuotedValueExtractor(),
             new LiteralValueExtractor(),
             new PageElementIdentifierExtractor(),
-            new VariableParameterExtractor()
+            new VariableValueExtractor()
         );
     }
 
@@ -126,16 +127,16 @@ class ActionParser
 
     private function findIdentifier(string $arguments): string
     {
-        if ($this->literalParameterExtractor->handles($arguments)) {
-            return $this->literalParameterExtractor->extract($arguments);
+        if ($this->literalValueExtractor->handles($arguments)) {
+            return $this->literalValueExtractor->extract($arguments);
         }
 
         if ($this->pageElementIdentifierExtractor->handles($arguments)) {
             return $this->pageElementIdentifierExtractor->extract($arguments);
         }
 
-        if ($this->variableParameterExtractor->handles($arguments)) {
-            return $this->variableParameterExtractor->extract($arguments);
+        if ($this->variableValueExtractor->handles($arguments)) {
+            return $this->variableValueExtractor->extract($arguments);
         }
 
         return '';
@@ -160,8 +161,8 @@ class ActionParser
             return $this->quotedValueExtractor->extract($valueString);
         }
 
-        if ($this->variableParameterExtractor->handles($valueString)) {
-            return $this->variableParameterExtractor->extract($valueString);
+        if ($this->variableValueExtractor->handles($valueString)) {
+            return $this->variableValueExtractor->extract($valueString);
         }
 
         return '';
