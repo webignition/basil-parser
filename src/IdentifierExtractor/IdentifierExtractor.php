@@ -2,20 +2,22 @@
 
 namespace webignition\BasilParser\IdentifierExtractor;
 
+use webignition\BasilParser\VariableParameterExtractor;
+
 class IdentifierExtractor
 {
     private $literalParameterIdentifierExtractor;
     private $pageElementIdentifierExtractor;
-    private $variableParameterIdentifierExtractor;
+    private $variableParameterExtractor;
 
     public function __construct(
         LiteralParameterIdentifierExtractor $literalParameterIdentifierExtractor,
         PageElementIdentifierExtractor $pageElementIdentifierExtractor,
-        VariableParameterIdentifierExtractor $variableParameterIdentifierExtractor
+        VariableParameterExtractor $variableParameterIdentifierExtractor
     ) {
         $this->literalParameterIdentifierExtractor = $literalParameterIdentifierExtractor;
         $this->pageElementIdentifierExtractor = $pageElementIdentifierExtractor;
-        $this->variableParameterIdentifierExtractor = $variableParameterIdentifierExtractor;
+        $this->variableParameterExtractor = $variableParameterIdentifierExtractor;
     }
 
     public static function create(): IdentifierExtractor
@@ -23,7 +25,7 @@ class IdentifierExtractor
         return new IdentifierExtractor(
             new LiteralParameterIdentifierExtractor(),
             new PageElementIdentifierExtractor(),
-            new VariableParameterIdentifierExtractor()
+            new VariableParameterExtractor()
         );
     }
 
@@ -37,8 +39,8 @@ class IdentifierExtractor
             return $this->pageElementIdentifierExtractor->extract($string);
         }
 
-        if ($this->variableParameterIdentifierExtractor->handles($string)) {
-            return $this->variableParameterIdentifierExtractor->extract($string);
+        if ($this->variableParameterExtractor->handles($string)) {
+            return $this->variableParameterExtractor->extract($string);
         }
 
         return '';

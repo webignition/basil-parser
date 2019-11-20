@@ -2,26 +2,26 @@
 
 namespace webignition\BasilParser\ValueExtractor;
 
-use webignition\BasilParser\IdentifierExtractor\VariableParameterIdentifierExtractor;
+use webignition\BasilParser\VariableParameterExtractor;
 
 class ValueExtractor
 {
     private $quotedValueExtractor;
-    private $variableParameterIdentifierExtractor;
+    private $variableParameterExtractor;
 
     public function __construct(
         QuotedValueExtractor $quotedStringExtractor,
-        VariableParameterIdentifierExtractor $variableParameterIdentifierExtractor
+        VariableParameterExtractor $variableParameterIdentifierExtractor
     ) {
         $this->quotedValueExtractor = $quotedStringExtractor;
-        $this->variableParameterIdentifierExtractor = $variableParameterIdentifierExtractor;
+        $this->variableParameterExtractor = $variableParameterIdentifierExtractor;
     }
 
     public static function create(): ValueExtractor
     {
         return new ValueExtractor(
             new QuotedValueExtractor(),
-            new VariableParameterIdentifierExtractor()
+            new VariableParameterExtractor()
         );
     }
 
@@ -37,8 +37,8 @@ class ValueExtractor
             return $this->quotedValueExtractor->extract($string);
         }
 
-        if ($this->variableParameterIdentifierExtractor->handles($string)) {
-            return $this->variableParameterIdentifierExtractor->extract($string);
+        if ($this->variableParameterExtractor->handles($string)) {
+            return $this->variableParameterExtractor->extract($string);
         }
 
         return '';
