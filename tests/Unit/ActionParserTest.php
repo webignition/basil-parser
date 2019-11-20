@@ -31,6 +31,10 @@ class ActionParserTest extends TestCase
                 'actionString' => '',
                 'expectedAction' => new Action('', null),
             ],
+            'unknown type' => [
+                'actionString' => 'foo bar',
+                'expectedAction' => new Action('', null),
+            ],
             'click' => [
                 'actionString' => 'click ".selector"',
                 'expectedAction' => new InteractionAction(

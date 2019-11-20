@@ -65,6 +65,10 @@ class ActionParser
         }
 
         $type = $this->findType($source);
+        if (null === $type) {
+            return new Action('', null);
+        }
+
         $arguments = trim(mb_substr($source, strlen($type)));
 
         $isWaitType = in_array($type, self::WAIT_TYPES);
