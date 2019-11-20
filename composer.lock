@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "396515d2e2c7da5a8c4a372fba191fe3",
+    "content-hash": "fc2ff7f155baad3efac2c0857e78f5aa",
     "packages": [
         {
             "name": "webignition/basil-data-structures",
-            "version": "0.7",
+            "version": "0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-data-structures.git",
-                "reference": "4ae34ecdff47eddc602221584ee353c8f4097c64"
+                "reference": "b2f5b6bda442cd7b223c363af155051dde8de47c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-data-structures/zipball/4ae34ecdff47eddc602221584ee353c8f4097c64",
-                "reference": "4ae34ecdff47eddc602221584ee353c8f4097c64",
+                "url": "https://api.github.com/repos/webignition/basil-data-structures/zipball/b2f5b6bda442cd7b223c363af155051dde8de47c",
+                "reference": "b2f5b6bda442cd7b223c363af155051dde8de47c",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,7 @@
             ],
             "description": "Data structures for basil language",
             "homepage": "https://github.com/webignition/basil-data-structures",
-            "time": "2019-11-20T15:19:15+00:00"
+            "time": "2019-11-20T18:12:12+00:00"
         }
     ],
     "packages-dev": [
