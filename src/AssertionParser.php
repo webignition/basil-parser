@@ -94,7 +94,7 @@ class AssertionParser
         return '';
     }
 
-    private function findComparison(string $source): ?string
+    private function findComparison(string $source): string
     {
         $sourceLength = mb_strlen($source);
 
@@ -110,7 +110,7 @@ class AssertionParser
             }
         }
 
-        return null;
+        return '';
     }
 
     private function findValue(string $valueString): ?string
