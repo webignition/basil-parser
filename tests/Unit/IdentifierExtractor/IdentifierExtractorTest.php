@@ -24,7 +24,7 @@ class IdentifierExtractorTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
 
-        $this->identifierStringExtractor = new IdentifierExtractor();
+        $this->identifierStringExtractor = IdentifierExtractor::create();
     }
 
     /**

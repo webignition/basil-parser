@@ -8,11 +8,23 @@ class IdentifierExtractor
     private $pageElementIdentifierExtractor;
     private $variableParameterIdentifierExtractor;
 
-    public function __construct()
+    public function __construct(
+        LiteralParameterIdentifierExtractor $literalParameterIdentifierExtractor,
+        PageElementIdentifierExtractor $pageElementIdentifierExtractor,
+        VariableParameterIdentifierExtractor $variableParameterIdentifierExtractor
+    ) {
+        $this->literalParameterIdentifierExtractor = $literalParameterIdentifierExtractor;
+        $this->pageElementIdentifierExtractor = $pageElementIdentifierExtractor;
+        $this->variableParameterIdentifierExtractor = $variableParameterIdentifierExtractor;
+    }
+
+    public static function create(): IdentifierExtractor
     {
-        $this->literalParameterIdentifierExtractor = new LiteralParameterIdentifierExtractor();
-        $this->pageElementIdentifierExtractor = new PageElementIdentifierExtractor();
-        $this->variableParameterIdentifierExtractor = new VariableParameterIdentifierExtractor();
+        return new IdentifierExtractor(
+            new LiteralParameterIdentifierExtractor(),
+            new PageElementIdentifierExtractor(),
+            new VariableParameterIdentifierExtractor()
+        );
     }
 
     public function extract(string $string): ?string
