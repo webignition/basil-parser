@@ -27,7 +27,7 @@ class IdentifierExtractor
         );
     }
 
-    public function extract(string $string): ?string
+    public function extract(string $string): string
     {
         if ($this->literalParameterIdentifierExtractor->handles($string)) {
             return $this->literalParameterIdentifierExtractor->extract($string);
@@ -41,6 +41,6 @@ class IdentifierExtractor
             return $this->variableParameterIdentifierExtractor->extract($string);
         }
 
-        return null;
+        return '';
     }
 }

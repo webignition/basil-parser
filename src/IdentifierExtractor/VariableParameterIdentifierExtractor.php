@@ -11,10 +11,10 @@ class VariableParameterIdentifierExtractor
         return '' !== $string && self::VARIABLE_START_CHARACTER === $string[0];
     }
 
-    public function extract(string $string): ?string
+    public function extract(string $string): string
     {
         if (!$this->handles($string)) {
-            return null;
+            return '';
         }
 
         $defaultValueDelimiter = '|';

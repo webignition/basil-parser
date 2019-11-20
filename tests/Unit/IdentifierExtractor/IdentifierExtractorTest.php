@@ -45,7 +45,7 @@ class IdentifierExtractorTest extends \PHPUnit\Framework\TestCase
         return [
             'empty' => [
                 'string' => '',
-                'expectedIdentifierString' => null,
+                'expectedIdentifierString' => '',
             ],
         ];
     }

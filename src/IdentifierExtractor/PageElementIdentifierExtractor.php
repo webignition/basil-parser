@@ -16,10 +16,10 @@ class PageElementIdentifierExtractor
         return '' !== $string && self::LOCATOR_DELIMITER === $string[0];
     }
 
-    public function extract(string $string): ?string
+    public function extract(string $string): string
     {
         if (!$this->handles($string)) {
-            return null;
+            return '';
         }
 
         $selector = mb_substr($string, 0, $this->findEndingQuotePosition($string) + 1);

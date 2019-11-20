@@ -15,10 +15,10 @@ class LiteralParameterIdentifierExtractor
         return $firstCharacter !== '"' && $firstCharacter !== '$';
     }
 
-    public function extract(string $string): ?string
+    public function extract(string $string): string
     {
         if (!$this->handles($string)) {
-            return null;
+            return '';
         }
 
         $spacePosition = mb_strpos($string, ' ');

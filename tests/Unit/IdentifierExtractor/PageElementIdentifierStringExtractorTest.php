@@ -39,9 +39,9 @@ class PageElementIdentifierStringExtractorTest extends \PHPUnit\Framework\TestCa
     /**
      * @dataProvider unhandledStringsDataProvider
      */
-    public function testExtractFromStartReturnsNull(string $string)
+    public function testExtractReturnsEmptyValue(string $string)
     {
-        $this->assertNull($this->extractor->extract($string));
+        $this->assertSame('', $this->extractor->extract($string));
     }
 
     public function unhandledStringsDataProvider(): array
