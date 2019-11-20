@@ -33,7 +33,8 @@
     },
     "require": {
         "php": ">=7.2",
-        "webignition/basil-data-structures": ">=0.4,<1"
+        "ext-mbstring": "*",
+        "webignition/basil-data-structures": ">=0.7,<1"
     },
     "require-dev": {
         "phpunit/phpunit": "~8.0",
