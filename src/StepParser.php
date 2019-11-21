@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace webignition\BasilParser;
 
 use webignition\BasilDataStructure\Action\ActionInterface;
+use webignition\BasilDataStructure\AssertionInterface;
 use webignition\BasilDataStructure\Step;
 
 class StepParser
@@ -67,7 +68,7 @@ class StepParser
     /**
      * @param array $assertionsData
      *
-     * @return ActionInterface[]
+     * @return AssertionInterface[]
      */
     private function parseAssertions(array $assertionsData): array
     {
