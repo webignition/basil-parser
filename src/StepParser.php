@@ -11,6 +11,7 @@ class StepParser
 {
     private const KEY_ACTIONS = 'actions';
     private const KEY_ASSERTIONS = 'assertions';
+    private const KEY_IMPORT_NAME = 'use';
 
     private $actionParser;
     private $assertionParser;
@@ -34,7 +35,11 @@ class StepParser
         $actions = $this->parseActions($stepData[self::KEY_ACTIONS] ?? []);
         $assertions = $this->parseAssertions($stepData[self::KEY_ASSERTIONS] ?? []);
 
-        return new Step($actions, $assertions);
+        $step = new Step($actions, $assertions);
+
+        $step = $this->setImportName($step, $stepData[self::KEY_IMPORT_NAME] ?? null);
+
+        return $step;
     }
 
     /**
@@ -71,5 +76,18 @@ class StepParser
         }
 
         return $assertions;
+    }
+
+    private function setImportName(Step $step, $importName): Step
+    {
+        if (!is_string($importName)) {
+            $importName = null;
+        }
+
+        if (is_string($importName)) {
+            $step = $step->withImportName($importName);
+        }
+
+        return $step;
     }
 }

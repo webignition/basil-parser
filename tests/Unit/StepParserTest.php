@@ -60,6 +60,18 @@ class StepParserTest extends TestCase
                     ]
                 ),
             ],
+            'invalid import name; not a string' => [
+                'stepData' => [
+                    'use' => true,
+                ],
+                'expectedStep' => new Step([], []),
+            ],
+            'valid import name' => [
+                'stepData' => [
+                    'use' => 'import_name',
+                ],
+                'expectedStep' => (new Step([], []))->withImportName('import_name'),
+            ],
         ];
     }
 }
