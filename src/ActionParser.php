@@ -72,7 +72,7 @@ class ActionParser
 
         $type = $this->findType($source);
         if (null === $type) {
-            return new Action('', null);
+            return new Action($source, null);
         }
 
         $arguments = trim(mb_substr($source, strlen($type)));
