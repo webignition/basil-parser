@@ -13,6 +13,7 @@ class StepParser
     private const KEY_ASSERTIONS = 'assertions';
     private const KEY_IMPORT_NAME = 'use';
     private const KEY_DATA = 'data';
+    private const KEY_ELEMENTS = 'elements';
 
     private $actionParser;
     private $assertionParser;
@@ -39,6 +40,7 @@ class StepParser
         $step = new Step($actions, $assertions);
         $step = $this->setImportName($step, $stepData[self::KEY_IMPORT_NAME] ?? null);
         $step = $this->setData($step, $stepData[self::KEY_DATA] ?? null);
+        $step = $this->setElements($step, $stepData[self::KEY_ELEMENTS] ?? null);
 
 
         return $step;
@@ -101,6 +103,15 @@ class StepParser
 
         if (is_string($data)) {
             $step = $step->withDataImportName($data);
+        }
+
+        return $step;
+    }
+
+    private function setElements(Step $step, $elements): Step
+    {
+        if (is_array($elements)) {
+            $step = $step->withElements($elements);
         }
 
         return $step;

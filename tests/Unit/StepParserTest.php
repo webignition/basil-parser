@@ -98,6 +98,22 @@ class StepParserTest extends TestCase
                     ],
                 ]),
             ],
+            'invalid elements; not an array' => [
+                'stepData' => [
+                    'elements' => 'string',
+                ],
+                'expectedStep' => new Step([], []),
+            ],
+            'valid elements' => [
+                'stepData' => [
+                    'elements' => [
+                        'heading' => 'page_import_name.elements.heading',
+                    ],
+                ],
+                'expectedStep' => (new Step([], []))->withElements([
+                    'heading' => 'page_import_name.elements.heading',
+                ]),
+            ],
         ];
     }
 }
