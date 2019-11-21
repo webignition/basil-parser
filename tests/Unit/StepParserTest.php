@@ -72,6 +72,32 @@ class StepParserTest extends TestCase
                 ],
                 'expectedStep' => (new Step([], []))->withImportName('import_name'),
             ],
+            'invalid data import name; not a string' => [
+                'stepData' => [
+                    'data' => true,
+                ],
+                'expectedStep' => new Step([], []),
+            ],
+            'valid data import name' => [
+                'stepData' => [
+                    'data' => 'data_import_name',
+                ],
+                'expectedStep' => (new Step([], []))->withDataImportName('data_import_name'),
+            ],
+            'valid data array' => [
+                'stepData' => [
+                    'data' => [
+                        'set1' => [
+                            'key' => 'value',
+                        ],
+                    ],
+                ],
+                'expectedStep' => (new Step([], []))->withDataArray([
+                    'set1' => [
+                        'key' => 'value',
+                    ],
+                ]),
+            ],
         ];
     }
 }
