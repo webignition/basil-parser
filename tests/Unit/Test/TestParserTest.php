@@ -79,14 +79,14 @@ class TestParserTest extends TestCase
                     'non-empty-test.yml',
                     new Configuration('chrome', 'http://example.com/'),
                     [
-                        (new Step([], []))
+                        'step one' => (new Step([], []))
                             ->withImportName('step_import_name')
                             ->withDataArray([
                                 'set1' => [
                                     'key1' => 'value1',
                                 ],
                             ]),
-                        (new Step(
+                        'step two' => (new Step(
                             [
                                 new InteractionAction(
                                     'click page_import_name.elements.button',

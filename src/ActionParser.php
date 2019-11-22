@@ -126,12 +126,16 @@ class ActionParser
         return (string) $parts[0];
     }
 
-    private function findInputValue(string $identifier, string $arguments): string
+    private function findInputValue(string $identifier, string $arguments): ?string
     {
         $identifierLength = mb_strlen($identifier);
         $toKeywordAndValue = trim(mb_substr($arguments, $identifierLength));
-
         $toKeyword = 'to';
+
+        if ($toKeyword === $toKeywordAndValue) {
+            return null;
+        }
+
         $toKeywordLength = strlen($toKeyword);
         $containsToKeyword = mb_substr($toKeywordAndValue, 0, $toKeywordLength) === $toKeyword;
 
@@ -149,6 +153,6 @@ class ActionParser
             return $this->variableValueExtractor->extract($valueString);
         }
 
-        return '';
+        return null;
     }
 }
