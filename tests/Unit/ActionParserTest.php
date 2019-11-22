@@ -87,6 +87,24 @@ class ActionParserTest extends TestCase
                     '"value"'
                 ),
             ],
+            'set with "to" keyword lacking value' => [
+                'actionString' => 'set ".selector" to',
+                'expectedAction' => new InputAction(
+                    'set ".selector" to',
+                    '".selector" to',
+                    '".selector"',
+                    null
+                ),
+            ],
+            'set lacking "to" keyword, lacking value' => [
+                'actionString' => 'set ".selector"',
+                'expectedAction' => new InputAction(
+                    'set ".selector"',
+                    '".selector"',
+                    '".selector"',
+                    null
+                ),
+            ],
         ];
     }
 }
