@@ -72,7 +72,7 @@ class ActionParser
 
         $type = $this->findType($source);
         if (null === $type) {
-            return new Action($source, null);
+            return new Action($source, $this->findUnknownType($source));
         }
 
         $arguments = trim(mb_substr($source, strlen($type)));
@@ -117,6 +117,13 @@ class ActionParser
         }
 
         return null;
+    }
+
+    private function findUnknownType(string $source): string
+    {
+        $parts = explode(' ', $source, 2);
+
+        return (string) $parts[0];
     }
 
     private function findInputValue(string $identifier, string $arguments): string
