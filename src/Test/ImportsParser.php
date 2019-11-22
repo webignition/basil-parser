@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Test;
 
 use webignition\BasilDataStructure\Test\Imports;
-use webignition\BasilParser\PathResolver;
+use webignition\PathResolver\PathResolver;
 
 class ImportsParser
 {
@@ -23,7 +23,7 @@ class ImportsParser
     public static function create(): ImportsParser
     {
         return new ImportsParser(
-            PathResolver::create()
+            new PathResolver()
         );
     }
 
