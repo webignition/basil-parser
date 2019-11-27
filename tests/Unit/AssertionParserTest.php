@@ -29,89 +29,98 @@ class AssertionParserTest extends TestCase
                 'expectedAssertion' => new Assertion('', null, null),
             ],
             'css element selector, is, scalar value' => [
-                'assertionString' => '".selector" is "value"',
+                'assertionString' => '$".selector" is "value"',
                 'expectedAssertion' => new Assertion(
-                    '".selector" is "value"',
-                    '".selector"',
+                    '$".selector" is "value"',
+                    '$".selector"',
                     'is',
                     '"value"'
                 ),
             ],
             'css element selector, is-not, scalar value' => [
-                'assertionString' => '".selector" is-not "value"',
+                'assertionString' => '$".selector" is-not "value"',
                 'expectedAssertion' => new Assertion(
-                    '".selector" is-not "value"',
-                    '".selector"',
+                    '$".selector" is-not "value"',
+                    '$".selector"',
                     'is-not',
                     '"value"'
                 ),
             ],
             'css attribute selector, is, scalar value' => [
-                'assertionString' => '".selector".attribute_name is "value"',
+                'assertionString' => '$".selector".attribute_name is "value"',
                 'expectedAssertion' => new Assertion(
-                    '".selector".attribute_name is "value"',
-                    '".selector".attribute_name',
+                    '$".selector".attribute_name is "value"',
+                    '$".selector".attribute_name',
                     'is',
                     '"value"'
                 ),
             ],
             'css element selector with element reference, is, scalar value' => [
-                'assertionString' => '"{{ reference }} .selector" is "value"',
+                'assertionString' => '$"{{ reference }} .selector" is "value"',
                 'expectedAssertion' => new Assertion(
-                    '"{{ reference }} .selector" is "value"',
-                    '"{{ reference }} .selector"',
+                    '$"{{ reference }} .selector" is "value"',
+                    '$"{{ reference }} .selector"',
                     'is',
                     '"value"'
                 ),
             ],
-            'css element selector, exists, no value' => [
-                'assertionString' => '".selector" exists',
+            'css element selector, is, dom identifier value' => [
+                'assertionString' => '$".selector1" is $".selector2"',
                 'expectedAssertion' => new Assertion(
-                    '".selector" exists',
-                    '".selector"',
+                    '$".selector1" is $".selector2"',
+                    '$".selector1"',
+                    'is',
+                    '$".selector2"'
+                ),
+            ],
+            'css element selector, exists, no value' => [
+                'assertionString' => '$".selector" exists',
+                'expectedAssertion' => new Assertion(
+                    '$".selector" exists',
+                    '$".selector"',
                     'exists'
                 ),
             ],
             'css element selector, not-exists, no value' => [
-                'assertionString' => '".selector" not-exists',
+                'assertionString' => '$".selector" not-exists',
                 'expectedAssertion' => new Assertion(
-                    '".selector" not-exists',
-                    '".selector"',
+                    '$".selector" not-exists',
+                    '$".selector"',
                     'not-exists'
                 ),
             ],
             'css element selector, exists, scalar value' => [
-                'assertionString' => '".selector" exists "value"',
+                'assertionString' => '$".selector" exists "value"',
                 'expectedAssertion' => new Assertion(
-                    '".selector" exists "value"',
-                    '".selector"',
+                    '$".selector" exists "value"',
+                    '$".selector"',
                     'exists',
                     '"value"'
                 ),
             ],
             'css selector, includes, scalar value' => [
-                'assertionString' => '".selector" includes "value"',
+                'assertionString' => '$".selector" includes "value"',
                 'expectedAssertion' => new Assertion(
-                    '".selector" includes "value"',
-                    '".selector"',
+                    '$".selector" includes "value"',
+                    '$".selector"',
                     'includes',
                     '"value"'
                 ),
             ],
             'css selector, excludes, scalar value' => [
-                'assertionString' => '".selector" excludes "value"',
+                'assertionString' => '$".selector" excludes "value"',
                 'expectedAssertion' => new Assertion(
-                    '".selector" excludes "value"',
-                    '".selector"',
+                    '$".selector" excludes "value"',
+                    '$".selector"',
                     'excludes',
                     '"value"'
                 ),
             ],
             'css selector, matches, scalar value' => [
-                'assertionString' => '".selector" matches "value"',
+                'assertionString' => '$".selector" matches "value"',
                 'expectedAssertion' => new Assertion(
-                    '".selector" matches "value"',
-                    '".selector"',
+                    '$".selector" matches "value"',
+                    '$".selector"',
                     'matches',
                     '"value"'
                 ),
