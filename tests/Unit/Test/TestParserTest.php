@@ -68,7 +68,7 @@ class TestParserTest extends TestCase
                     'step two' => [
                         'data' => 'data_provider_import_name',
                         'actions' => [
-                            'click page_import_name.elements.button',
+                            'click $page_import_name.elements.button',
                         ],
                         'assertions' => [
                             '$page.title is $data.expected_title'
@@ -89,10 +89,10 @@ class TestParserTest extends TestCase
                         'step two' => (new Step(
                             [
                                 new InteractionAction(
-                                    'click page_import_name.elements.button',
+                                    'click $page_import_name.elements.button',
                                     'click',
-                                    'page_import_name.elements.button',
-                                    'page_import_name.elements.button'
+                                    '$page_import_name.elements.button',
+                                    '$page_import_name.elements.button'
                                 )
                             ],
                             [
