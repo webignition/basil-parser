@@ -12,7 +12,7 @@ class VariableValueExtractorTest extends \PHPUnit\Framework\TestCase
     use VariableParameterIdentifierStringDataProviderTrait;
 
     /**
-     * @var \webignition\BasilParser\ValueExtractor\VariableValueExtractor
+     * @var VariableValueExtractor
      */
     private $extractor;
 
@@ -59,7 +59,7 @@ class VariableValueExtractorTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider variableParameterIdentifierStringDataProvider
      */
-    public function testExtractFromStartReturnsString(string $string, string $expectedIdentifierString)
+    public function testExtractReturnsString(string $string, string $expectedIdentifierString)
     {
         $identifierString = $this->extractor->extract($string);
 
