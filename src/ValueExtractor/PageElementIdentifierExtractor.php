@@ -4,6 +4,7 @@ namespace webignition\BasilParser\ValueExtractor;
 
 class PageElementIdentifierExtractor
 {
+    private const VARIABLE_START_CHARACTER = '$';
     private const LOCATOR_DELIMITER = '"';
     private const ESCAPED_LOCATOR_DELIMITER = '\\' . self::LOCATOR_DELIMITER;
     private const POSITION_DELIMITER = ':';
@@ -13,7 +14,15 @@ class PageElementIdentifierExtractor
 
     public function handles(string $string): bool
     {
-        return '' !== $string && self::LOCATOR_DELIMITER === $string[0];
+        $expectedPrefix = self::VARIABLE_START_CHARACTER . self::LOCATOR_DELIMITER;
+        $expectedPrefixLength = strlen($expectedPrefix);
+        $length = mb_strlen($string);
+
+        if ($length < $expectedPrefixLength) {
+            return false;
+        }
+
+        return substr($string, 0, $expectedPrefixLength) === $expectedPrefix;
     }
 
     public function extract(string $string): string
@@ -22,11 +31,13 @@ class PageElementIdentifierExtractor
             return '';
         }
 
+        $string = ltrim($string, self::VARIABLE_START_CHARACTER);
+
         $selector = mb_substr($string, 0, $this->findEndingQuotePosition($string) + 1);
         $remainder = mb_substr($string, mb_strlen($selector));
 
         if ('' === $remainder) {
-            return $selector;
+            return self::VARIABLE_START_CHARACTER . $selector;
         }
 
         $identifierString = $selector;
@@ -50,7 +61,7 @@ class PageElementIdentifierExtractor
             }
         }
 
-        return $identifierString;
+        return self::VARIABLE_START_CHARACTER . $identifierString;
     }
 
     private function findEndingQuotePosition(string $string): int

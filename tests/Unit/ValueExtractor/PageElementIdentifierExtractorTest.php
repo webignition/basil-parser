@@ -12,7 +12,7 @@ class PageElementIdentifierExtractorTest extends \PHPUnit\Framework\TestCase
     use PageElementIdentifierStringDataProviderTrait;
 
     /**
-     * @var \webignition\BasilParser\ValueExtractor\PageElementIdentifierExtractor
+     * @var PageElementIdentifierExtractor
      */
     private $extractor;
 
@@ -33,7 +33,7 @@ class PageElementIdentifierExtractorTest extends \PHPUnit\Framework\TestCase
 
     public function testHandlesReturnsTrue()
     {
-        $this->assertTrue($this->extractor->handles('"quoted"'));
+        $this->assertTrue($this->extractor->handles('$"quoted"'));
     }
 
     /**
@@ -59,7 +59,7 @@ class PageElementIdentifierExtractorTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider pageElementIdentifierStringDataProvider
      */
-    public function testExtractFromStartReturnsString(string $string, string $expectedIdentifierString)
+    public function testExtractReturnsString(string $string, string $expectedIdentifierString)
     {
         $identifierString = $this->extractor->extract($string);
 

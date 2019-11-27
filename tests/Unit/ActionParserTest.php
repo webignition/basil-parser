@@ -32,25 +32,25 @@ class ActionParserTest extends TestCase
                 'expectedAction' => new Action('', null),
             ],
             'unknown type' => [
-                'actionString' => 'foo ".selector"',
-                'expectedAction' => new Action('foo ".selector"', 'foo'),
+                'actionString' => 'foo $".selector"',
+                'expectedAction' => new Action('foo $".selector"', 'foo'),
             ],
             'click' => [
-                'actionString' => 'click ".selector"',
+                'actionString' => 'click $".selector"',
                 'expectedAction' => new InteractionAction(
-                    'click ".selector"',
+                    'click $".selector"',
                     'click',
-                    '".selector"',
-                    '".selector"'
+                    '$".selector"',
+                    '$".selector"'
                 ),
             ],
             'submit' => [
-                'actionString' => 'submit ".selector"',
+                'actionString' => 'submit $".selector"',
                 'expectedAction' => new InteractionAction(
-                    'submit ".selector"',
+                    'submit $".selector"',
                     'submit',
-                    '".selector"',
-                    '".selector"'
+                    '$".selector"',
+                    '$".selector"'
                 ),
             ],
             'wait' => [
@@ -58,12 +58,12 @@ class ActionParserTest extends TestCase
                 'expectedAction' => new WaitAction('wait 1', '1'),
             ],
             'wait-for' => [
-                'actionString' => 'wait-for ".selector"',
+                'actionString' => 'wait-for $".selector"',
                 'expectedAction' => new InteractionAction(
-                    'wait-for ".selector"',
+                    'wait-for $".selector"',
                     'wait-for',
-                    '".selector"',
-                    '".selector"'
+                    '$".selector"',
+                    '$".selector"'
                 ),
             ],
             'reload' => [
@@ -78,30 +78,48 @@ class ActionParserTest extends TestCase
                 'actionString' => 'forward',
                 'expectedAction' => new Action('forward', 'forward', ''),
             ],
-            'set' => [
-                'actionString' => 'set ".selector" to "value"',
+            'set to literal value' => [
+                'actionString' => 'set $".selector" to "value"',
                 'expectedAction' => new InputAction(
-                    'set ".selector" to "value"',
-                    '".selector" to "value"',
-                    '".selector"',
+                    'set $".selector" to "value"',
+                    '$".selector" to "value"',
+                    '$".selector"',
                     '"value"'
                 ),
             ],
-            'set with "to" keyword lacking value' => [
-                'actionString' => 'set ".selector" to',
+            'set to variable value, data parameter' => [
+                'actionString' => 'set $".selector" to $data.value',
                 'expectedAction' => new InputAction(
-                    'set ".selector" to',
-                    '".selector" to',
-                    '".selector"',
+                    'set $".selector" to $data.value',
+                    '$".selector" to $data.value',
+                    '$".selector"',
+                    '$data.value'
+                ),
+            ],
+            'set to variable value, dom identifier value' => [
+                'actionString' => 'set $".selector1" to $".selector2"',
+                'expectedAction' => new InputAction(
+                    'set $".selector1" to $".selector2"',
+                    '$".selector1" to $".selector2"',
+                    '$".selector1"',
+                    '$".selector2"'
+                ),
+            ],
+            'set with "to" keyword lacking value' => [
+                'actionString' => 'set $".selector" to',
+                'expectedAction' => new InputAction(
+                    'set $".selector" to',
+                    '$".selector" to',
+                    '$".selector"',
                     null
                 ),
             ],
             'set lacking "to" keyword, lacking value' => [
-                'actionString' => 'set ".selector"',
+                'actionString' => 'set $".selector"',
                 'expectedAction' => new InputAction(
-                    'set ".selector"',
-                    '".selector"',
-                    '".selector"',
+                    'set $".selector"',
+                    '$".selector"',
+                    '$".selector"',
                     null
                 ),
             ],

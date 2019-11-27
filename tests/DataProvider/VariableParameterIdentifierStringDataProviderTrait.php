@@ -55,6 +55,14 @@ trait VariableParameterIdentifierStringDataProviderTrait
                 'valueString' => '$data.data_name|"default" trailing',
                 'expectedValue' => '$data.data_name|"default"',
             ],
+            'variable parameter: assertion, page model reference is value' => [
+                'string' => '$page.elements.name is "value"',
+                'expectedIdentifierString' => '$page.elements.name',
+            ],
+            'variable parameter: assertion, page model reference only' => [
+                'string' => '$page.elements.name',
+                'expectedIdentifierString' => '$page.elements.name',
+            ],
         ];
     }
 }

@@ -32,16 +32,16 @@ class StepParserTest extends TestCase
             'single action' => [
                 'stepData' => [
                     'actions' => [
-                        'click ".selector"',
+                        'click $".selector"',
                     ],
                 ],
                 'expectedStep' => new Step(
                     [
                         new InteractionAction(
-                            'click ".selector"',
+                            'click $".selector"',
                             'click',
-                            '".selector"',
-                            '".selector"'
+                            '$".selector"',
+                            '$".selector"'
                         )
                     ],
                     []
@@ -50,13 +50,13 @@ class StepParserTest extends TestCase
             'single assertion' => [
                 'stepData' => [
                     'assertions' => [
-                        '".selector" exists',
+                        '$".selector" exists',
                     ],
                 ],
                 'expectedStep' => new Step(
                     [],
                     [
-                        new Assertion('".selector" exists', '".selector"', 'exists')
+                        new Assertion('$".selector" exists', '$".selector"', 'exists')
                     ]
                 ),
             ],
