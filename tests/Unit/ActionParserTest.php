@@ -12,6 +12,7 @@ use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Action\WaitAction;
 use webignition\BasilParser\ActionParser;
 use webignition\BasilParser\Exception\EmptyActionException;
+use webignition\BasilParser\Exception\EmptyInputActionValueException;
 
 class ActionParserTest extends TestCase
 {
@@ -85,13 +86,22 @@ class ActionParserTest extends TestCase
                 'actionString' => 'forward',
                 'expectedAction' => new Action('forward', 'forward', ''),
             ],
-            'set to literal value' => [
+            'set to literal value, non-empty' => [
                 'actionString' => 'set $".selector" to "value"',
                 'expectedAction' => new InputAction(
                     'set $".selector" to "value"',
                     '$".selector" to "value"',
                     '$".selector"',
                     '"value"'
+                ),
+            ],
+            'set to literal value, empty' => [
+                'actionString' => 'set $".selector" to ""',
+                'expectedAction' => new InputAction(
+                    'set $".selector" to ""',
+                    '$".selector" to ""',
+                    '$".selector"',
+                    '""'
                 ),
             ],
             'set to variable value, data parameter' => [
@@ -112,31 +122,37 @@ class ActionParserTest extends TestCase
                     '$".selector2"'
                 ),
             ],
-            'set with "to" keyword lacking value' => [
-                'actionString' => 'set $".selector" to',
-                'expectedAction' => new InputAction(
-                    'set $".selector" to',
-                    '$".selector" to',
-                    '$".selector"',
-                    null
-                ),
-            ],
-            'set lacking "to" keyword, lacking value' => [
-                'actionString' => 'set $".selector"',
-                'expectedAction' => new InputAction(
-                    'set $".selector"',
-                    '$".selector"',
-                    '$".selector"',
-                    null
-                ),
-            ],
         ];
     }
 
-    public function testParserEmptyAction()
+    public function testParseEmptyAction()
     {
         $this->expectExceptionObject(new EmptyActionException());
 
         $this->parser->parse('');
+    }
+
+    /**
+     * @dataProvider parseInputActionEmptyValueDataProvider
+     */
+    public function testParseInputActionEmptyValue(string $action, EmptyInputActionValueException $expectedException)
+    {
+        $this->expectExceptionObject($expectedException);
+
+        $this->parser->parse($action);
+    }
+
+    public function parseInputActionEmptyValueDataProvider(): array
+    {
+        return [
+            'set with "to" keyword lacking value' => [
+                'actionString' => 'set $".selector" to',
+                'expectedException' => new EmptyInputActionValueException('set $".selector" to'),
+            ],
+            'set lacking "to" keyword, lacking value' => [
+                'actionString' => 'set $".selector"',
+                'expectedException' => new EmptyInputActionValueException('set $".selector"'),
+            ],
+        ];
     }
 }

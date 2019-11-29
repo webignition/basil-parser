@@ -10,6 +10,7 @@ use webignition\BasilDataStructure\Action\InputAction;
 use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Action\WaitAction;
 use webignition\BasilParser\Exception\EmptyActionException;
+use webignition\BasilParser\Exception\EmptyInputActionValueException;
 use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
 use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 
@@ -58,6 +59,7 @@ class ActionParser
      * @return ActionInterface
      *
      * @throws EmptyActionException
+     * @throws EmptyInputActionValueException
      */
     public function parse(string $source): ActionInterface
     {
@@ -86,6 +88,10 @@ class ActionParser
             }
 
             $value = $this->findInputValue($identifier, $arguments);
+
+            if (null === $value) {
+                throw new EmptyInputActionValueException($source);
+            }
 
             return new InputAction($source, $arguments, $identifier, $value);
         }

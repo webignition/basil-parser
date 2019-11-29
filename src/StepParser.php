@@ -8,6 +8,8 @@ use webignition\BasilDataStructure\Action\ActionInterface;
 use webignition\BasilDataStructure\AssertionInterface;
 use webignition\BasilDataStructure\DataSetCollection;
 use webignition\BasilDataStructure\Step;
+use webignition\BasilParser\Exception\EmptyActionException;
+use webignition\BasilParser\Exception\EmptyInputActionValueException;
 
 class StepParser
 {
@@ -34,6 +36,14 @@ class StepParser
         );
     }
 
+    /**
+     * @param array $stepData
+     *
+     * @return Step
+     *
+     * @throws EmptyActionException
+     * @throws EmptyInputActionValueException
+     */
     public function parse(array $stepData): Step
     {
         $actions = $this->parseActions($stepData[self::KEY_ACTIONS] ?? []);
@@ -52,6 +62,9 @@ class StepParser
      * @param array $actionsData
      *
      * @return ActionInterface[]
+     *
+     * @throws EmptyActionException
+     * @throws EmptyInputActionValueException
      */
     private function parseActions(array $actionsData): array
     {

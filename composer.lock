@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51a17d1780e8eff61f6e036d4e3dace2",
+    "content-hash": "d635822f86e8f88cf87de6ad276447fc",
     "packages": [
         {
             "name": "webignition/basil-data-structures",
-            "version": "0.16",
+            "version": "0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-data-structures.git",
-                "reference": "574acbc86a8362a55b1abf452ccba9402ad462f5"
+                "reference": "b4fc3ae4efe142a1112ada87c25cdd77555105d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-data-structures/zipball/574acbc86a8362a55b1abf452ccba9402ad462f5",
-                "reference": "574acbc86a8362a55b1abf452ccba9402ad462f5",
+                "url": "https://api.github.com/repos/webignition/basil-data-structures/zipball/b4fc3ae4efe142a1112ada87c25cdd77555105d3",
+                "reference": "b4fc3ae4efe142a1112ada87c25cdd77555105d3",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,7 @@
             ],
             "description": "Data structures for basil language",
             "homepage": "https://github.com/webignition/basil-data-structures",
-            "time": "2019-11-29T16:28:36+00:00"
+            "time": "2019-11-29T16:51:50+00:00"
         },
         {
             "name": "webignition/php-path-resolver",
