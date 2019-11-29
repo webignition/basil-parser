@@ -5,12 +5,28 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilDataStructure\Assertion;
-use webignition\BasilDataStructure\AssertionInterface;
+use webignition\BasilModels\Assertion\Assertion;
+use webignition\BasilModels\Assertion\AssertionInterface;
+use webignition\BasilModels\Assertion\ComparisonAssertion;
 use webignition\BasilParser\AssertionParser;
+use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
+use webignition\BasilParser\Exception\EmptyAssertionException;
+use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
 
 class AssertionParserTest extends TestCase
 {
+    /**
+     * @var AssertionParser
+     */
+    private $parser;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->parser = AssertionParser::create();
+    }
+
     /**
      * @dataProvider parseDataProvider
      */
@@ -24,13 +40,9 @@ class AssertionParserTest extends TestCase
     public function parseDataProvider(): array
     {
         return [
-            'empty' => [
-                'assertionString' => '',
-                'expectedAssertion' => new Assertion('', null, null),
-            ],
             'css element selector, is, scalar value' => [
                 'assertionString' => '$".selector" is "value"',
-                'expectedAssertion' => new Assertion(
+                'expectedAssertion' => new ComparisonAssertion(
                     '$".selector" is "value"',
                     '$".selector"',
                     'is',
@@ -39,7 +51,7 @@ class AssertionParserTest extends TestCase
             ],
             'css element selector, is-not, scalar value' => [
                 'assertionString' => '$".selector" is-not "value"',
-                'expectedAssertion' => new Assertion(
+                'expectedAssertion' => new ComparisonAssertion(
                     '$".selector" is-not "value"',
                     '$".selector"',
                     'is-not',
@@ -48,7 +60,7 @@ class AssertionParserTest extends TestCase
             ],
             'css attribute selector, is, scalar value' => [
                 'assertionString' => '$".selector".attribute_name is "value"',
-                'expectedAssertion' => new Assertion(
+                'expectedAssertion' => new ComparisonAssertion(
                     '$".selector".attribute_name is "value"',
                     '$".selector".attribute_name',
                     'is',
@@ -57,7 +69,7 @@ class AssertionParserTest extends TestCase
             ],
             'css element selector with element reference, is, scalar value' => [
                 'assertionString' => '$"{{ reference }} .selector" is "value"',
-                'expectedAssertion' => new Assertion(
+                'expectedAssertion' => new ComparisonAssertion(
                     '$"{{ reference }} .selector" is "value"',
                     '$"{{ reference }} .selector"',
                     'is',
@@ -66,7 +78,7 @@ class AssertionParserTest extends TestCase
             ],
             'css element selector, is, dom identifier value' => [
                 'assertionString' => '$".selector1" is $".selector2"',
-                'expectedAssertion' => new Assertion(
+                'expectedAssertion' => new ComparisonAssertion(
                     '$".selector1" is $".selector2"',
                     '$".selector1"',
                     'is',
@@ -94,13 +106,12 @@ class AssertionParserTest extends TestCase
                 'expectedAssertion' => new Assertion(
                     '$".selector" exists "value"',
                     '$".selector"',
-                    'exists',
-                    '"value"'
+                    'exists'
                 ),
             ],
             'css selector, includes, scalar value' => [
                 'assertionString' => '$".selector" includes "value"',
-                'expectedAssertion' => new Assertion(
+                'expectedAssertion' => new ComparisonAssertion(
                     '$".selector" includes "value"',
                     '$".selector"',
                     'includes',
@@ -109,7 +120,7 @@ class AssertionParserTest extends TestCase
             ],
             'css selector, excludes, scalar value' => [
                 'assertionString' => '$".selector" excludes "value"',
-                'expectedAssertion' => new Assertion(
+                'expectedAssertion' => new ComparisonAssertion(
                     '$".selector" excludes "value"',
                     '$".selector"',
                     'excludes',
@@ -118,7 +129,7 @@ class AssertionParserTest extends TestCase
             ],
             'css selector, matches, scalar value' => [
                 'assertionString' => '$".selector" matches "value"',
-                'expectedAssertion' => new Assertion(
+                'expectedAssertion' => new ComparisonAssertion(
                     '$".selector" matches "value"',
                     '$".selector"',
                     'matches',
@@ -126,5 +137,30 @@ class AssertionParserTest extends TestCase
                 ),
             ],
         ];
+    }
+
+    public function testParseEmptyAssertion()
+    {
+        $this->expectExceptionObject(new EmptyAssertionException());
+
+        $this->parser->parse('');
+    }
+
+    public function testParseEmptyIdentifier()
+    {
+        $source = 'foo';
+
+        $this->expectExceptionObject(new EmptyAssertionIdentifierException($source));
+
+        $this->parser->parse($source);
+    }
+
+    public function testParseEmptyComparison()
+    {
+        $source = '$page.title';
+
+        $this->expectExceptionObject(new EmptyAssertionComparisonException($source));
+
+        $this->parser->parse($source);
     }
 }

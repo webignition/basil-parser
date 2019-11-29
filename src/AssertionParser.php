@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser;
 
-use webignition\BasilDataStructure\Assertion;
-use webignition\BasilDataStructure\AssertionInterface;
+use webignition\BasilModels\Assertion\Assertion;
+use webignition\BasilModels\Assertion\AssertionInterface;
+use webignition\BasilModels\Assertion\ComparisonAssertion;
+use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
+use webignition\BasilParser\Exception\EmptyAssertionException;
+use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
 use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
 use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 
 class AssertionParser
 {
-    private const COMPARISONS = [
+    private const COMPARISON_REGEX = '/^[a-z\-]+ ?/';
+
+    private const COMPARISON_ASSERTIONS = [
         'excludes',
         'includes',
         'is-not',
         'is',
-        'exists',
-        'not-exists',
         'matches',
     ];
 
@@ -44,50 +48,56 @@ class AssertionParser
         );
     }
 
+    /**
+     * @param string $source
+     *
+     * @return AssertionInterface
+     *
+     * @throws EmptyAssertionComparisonException
+     * @throws EmptyAssertionException
+     * @throws EmptyAssertionIdentifierException
+     */
     public function parse(string $source): AssertionInterface
     {
         $source = trim($source);
         if ('' === $source) {
-            return new Assertion($source, null, null);
+            throw new EmptyAssertionException();
         }
 
         $identifier = $this->identifierExtractor->extract($source);
         if ('' === $identifier) {
-            return new Assertion($source, '', null);
+            throw new EmptyAssertionIdentifierException($source);
         }
 
         $identifierLength = mb_strlen($identifier);
         $comparisonAndValue = trim(mb_substr($source, $identifierLength));
 
         $comparison = $this->findComparison($comparisonAndValue);
-        if ('' === $comparison) {
-            return new Assertion($source, $identifier, '');
+        if (null === $comparison) {
+            throw new EmptyAssertionComparisonException($source);
+        }
+
+        if (!in_array($comparison, self::COMPARISON_ASSERTIONS)) {
+            return new Assertion($source, $identifier, $comparison);
         }
 
         $comparisonLength = strlen($comparison);
         $valueString = trim(mb_substr($comparisonAndValue, $comparisonLength));
         $value = $this->findValue($valueString);
 
-        return new Assertion($source, $identifier, $comparison, $value);
+        return new ComparisonAssertion($source, $identifier, $comparison, $value);
     }
 
-    private function findComparison(string $source): string
+    private function findComparison(string $sourceAndValue): ?string
     {
-        $sourceLength = mb_strlen($source);
+        $comparisonMatches = [];
+        preg_match(self::COMPARISON_REGEX, $sourceAndValue, $comparisonMatches);
 
-        foreach (self::COMPARISONS as $comparison) {
-            $typeLength = strlen($comparison);
-
-            if ($sourceLength >= $typeLength) {
-                $sourcePrefix = mb_substr($source, 0, $typeLength);
-
-                if ($sourcePrefix === $comparison) {
-                    return $comparison;
-                }
-            }
+        if (0 === count($comparisonMatches)) {
+            return null;
         }
 
-        return '';
+        return trim($comparisonMatches[0]);
     }
 
     private function findValue(string $valueString): ?string
