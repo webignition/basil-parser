@@ -111,7 +111,7 @@ class StepParser
         return $assertions;
     }
 
-    private function setImportName(Step $step, $importName): Step
+    private function setImportName(StepInterface $step, $importName): StepInterface
     {
         if (!is_string($importName)) {
             $importName = null;
@@ -124,7 +124,7 @@ class StepParser
         return $step;
     }
 
-    private function setData(Step $step, $data): Step
+    private function setData(StepInterface $step, $data): StepInterface
     {
         if (is_array($data)) {
             $step = $step->withData(new DataSetCollection($data));
@@ -137,7 +137,7 @@ class StepParser
         return $step;
     }
 
-    private function setIdentifiers(Step $step, $identifiers): Step
+    private function setIdentifiers(StepInterface $step, $identifiers): StepInterface
     {
         if (is_array($identifiers)) {
             $step = $step->withIdentifiers($identifiers);

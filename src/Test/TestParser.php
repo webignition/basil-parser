@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Test;
 
 use webignition\BasilModels\Step\Step;
+use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
 use webignition\BasilParser\Exception\EmptyActionException;
@@ -74,7 +75,7 @@ class TestParser
     /**
      * @param array $testData
      *
-     * @return Step[]
+     * @return StepInterface[]
      *
      * @throws EmptyActionException
      * @throws EmptyAssertionComparisonException
