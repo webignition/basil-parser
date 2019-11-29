@@ -7,6 +7,7 @@ namespace webignition\BasilParser\Tests\Unit;
 use PHPUnit\Framework\TestCase;
 use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Assertion;
+use webignition\BasilDataStructure\DataSetCollection;
 use webignition\BasilDataStructure\Step;
 use webignition\BasilParser\StepParser;
 
@@ -92,11 +93,11 @@ class StepParserTest extends TestCase
                         ],
                     ],
                 ],
-                'expectedStep' => (new Step([], []))->withDataArray([
+                'expectedStep' => (new Step([], []))->withData(new DataSetCollection([
                     'set1' => [
                         'key' => 'value',
                     ],
-                ]),
+                ])),
             ],
             'invalid elements; not an array' => [
                 'stepData' => [
