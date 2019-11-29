@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Test;
 
-use webignition\BasilDataStructure\Step;
-use webignition\BasilDataStructure\Test\Test;
+use webignition\BasilModels\Step\Step;
+use webignition\BasilModels\Step\StepInterface;
+use webignition\BasilModels\Test\Test;
+use webignition\BasilModels\Test\TestInterface;
+use webignition\BasilParser\Exception\EmptyActionException;
+use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
+use webignition\BasilParser\Exception\EmptyAssertionException;
+use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
+use webignition\BasilParser\Exception\EmptyAssertionValueException;
+use webignition\BasilParser\Exception\EmptyInputActionValueException;
 use webignition\BasilParser\StepParser;
 
 class TestParser
@@ -36,16 +44,30 @@ class TestParser
         );
     }
 
-    public function parse(string $basePath, string $name, array $testData): Test
+    /**
+     * @param string $basePath
+     * @param string $name
+     * @param array $testData
+     *
+     * @return TestInterface
+     *
+     * @throws EmptyActionException
+     * @throws EmptyAssertionComparisonException
+     * @throws EmptyAssertionException
+     * @throws EmptyAssertionIdentifierException
+     * @throws EmptyInputActionValueException
+     * @throws EmptyAssertionValueException
+     */
+    public function parse(string $basePath, string $name, array $testData): TestInterface
     {
+        $imports = $this->importsParser->parse($basePath, $testData[self::KEY_IMPORTS] ?? []);
+
         $test = new Test(
             $name,
             $this->configurationParser->parse($testData[self::KEY_CONFIGURATION] ?? []),
-            $this->getSteps($testData)
+            $this->getSteps($testData),
+            $imports
         );
-
-        $imports = $this->importsParser->parse($basePath, $testData[self::KEY_IMPORTS] ?? []);
-        $test = $test->withImports($imports);
 
         return $test;
     }
@@ -53,9 +75,16 @@ class TestParser
     /**
      * @param array $testData
      *
-     * @return Step[]
+     * @return StepInterface[]
+     *
+     * @throws EmptyActionException
+     * @throws EmptyAssertionComparisonException
+     * @throws EmptyAssertionException
+     * @throws EmptyAssertionIdentifierException
+     * @throws EmptyInputActionValueException
+     * @throws EmptyAssertionValueException
      */
-    public function getSteps(array $testData): array
+    private function getSteps(array $testData): array
     {
         $stepNames = array_diff(array_keys($testData), [self::KEY_CONFIGURATION, self::KEY_IMPORTS]);
 

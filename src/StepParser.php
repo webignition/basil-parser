@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser;
 
-use webignition\BasilDataStructure\Action\ActionInterface;
-use webignition\BasilDataStructure\AssertionInterface;
-use webignition\BasilDataStructure\DataSetCollection;
-use webignition\BasilDataStructure\Step;
+use webignition\BasilModels\Action\ActionInterface;
+use webignition\BasilModels\Assertion\AssertionInterface;
+use webignition\BasilModels\DataSet\DataSetCollection;
+use webignition\BasilModels\Step\Step;
+use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilParser\Exception\EmptyActionException;
+use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
+use webignition\BasilParser\Exception\EmptyAssertionException;
+use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
+use webignition\BasilParser\Exception\EmptyAssertionValueException;
 use webignition\BasilParser\Exception\EmptyInputActionValueException;
 
 class StepParser
@@ -39,12 +44,16 @@ class StepParser
     /**
      * @param array $stepData
      *
-     * @return Step
+     * @return StepInterface
      *
      * @throws EmptyActionException
+     * @throws EmptyAssertionComparisonException
+     * @throws EmptyAssertionException
+     * @throws EmptyAssertionIdentifierException
      * @throws EmptyInputActionValueException
+     * @throws EmptyAssertionValueException
      */
-    public function parse(array $stepData): Step
+    public function parse(array $stepData): StepInterface
     {
         $actions = $this->parseActions($stepData[self::KEY_ACTIONS] ?? []);
         $assertions = $this->parseAssertions($stepData[self::KEY_ASSERTIONS] ?? []);
@@ -52,7 +61,7 @@ class StepParser
         $step = new Step($actions, $assertions);
         $step = $this->setImportName($step, $stepData[self::KEY_IMPORT_NAME] ?? null);
         $step = $this->setData($step, $stepData[self::KEY_DATA] ?? null);
-        $step = $this->setElements($step, $stepData[self::KEY_ELEMENTS] ?? null);
+        $step = $this->setIdentifiers($step, $stepData[self::KEY_ELEMENTS] ?? null);
 
 
         return $step;
@@ -83,6 +92,11 @@ class StepParser
      * @param array $assertionsData
      *
      * @return AssertionInterface[]
+     *
+     * @throws EmptyAssertionComparisonException
+     * @throws EmptyAssertionException
+     * @throws EmptyAssertionIdentifierException
+     * @throws EmptyAssertionValueException
      */
     private function parseAssertions(array $assertionsData): array
     {
@@ -97,7 +111,7 @@ class StepParser
         return $assertions;
     }
 
-    private function setImportName(Step $step, $importName): Step
+    private function setImportName(StepInterface $step, $importName): StepInterface
     {
         if (!is_string($importName)) {
             $importName = null;
@@ -110,7 +124,7 @@ class StepParser
         return $step;
     }
 
-    private function setData(Step $step, $data): Step
+    private function setData(StepInterface $step, $data): StepInterface
     {
         if (is_array($data)) {
             $step = $step->withData(new DataSetCollection($data));
@@ -123,10 +137,10 @@ class StepParser
         return $step;
     }
 
-    private function setElements(Step $step, $elements): Step
+    private function setIdentifiers(StepInterface $step, $identifiers): StepInterface
     {
-        if (is_array($elements)) {
-            $step = $step->withElements($elements);
+        if (is_array($identifiers)) {
+            $step = $step->withIdentifiers($identifiers);
         }
 
         return $step;

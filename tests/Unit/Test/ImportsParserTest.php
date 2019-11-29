@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit\Test;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilDataStructure\Test\Imports;
+use webignition\BasilModels\Test\Imports;
+use webignition\BasilModels\Test\ImportsInterface;
 use webignition\BasilParser\Test\ImportsParser;
 
 class ImportsParserTest extends TestCase
@@ -13,7 +14,7 @@ class ImportsParserTest extends TestCase
     /**
      * @dataProvider parseDataProvider
      */
-    public function testParse(string $basePath, array $importsData, Imports $expectedImports)
+    public function testParse(string $basePath, array $importsData, ImportsInterface $expectedImports)
     {
         $parser = ImportsParser::create();
 

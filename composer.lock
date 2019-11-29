@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d635822f86e8f88cf87de6ad276447fc",
+    "content-hash": "d80950fb4348815ce67ab1a4c5308b57",
     "packages": [
         {
-            "name": "webignition/basil-data-structures",
-            "version": "0.17",
+            "name": "webignition/basil-models",
+            "version": "0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webignition/basil-data-structures.git",
-                "reference": "b4fc3ae4efe142a1112ada87c25cdd77555105d3"
+                "url": "https://github.com/webignition/basil-models.git",
+                "reference": "3384631b2878c84d9ceca268fc18341cf5be240e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-data-structures/zipball/b4fc3ae4efe142a1112ada87c25cdd77555105d3",
-                "reference": "b4fc3ae4efe142a1112ada87c25cdd77555105d3",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/3384631b2878c84d9ceca268fc18341cf5be240e",
+                "reference": "3384631b2878c84d9ceca268fc18341cf5be240e",
                 "shasum": ""
             },
             "require": {
@@ -31,7 +31,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "webignition\\BasilDataStructure\\": "src"
+                    "webignition\\BasilModels\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -44,9 +44,8 @@
                     "email": "webignition@gmail.com"
                 }
             ],
-            "description": "Data structures for basil language",
-            "homepage": "https://github.com/webignition/basil-data-structures",
-            "time": "2019-11-29T16:51:50+00:00"
+            "homepage": "https://github.com/webignition/basil-models",
+            "time": "2019-11-29T17:54:00+00:00"
         },
         {
             "name": "webignition/php-path-resolver",

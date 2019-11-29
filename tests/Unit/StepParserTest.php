@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilDataStructure\Action\InteractionAction;
-use webignition\BasilDataStructure\Assertion;
-use webignition\BasilDataStructure\DataSetCollection;
-use webignition\BasilDataStructure\Step;
+use webignition\BasilModels\Action\InteractionAction;
+use webignition\BasilModels\Assertion\Assertion;
+use webignition\BasilModels\DataSet\DataSetCollection;
+use webignition\BasilModels\Step\Step;
+use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilParser\StepParser;
 
 class StepParserTest extends TestCase
@@ -16,7 +17,7 @@ class StepParserTest extends TestCase
     /**
      * @dataProvider parseDataProvider
      */
-    public function testParse(array $stepData, Step $expectedStep)
+    public function testParse(array $stepData, StepInterface $expectedStep)
     {
         $parser = StepParser::create();
 
@@ -111,7 +112,7 @@ class StepParserTest extends TestCase
                         'heading' => 'page_import_name.elements.heading',
                     ],
                 ],
-                'expectedStep' => (new Step([], []))->withElements([
+                'expectedStep' => (new Step([], []))->withIdentifiers([
                     'heading' => 'page_import_name.elements.heading',
                 ]),
             ],

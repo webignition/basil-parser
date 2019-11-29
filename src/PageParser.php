@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser;
 
-use webignition\BasilDataStructure\Page;
+use webignition\BasilModels\Page\Page;
+use webignition\BasilModels\Page\PageInterface;
 
 class PageParser
 {
@@ -16,7 +17,7 @@ class PageParser
         return new PageParser();
     }
 
-    public function parse(array $pageData): Page
+    public function parse(array $pageData): PageInterface
     {
         $url = $pageData[self::KEY_URL] ?? '';
         $url = is_string($url) ? trim($url) : '';
