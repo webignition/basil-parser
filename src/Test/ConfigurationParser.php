@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Test;
 
-use webignition\BasilDataStructure\Test\Configuration;
+use webignition\BasilModels\Test\Configuration;
+use webignition\BasilModels\Test\ConfigurationInterface;
 
 class ConfigurationParser
 {
@@ -16,7 +17,7 @@ class ConfigurationParser
         return new ConfigurationParser();
     }
 
-    public function parse(array $configurationData): Configuration
+    public function parse(array $configurationData): ConfigurationInterface
     {
         $browser = $configurationData[self::KEY_BROWSER] ?? '';
         $browser = is_string($browser) ? $browser : '';

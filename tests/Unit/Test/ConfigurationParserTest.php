@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit\Test;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilDataStructure\Test\Configuration;
+use webignition\BasilModels\Test\Configuration;
+use webignition\BasilModels\Test\ConfigurationInterface;
 use webignition\BasilParser\Test\ConfigurationParser;
 
 class ConfigurationParserTest extends TestCase
@@ -13,7 +14,7 @@ class ConfigurationParserTest extends TestCase
     /**
      * @dataProvider parseDataProvider
      */
-    public function testParse(array $configurationData, Configuration $expectedConfiguration)
+    public function testParse(array $configurationData, ConfigurationInterface $expectedConfiguration)
     {
         $parser = ConfigurationParser::create();
 

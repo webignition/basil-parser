@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit\Test;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilDataStructure\Action\InteractionAction;
-use webignition\BasilDataStructure\Assertion;
-use webignition\BasilDataStructure\DataSetCollection;
-use webignition\BasilDataStructure\Step;
-use webignition\BasilDataStructure\Test\Configuration;
-use webignition\BasilDataStructure\Test\Imports;
-use webignition\BasilDataStructure\Test\Test;
+use webignition\BasilModels\Action\InteractionAction;
+use webignition\BasilModels\Assertion\ComparisonAssertion;
+use webignition\BasilModels\DataSet\DataSetCollection;
+use webignition\BasilModels\Step\Step;
+use webignition\BasilModels\Test\Configuration;
+use webignition\BasilModels\Test\Imports;
+use webignition\BasilModels\Test\Test;
+use webignition\BasilModels\Test\TestInterface;
 use webignition\BasilParser\Test\TestParser;
 
 class TestParserTest extends TestCase
@@ -19,7 +20,7 @@ class TestParserTest extends TestCase
     /**
      * @dataProvider parseDataProvider
      */
-    public function testParse(string $basePath, string $name, array $testData, Test $expectedTest)
+    public function testParse(string $basePath, string $name, array $testData, TestInterface $expectedTest)
     {
         $parser = TestParser::create();
 
@@ -76,7 +77,7 @@ class TestParserTest extends TestCase
                         ],
                     ],
                 ],
-                'expectedTest' => (new Test(
+                'expectedTest' => new Test(
                     'non-empty-test.yml',
                     new Configuration('chrome', 'http://example.com/'),
                     [
@@ -97,7 +98,7 @@ class TestParserTest extends TestCase
                                 )
                             ],
                             [
-                                new Assertion(
+                                new ComparisonAssertion(
                                     '$page.title is $data.expected_title',
                                     '$page.title',
                                     'is',
@@ -105,17 +106,18 @@ class TestParserTest extends TestCase
                                 )
                             ]
                         ))->withDataImportName('data_provider_import_name'),
-                    ]
-                ))->withImports((new Imports())
-                    ->withStepPaths([
-                        'step_import_name' => '/basil/step/one.yml',
-                    ])
-                    ->withDataProviderPaths([
-                        'data_provider_import_name' => '/basil/data/data.yml',
-                    ])
-                    ->withPagePaths([
-                        'page_import_name' => '/basil/page/page.yml',
-                    ])),
+                    ],
+                    (new Imports())
+                        ->withStepPaths([
+                            'step_import_name' => '/basil/step/one.yml',
+                        ])
+                        ->withDataProviderPaths([
+                            'data_provider_import_name' => '/basil/data/data.yml',
+                        ])
+                        ->withPagePaths([
+                            'page_import_name' => '/basil/page/page.yml',
+                        ])
+                ),
             ],
         ];
     }

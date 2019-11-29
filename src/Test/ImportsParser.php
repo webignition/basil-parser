@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Test;
 
-use webignition\BasilDataStructure\Test\Imports;
+use webignition\BasilModels\Test\Imports;
+use webignition\BasilModels\Test\ImportsInterface;
 use webignition\PathResolver\PathResolver;
 
 class ImportsParser
@@ -27,7 +28,7 @@ class ImportsParser
         );
     }
 
-    public function parse(string $basePath, array $importsData): Imports
+    public function parse(string $basePath, array $importsData): ImportsInterface
     {
         $imports = new Imports();
 
