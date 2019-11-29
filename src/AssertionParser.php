@@ -10,6 +10,7 @@ use webignition\BasilModels\Assertion\ComparisonAssertion;
 use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
 use webignition\BasilParser\Exception\EmptyAssertionException;
 use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
+use webignition\BasilParser\Exception\EmptyAssertionValueException;
 use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
 use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 
@@ -56,6 +57,7 @@ class AssertionParser
      * @throws EmptyAssertionComparisonException
      * @throws EmptyAssertionException
      * @throws EmptyAssertionIdentifierException
+     * @throws EmptyAssertionValueException
      */
     public function parse(string $source): AssertionInterface
     {
@@ -84,6 +86,10 @@ class AssertionParser
         $comparisonLength = strlen($comparison);
         $valueString = trim(mb_substr($comparisonAndValue, $comparisonLength));
         $value = $this->findValue($valueString);
+
+        if (null === $value) {
+            throw new EmptyAssertionValueException($source);
+        }
 
         return new ComparisonAssertion($source, $identifier, $comparison, $value);
     }

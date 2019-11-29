@@ -11,6 +11,7 @@ use webignition\BasilParser\Exception\EmptyActionException;
 use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
 use webignition\BasilParser\Exception\EmptyAssertionException;
 use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
+use webignition\BasilParser\Exception\EmptyAssertionValueException;
 use webignition\BasilParser\Exception\EmptyInputActionValueException;
 use webignition\BasilParser\StepParser;
 
@@ -54,6 +55,7 @@ class TestParser
      * @throws EmptyAssertionException
      * @throws EmptyAssertionIdentifierException
      * @throws EmptyInputActionValueException
+     * @throws EmptyAssertionValueException
      */
     public function parse(string $basePath, string $name, array $testData): TestInterface
     {
@@ -79,8 +81,9 @@ class TestParser
      * @throws EmptyAssertionException
      * @throws EmptyAssertionIdentifierException
      * @throws EmptyInputActionValueException
+     * @throws EmptyAssertionValueException
      */
-    public function getSteps(array $testData): array
+    private function getSteps(array $testData): array
     {
         $stepNames = array_diff(array_keys($testData), [self::KEY_CONFIGURATION, self::KEY_IMPORTS]);
 

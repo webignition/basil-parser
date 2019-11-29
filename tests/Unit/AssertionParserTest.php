@@ -12,6 +12,7 @@ use webignition\BasilParser\AssertionParser;
 use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
 use webignition\BasilParser\Exception\EmptyAssertionException;
 use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
+use webignition\BasilParser\Exception\EmptyAssertionValueException;
 
 class AssertionParserTest extends TestCase
 {
@@ -160,6 +161,15 @@ class AssertionParserTest extends TestCase
         $source = '$page.title';
 
         $this->expectExceptionObject(new EmptyAssertionComparisonException($source));
+
+        $this->parser->parse($source);
+    }
+
+    public function testParseEmptyComparisonValue()
+    {
+        $source = '$page.title is';
+
+        $this->expectExceptionObject(new EmptyAssertionValueException($source));
 
         $this->parser->parse($source);
     }
