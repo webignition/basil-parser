@@ -11,29 +11,36 @@ use webignition\BasilDataStructure\Action\InputAction;
 use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Action\WaitAction;
 use webignition\BasilParser\ActionParser;
+use webignition\BasilParser\Exception\EmptyActionException;
 
 class ActionParserTest extends TestCase
 {
+    /**
+     * @var ActionParser
+     */
+    private $parser;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->parser = ActionParser::create();
+    }
+
     /**
      * @dataProvider parseDataProvider
      */
     public function testParse(string $actionString, ActionInterface $expectedAction)
     {
-        $parser = ActionParser::create();
-
-        $this->assertEquals($expectedAction, $parser->parse($actionString));
+        $this->assertEquals($expectedAction, $this->parser->parse($actionString));
     }
 
     public function parseDataProvider(): array
     {
         return [
-            'empty' => [
-                'actionString' => '',
-                'expectedAction' => new Action('', null),
-            ],
             'unknown type' => [
                 'actionString' => 'foo $".selector"',
-                'expectedAction' => new Action('foo $".selector"', 'foo'),
+                'expectedAction' => new Action('foo $".selector"', 'foo', '$".selector"'),
             ],
             'click' => [
                 'actionString' => 'click $".selector"',
@@ -124,5 +131,12 @@ class ActionParserTest extends TestCase
                 ),
             ],
         ];
+    }
+
+    public function testParserEmptyAction()
+    {
+        $this->expectExceptionObject(new EmptyActionException());
+
+        $this->parser->parse('');
     }
 }
