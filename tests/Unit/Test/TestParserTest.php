@@ -7,6 +7,7 @@ namespace webignition\BasilParser\Tests\Unit\Test;
 use PHPUnit\Framework\TestCase;
 use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Assertion;
+use webignition\BasilDataStructure\DataSetCollection;
 use webignition\BasilDataStructure\Step;
 use webignition\BasilDataStructure\Test\Configuration;
 use webignition\BasilDataStructure\Test\Imports;
@@ -81,11 +82,11 @@ class TestParserTest extends TestCase
                     [
                         'step one' => (new Step([], []))
                             ->withImportName('step_import_name')
-                            ->withDataArray([
+                            ->withData(new DataSetCollection([
                                 'set1' => [
                                     'key1' => 'value1',
                                 ],
-                            ]),
+                            ])),
                         'step two' => (new Step(
                             [
                                 new InteractionAction(

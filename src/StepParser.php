@@ -6,6 +6,7 @@ namespace webignition\BasilParser;
 
 use webignition\BasilDataStructure\Action\ActionInterface;
 use webignition\BasilDataStructure\AssertionInterface;
+use webignition\BasilDataStructure\DataSetCollection;
 use webignition\BasilDataStructure\Step;
 
 class StepParser
@@ -99,7 +100,7 @@ class StepParser
     private function setData(Step $step, $data): Step
     {
         if (is_array($data)) {
-            $step = $step->withDataArray($data);
+            $step = $step->withData(new DataSetCollection($data));
         }
 
         if (is_string($data)) {
