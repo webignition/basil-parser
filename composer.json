@@ -34,7 +34,7 @@
     "require": {
         "php": ">=7.2",
         "ext-mbstring": "*",
-        "webignition/basil-data-structures": ">=0.15,<1",
+        "webignition/basil-data-structures": ">=0.16,<1",
         "webignition/php-path-resolver": ">=0.1,<1"
     },
     "require-dev": {

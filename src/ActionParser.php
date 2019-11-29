@@ -9,22 +9,12 @@ use webignition\BasilDataStructure\Action\ActionInterface;
 use webignition\BasilDataStructure\Action\InputAction;
 use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Action\WaitAction;
+use webignition\BasilParser\Exception\EmptyActionException;
 use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
 use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 
 class ActionParser
 {
-    private const TYPES = [
-        'back',
-        'click',
-        'forward',
-        'reload',
-        'set',
-        'submit',
-        'wait-for',
-        'wait',
-    ];
-
     private const INPUT_TYPES = [
         'set',
     ];
@@ -62,19 +52,22 @@ class ActionParser
         );
     }
 
+    /**
+     * @param string $source
+     *
+     * @return ActionInterface
+     *
+     * @throws EmptyActionException
+     */
     public function parse(string $source): ActionInterface
     {
         $source = trim($source);
 
         if ('' === $source) {
-            return new Action('', null);
+            throw new EmptyActionException();
         }
 
         $type = $this->findType($source);
-        if (null === $type) {
-            return new Action($source, $this->findUnknownType($source));
-        }
-
         $arguments = trim(mb_substr($source, strlen($type)));
 
         $isWaitType = in_array($type, self::WAIT_TYPES);
@@ -100,26 +93,7 @@ class ActionParser
         return new Action($source, $type, $arguments);
     }
 
-    private function findType(string $source): ?string
-    {
-        $sourceLength = mb_strlen($source);
-
-        foreach (self::TYPES as $type) {
-            $typeLength = strlen($type);
-
-            if ($sourceLength >= $typeLength) {
-                $sourcePrefix = mb_substr($source, 0, $typeLength);
-
-                if ($sourcePrefix === $type) {
-                    return $type;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    private function findUnknownType(string $source): string
+    private function findType(string $source): string
     {
         $parts = explode(' ', $source, 2);
 
