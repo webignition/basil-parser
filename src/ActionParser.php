@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser;
 
-use webignition\BasilDataStructure\Action\Action;
-use webignition\BasilDataStructure\Action\ActionInterface;
-use webignition\BasilDataStructure\Action\InputAction;
-use webignition\BasilDataStructure\Action\InteractionAction;
-use webignition\BasilDataStructure\Action\WaitAction;
+use webignition\BasilModels\Action\Action;
+use webignition\BasilModels\Action\ActionInterface;
+use webignition\BasilModels\Action\InputAction;
+use webignition\BasilModels\Action\InteractionAction;
+use webignition\BasilModels\Action\WaitAction;
 use webignition\BasilParser\Exception\EmptyActionException;
 use webignition\BasilParser\Exception\EmptyInputActionValueException;
 use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
