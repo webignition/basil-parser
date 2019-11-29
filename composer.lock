@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d635822f86e8f88cf87de6ad276447fc",
+    "content-hash": "260658ee05e7c603166b0d3a3bf3c65a",
     "packages": [
         {
             "name": "webignition/basil-data-structures",
@@ -47,6 +47,47 @@
             "description": "Data structures for basil language",
             "homepage": "https://github.com/webignition/basil-data-structures",
             "time": "2019-11-29T16:51:50+00:00"
+        },
+        {
+            "name": "webignition/basil-models",
+            "version": "0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/basil-models.git",
+                "reference": "53290db51693f480ebaa97b9c1ecf7c48825732a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/53290db51693f480ebaa97b9c1ecf7c48825732a",
+                "reference": "53290db51693f480ebaa97b9c1ecf7c48825732a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.11.5",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "webignition\\BasilModels\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "webignition@gmail.com"
+                }
+            ],
+            "homepage": "https://github.com/webignition/basil-models",
+            "time": "2019-11-29T16:21:48+00:00"
         },
         {
             "name": "webignition/php-path-resolver",
