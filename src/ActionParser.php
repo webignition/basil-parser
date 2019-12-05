@@ -11,8 +11,7 @@ use webignition\BasilModels\Action\InteractionAction;
 use webignition\BasilModels\Action\WaitAction;
 use webignition\BasilParser\Exception\EmptyActionException;
 use webignition\BasilParser\Exception\EmptyInputActionValueException;
-use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
-use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
+use webignition\BasilParser\ValueExtractor\ValueExtractor;
 
 class ActionParser
 {
@@ -30,26 +29,20 @@ class ActionParser
         'wait',
     ];
 
-    private $quotedValueExtractor;
-    private $variableValueExtractor;
     private $identifierExtractor;
+    private $valueExtractor;
 
-    public function __construct(
-        QuotedValueExtractor $quotedValueExtractor,
-        VariableValueExtractor $variableValueExtractor,
-        IdentifierExtractor $identifierExtractor
-    ) {
-        $this->quotedValueExtractor = $quotedValueExtractor;
-        $this->variableValueExtractor = $variableValueExtractor;
+    public function __construct(IdentifierExtractor $identifierExtractor, ValueExtractor $valueExtractor)
+    {
         $this->identifierExtractor = $identifierExtractor;
+        $this->valueExtractor = $valueExtractor;
     }
 
     public static function create(): ActionParser
     {
         return new ActionParser(
-            new QuotedValueExtractor(),
-            new VariableValueExtractor(),
-            IdentifierExtractor::create()
+            IdentifierExtractor::create(),
+            ValueExtractor::create()
         );
     }
 
@@ -125,12 +118,8 @@ class ActionParser
             $valueString = $toKeywordAndValue;
         }
 
-        if ($this->quotedValueExtractor->handles($valueString)) {
-            return $this->quotedValueExtractor->extract($valueString);
-        }
-
-        if ($this->variableValueExtractor->handles($valueString)) {
-            return $this->variableValueExtractor->extract($valueString);
+        if ($this->valueExtractor->handles($valueString)) {
+            return $this->valueExtractor->extract($valueString);
         }
 
         return null;
