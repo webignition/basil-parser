@@ -50,6 +50,15 @@ class AssertionParserTest extends TestCase
                     '"value"'
                 ),
             ],
+            'css element selector containing whitespace, is, scalar value' => [
+                'assertionString' => '$".parent .child" is "value"',
+                'expectedAssertion' => new ComparisonAssertion(
+                    '$".parent .child" is "value"',
+                    '$".parent .child"',
+                    'is',
+                    '"value"'
+                ),
+            ],
             'css element selector, is-not, scalar value' => [
                 'assertionString' => '$".selector" is-not "value"',
                 'expectedAssertion' => new ComparisonAssertion(
@@ -73,6 +82,15 @@ class AssertionParserTest extends TestCase
                 'expectedAssertion' => new ComparisonAssertion(
                     '$"{{ reference }} .selector" is "value"',
                     '$"{{ reference }} .selector"',
+                    'is',
+                    '"value"'
+                ),
+            ],
+            'scalar value, is, scalar value' => [
+                'assertionString' => '"value" is "value"',
+                'expectedAssertion' => new ComparisonAssertion(
+                    '"value" is "value"',
+                    '"value"',
                     'is',
                     '"value"'
                 ),
