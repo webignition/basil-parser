@@ -11,8 +11,7 @@ use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
 use webignition\BasilParser\Exception\EmptyAssertionException;
 use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
 use webignition\BasilParser\Exception\EmptyAssertionValueException;
-use webignition\BasilParser\ValueExtractor\QuotedValueExtractor;
-use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
+use webignition\BasilParser\ValueExtractor\ValueExtractor;
 
 class AssertionParser
 {
@@ -26,26 +25,17 @@ class AssertionParser
         'matches',
     ];
 
-    private $quotedValueExtractor;
-    private $variableValueExtractor;
-    private $identifierExtractor;
+    private $valueExtractor;
 
-    public function __construct(
-        QuotedValueExtractor $quotedValueExtractor,
-        VariableValueExtractor $variableValueExtractor,
-        IdentifierExtractor $identifierExtractor
-    ) {
-        $this->quotedValueExtractor = $quotedValueExtractor;
-        $this->variableValueExtractor = $variableValueExtractor;
-        $this->identifierExtractor = $identifierExtractor;
+    public function __construct(ValueExtractor $valueExtractor)
+    {
+        $this->valueExtractor = $valueExtractor;
     }
 
     public static function create(): AssertionParser
     {
         return new AssertionParser(
-            new QuotedValueExtractor(),
-            new VariableValueExtractor(),
-            IdentifierExtractor::create()
+            ValueExtractor::create()
         );
     }
 
@@ -66,7 +56,7 @@ class AssertionParser
             throw new EmptyAssertionException();
         }
 
-        $identifier = $this->identifierExtractor->extract($source);
+        $identifier = $this->valueExtractor->extract($source);
         if ('' === $identifier) {
             throw new EmptyAssertionIdentifierException($source);
         }
@@ -85,11 +75,12 @@ class AssertionParser
 
         $comparisonLength = strlen($comparison);
         $valueString = trim(mb_substr($comparisonAndValue, $comparisonLength));
-        $value = $this->findValue($valueString);
 
-        if (null === $value) {
+        if ('' === $valueString) {
             throw new EmptyAssertionValueException($source);
         }
+
+        $value = $this->valueExtractor->extract($valueString);
 
         return new ComparisonAssertion($source, $identifier, $comparison, $value);
     }
@@ -104,18 +95,5 @@ class AssertionParser
         }
 
         return trim($comparisonMatches[0]);
-    }
-
-    private function findValue(string $valueString): ?string
-    {
-        if ($this->quotedValueExtractor->handles($valueString)) {
-            return $this->quotedValueExtractor->extract($valueString);
-        }
-
-        if ($this->variableValueExtractor->handles($valueString)) {
-            return $this->variableValueExtractor->extract($valueString);
-        }
-
-        return null;
     }
 }
