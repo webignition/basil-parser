@@ -113,13 +113,31 @@ class ActionParserTest extends TestCase
                     '$data.value'
                 ),
             ],
-            'set to variable value, dom identifier value' => [
+            'set to variable value, dom identifier value (1)' => [
                 'actionString' => 'set $".selector1" to $".selector2"',
                 'expectedAction' => new InputAction(
                     'set $".selector1" to $".selector2"',
                     '$".selector1" to $".selector2"',
                     '$".selector1"',
                     '$".selector2"'
+                ),
+            ],
+            'set to variable value, dom identifier value (2)' => [
+                'actionString' => 'set $".selector1":1 to $".selector2":1',
+                'expectedAction' => new InputAction(
+                    'set $".selector1":1 to $".selector2":1',
+                    '$".selector1":1 to $".selector2":1',
+                    '$".selector1":1',
+                    '$".selector2":1'
+                ),
+            ],
+            'set to variable value, dom identifier value (3)' => [
+                'actionString' => 'set $".parent1 .child1" to $".parent2 .child2"',
+                'expectedAction' => new InputAction(
+                    'set $".parent1 .child1" to $".parent2 .child2"',
+                    '$".parent1 .child1" to $".parent2 .child2"',
+                    '$".parent1 .child1"',
+                    '$".parent2 .child2"'
                 ),
             ],
         ];
