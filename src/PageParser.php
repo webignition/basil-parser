@@ -17,7 +17,7 @@ class PageParser
         return new PageParser();
     }
 
-    public function parse(array $pageData): PageInterface
+    public function parse(string $importName, array $pageData): PageInterface
     {
         $url = $pageData[self::KEY_URL] ?? '';
         $url = is_string($url) ? trim($url) : '';
@@ -25,6 +25,6 @@ class PageParser
         $elements = $pageData[self::KEY_ELEMENTS] ?? [];
         $elements = is_array($elements) ? $elements : [];
 
-        return new Page($url, $elements);
+        return new Page($importName, $url, $elements);
     }
 }
