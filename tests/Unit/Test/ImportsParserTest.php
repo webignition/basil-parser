@@ -13,6 +13,10 @@ class ImportsParserTest extends TestCase
 {
     /**
      * @dataProvider parseDataProvider
+     *
+     * @param string $basePath
+     * @param array<mixed> $importsData
+     * @param ImportsInterface $expectedImports
      */
     public function testParse(string $basePath, array $importsData, ImportsInterface $expectedImports)
     {

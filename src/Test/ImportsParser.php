@@ -28,6 +28,12 @@ class ImportsParser
         );
     }
 
+    /**
+     * @param string $basePath
+     * @param array<string, mixed> $importsData
+     *
+     * @return ImportsInterface
+     */
     public function parse(string $basePath, array $importsData): ImportsInterface
     {
         $imports = new Imports();
@@ -42,6 +48,12 @@ class ImportsParser
         return $imports;
     }
 
+    /**
+     * @param string $basePath
+     * @param array<string, array<string, string>> $pathSets
+     *
+     * @return array<string, array<string, string>>
+     */
     private function resolvePathSets(string $basePath, array $pathSets): array
     {
         foreach ($pathSets as $key => $pathSet) {
@@ -51,6 +63,12 @@ class ImportsParser
         return $pathSets;
     }
 
+    /**
+     * @param string $basePath
+     * @param array<string, string> $paths
+     *
+     * @return array<string, string>
+     */
     private function resolvePathSet(string $basePath, array $paths): array
     {
         $resolvedPaths = [];
@@ -64,6 +82,11 @@ class ImportsParser
         return $resolvedPaths;
     }
 
+    /**
+     * @param array<string, mixed> $importsData
+     *
+     * @return array<string, array<string, string>>
+     */
     private function filterPathSets(array $importsData): array
     {
         $data = [];
@@ -81,6 +104,12 @@ class ImportsParser
         return $data;
     }
 
+    /**
+     * @param string $key
+     * @param array<string, mixed> $importsData
+     *
+     * @return array<string, string>
+     */
     private function filterPathSet(string $key, array $importsData): array
     {
         $importData = $importsData[$key] ?? [];
