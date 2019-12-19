@@ -61,6 +61,15 @@ class ActionParserTest extends TestCase
                     '{{ $".parent" }} $".child"'
                 ),
             ],
+            'click identifier contains nested parent reference' => [
+                'actionString' => 'click {{ {{ $".inner-parent" }} $".inner-child }} $".child"',
+                'expectedAction' => new InteractionAction(
+                    'click {{ {{ $".inner-parent" }} $".inner-child }} $".child"',
+                    'click',
+                    '{{ {{ $".inner-parent" }} $".inner-child }} $".child"',
+                    '{{ {{ $".inner-parent" }} $".inner-child }} $".child"'
+                ),
+            ],
             'submit' => [
                 'actionString' => 'submit $".selector"',
                 'expectedAction' => new InteractionAction(
