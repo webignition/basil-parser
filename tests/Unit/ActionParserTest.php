@@ -52,6 +52,15 @@ class ActionParserTest extends TestCase
                     '$".selector"'
                 ),
             ],
+            'click identifier contains parent reference' => [
+                'actionString' => 'click {{ $".parent" }} $".child"',
+                'expectedAction' => new InteractionAction(
+                    'click {{ $".parent" }} $".child"',
+                    'click',
+                    '{{ $".parent" }} $".child"',
+                    '{{ $".parent" }} $".child"'
+                ),
+            ],
             'submit' => [
                 'actionString' => 'submit $".selector"',
                 'expectedAction' => new InteractionAction(
@@ -138,6 +147,15 @@ class ActionParserTest extends TestCase
                     '$".parent1 .child1" to $".parent2 .child2"',
                     '$".parent1 .child1"',
                     '$".parent2 .child2"'
+                ),
+            ],
+            'set to variable value, dom identifier value (4)' => [
+                'actionString' => 'set {{ $".parent1" }} $".child1" to {{ $".parent2" }} $".child2"',
+                'expectedAction' => new InputAction(
+                    'set {{ $".parent1" }} $".child1" to {{ $".parent2" }} $".child2"',
+                    '{{ $".parent1" }} $".child1" to {{ $".parent2" }} $".child2"',
+                    '{{ $".parent1" }} $".child1"',
+                    '{{ $".parent2" }} $".child2"'
                 ),
             ],
         ];
