@@ -2,42 +2,35 @@
 
 namespace webignition\BasilParser\ValueExtractor;
 
+use webignition\BasilParser\IdentifierExtractor;
+
 class ValueExtractor
 {
-    private $pageElementIdentifierExtractor;
     private $quotedValueExtractor;
-    private $variableValueExtractor;
+    private $identifierExtractor;
 
-    public function __construct(
-        PageElementIdentifierExtractor $pageElementIdentifierExtractor,
-        QuotedValueExtractor $quotedValueExtractor,
-        VariableValueExtractor $variableValueExtractor
-    ) {
-        $this->pageElementIdentifierExtractor = $pageElementIdentifierExtractor;
+    public function __construct(QuotedValueExtractor $quotedValueExtractor, IdentifierExtractor $identifierExtractor)
+    {
         $this->quotedValueExtractor = $quotedValueExtractor;
-        $this->variableValueExtractor = $variableValueExtractor;
+        $this->identifierExtractor = $identifierExtractor;
     }
 
     public static function create(): ValueExtractor
     {
         return new ValueExtractor(
-            new PageElementIdentifierExtractor(),
             new QuotedValueExtractor(),
-            new VariableValueExtractor()
+            IdentifierExtractor::create()
         );
     }
 
     public function handles(string $string): bool
     {
-        if ($this->pageElementIdentifierExtractor->handles($string)) {
+        $identifier = $this->identifierExtractor->extract($string);
+        if ('' !== $identifier) {
             return true;
         }
 
         if ($this->quotedValueExtractor->handles($string)) {
-            return true;
-        }
-
-        if ($this->variableValueExtractor->handles($string)) {
             return true;
         }
 
@@ -46,16 +39,13 @@ class ValueExtractor
 
     public function extract(string $string): string
     {
-        if ($this->pageElementIdentifierExtractor->handles($string)) {
-            return $this->pageElementIdentifierExtractor->extract($string);
+        $identifier = $this->identifierExtractor->extract($string);
+        if ('' !== $identifier) {
+            return $identifier;
         }
 
         if ($this->quotedValueExtractor->handles($string)) {
             return $this->quotedValueExtractor->extract($string);
-        }
-
-        if ($this->variableValueExtractor->handles($string)) {
-            return $this->variableValueExtractor->extract($string);
         }
 
         return '';

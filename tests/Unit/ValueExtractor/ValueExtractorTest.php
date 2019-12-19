@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Tests\Unit\ValueExtractor;
 
+use webignition\BasilParser\Tests\DataProvider\DescendantPageElementIdentifierStringDataProviderTrait;
 use webignition\BasilParser\Tests\DataProvider\PageElementIdentifierStringDataProviderTrait;
 use webignition\BasilParser\Tests\DataProvider\QuotedValueDataProviderTrait;
 use webignition\BasilParser\Tests\DataProvider\VariableParameterIdentifierStringDataProviderTrait;
@@ -14,6 +15,7 @@ class ValueExtractorTest extends \PHPUnit\Framework\TestCase
     use PageElementIdentifierStringDataProviderTrait;
     use QuotedValueDataProviderTrait;
     use VariableParameterIdentifierStringDataProviderTrait;
+    use DescendantPageElementIdentifierStringDataProviderTrait;
 
     /**
      * @var ValueExtractor
@@ -82,6 +84,7 @@ class ValueExtractorTest extends \PHPUnit\Framework\TestCase
      * @dataProvider pageElementIdentifierStringDataProvider
      * @dataProvider quotedValueDataProvider
      * @dataProvider variableParameterIdentifierStringDataProvider
+     * @dataProvider descendantPageElementIdentifierStringDataProvider
      */
     public function testExtractReturnsString(string $string, string $expectedIdentifierString)
     {
