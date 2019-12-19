@@ -31,7 +31,7 @@ class ValueExtractor
         }
 
         $value = $this->quotedValueExtractor->extract($string);
-        if ('' !== $value) {
+        if (null !== $value) {
             return $value;
         }
 
