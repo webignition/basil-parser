@@ -59,6 +59,15 @@ class AssertionParserTest extends TestCase
                     '"value"'
                 ),
             ],
+            'css nested parent element selector, is, scalar value' => [
+                'assertionString' => '{{ {{ $".inner-parent" }} $".inner-child }} $".child" is "value"',
+                'expectedAssertion' => new ComparisonAssertion(
+                    '{{ {{ $".inner-parent" }} $".inner-child }} $".child" is "value"',
+                    '{{ {{ $".inner-parent" }} $".inner-child }} $".child"',
+                    'is',
+                    '"value"'
+                ),
+            ],
             'css element selector containing whitespace, is, scalar value' => [
                 'assertionString' => '$".parent .child" is "value"',
                 'expectedAssertion' => new ComparisonAssertion(
@@ -120,6 +129,15 @@ class AssertionParserTest extends TestCase
                     '$".selector1"',
                     'is',
                     '{{ $".parent" }} $".child"'
+                ),
+            ],
+            'css element selector, is, nested descendant dom identifier value' => [
+                'assertionString' => '$".selector1" is {{ {{ $".inner-parent" }} $".inner-child" }} $".child"',
+                'expectedAssertion' => new ComparisonAssertion(
+                    '$".selector1" is {{ {{ $".inner-parent" }} $".inner-child" }} $".child"',
+                    '$".selector1"',
+                    'is',
+                    '{{ {{ $".inner-parent" }} $".inner-child" }} $".child"'
                 ),
             ],
             'css element selector, exists, no value' => [
