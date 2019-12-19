@@ -22,29 +22,29 @@ class DescendantPageElementIdentifierExtractor
         );
     }
 
-    public function extract(string $string): string
+    public function extract(string $string): ?string
     {
         if (self::PARENT_PREFIX !== substr($string, 0, strlen(self::PARENT_PREFIX))) {
-            return '';
+            return null;
         }
 
         $parentSuffixPosition = $this->findParentSuffixPosition($string);
         if (null === $parentSuffixPosition) {
-            return '';
+            return null;
         }
 
         $parentReference = mb_substr($string, 0, $parentSuffixPosition + strlen(self::PARENT_SUFFIX));
         $parentReferenceIdentifier = $this->unwrap($parentReference);
 
         if (false === $this->isParentReference($parentReferenceIdentifier)) {
-            return '';
+            return null;
         }
 
         $childReferencePart = mb_substr($string, mb_strlen($parentReference) + 1);
         $childReference = $this->pageElementIdentifierExtractor->extract($childReferencePart);
 
         if ('' === $childReference) {
-            return '';
+            return null;
         }
 
         return $parentReference . ' ' . $childReference;
@@ -52,7 +52,7 @@ class DescendantPageElementIdentifierExtractor
 
     private function isParentReference(string $string): bool
     {
-        if ('' !== $this->extract($string)) {
+        if (null !== $this->extract($string)) {
             return true;
         }
 
