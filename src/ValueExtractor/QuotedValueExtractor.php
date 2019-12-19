@@ -7,18 +7,13 @@ class QuotedValueExtractor
     private const DELIMITER = '"';
     private const ESCAPE_CHARACTER = '\\';
 
-    public function handles(string $string): bool
-    {
-        if ('' === $string) {
-            return false;
-        }
-
-        return self::DELIMITER === $string[0];
-    }
-
     public function extract(string $string): string
     {
-        if (!$this->handles($string)) {
+        if ('' === $string) {
+            return '';
+        }
+
+        if (self::DELIMITER !== $string[0]) {
             return '';
         }
 

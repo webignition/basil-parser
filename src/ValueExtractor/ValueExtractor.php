@@ -23,29 +23,16 @@ class ValueExtractor
         );
     }
 
-    public function handles(string $string): bool
-    {
-        $identifier = $this->identifierExtractor->extract($string);
-        if ('' !== $identifier) {
-            return true;
-        }
-
-        if ($this->quotedValueExtractor->handles($string)) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function extract(string $string): string
     {
-        $identifier = $this->identifierExtractor->extract($string);
-        if ('' !== $identifier) {
-            return $identifier;
+        $value = $this->identifierExtractor->extract($string);
+        if ('' !== $value) {
+            return $value;
         }
 
-        if ($this->quotedValueExtractor->handles($string)) {
-            return $this->quotedValueExtractor->extract($string);
+        $value = $this->quotedValueExtractor->extract($string);
+        if ('' !== $value) {
+            return $value;
         }
 
         return '';

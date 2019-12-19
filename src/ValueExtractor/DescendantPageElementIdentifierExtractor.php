@@ -21,14 +21,9 @@ class DescendantPageElementIdentifierExtractor
         );
     }
 
-    public function handles(string $string): bool
-    {
-        return self::PARENT_PREFIX === substr($string, 0, strlen(self::PARENT_PREFIX));
-    }
-
     public function extract(string $string): string
     {
-        if (!$this->handles($string)) {
+        if (self::PARENT_PREFIX !== substr($string, 0, strlen(self::PARENT_PREFIX))) {
             return '';
         }
 
