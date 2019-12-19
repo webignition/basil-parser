@@ -17,6 +17,12 @@ class PageParser
         return new PageParser();
     }
 
+    /**
+     * @param string $importName
+     * @param array<string, mixed> $pageData
+     *
+     * @return PageInterface
+     */
     public function parse(string $importName, array $pageData): PageInterface
     {
         $url = $pageData[self::KEY_URL] ?? '';

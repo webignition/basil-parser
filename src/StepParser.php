@@ -42,7 +42,7 @@ class StepParser
     }
 
     /**
-     * @param array $stepData
+     * @param array<mixed> $stepData
      *
      * @return StepInterface
      *
@@ -68,7 +68,7 @@ class StepParser
     }
 
     /**
-     * @param array $actionsData
+     * @param array<mixed> $actionsData
      *
      * @return ActionInterface[]
      *
@@ -89,7 +89,7 @@ class StepParser
     }
 
     /**
-     * @param array $assertionsData
+     * @param array<mixed> $assertionsData
      *
      * @return AssertionInterface[]
      *
@@ -111,6 +111,12 @@ class StepParser
         return $assertions;
     }
 
+    /**
+     * @param StepInterface $step
+     * @param mixed $importName
+     *
+     * @return StepInterface
+     */
     private function setImportName(StepInterface $step, $importName): StepInterface
     {
         if (!is_string($importName)) {
@@ -124,6 +130,12 @@ class StepParser
         return $step;
     }
 
+    /**
+     * @param StepInterface $step
+     * @param mixed $data
+     *
+     * @return StepInterface
+     */
     private function setData(StepInterface $step, $data): StepInterface
     {
         if (is_array($data)) {
@@ -137,6 +149,12 @@ class StepParser
         return $step;
     }
 
+    /**
+     * @param StepInterface $step
+     * @param mixed $identifiers
+     *
+     * @return StepInterface
+     */
     private function setIdentifiers(StepInterface $step, $identifiers): StepInterface
     {
         if (is_array($identifiers)) {
