@@ -11,14 +11,14 @@ class VariableValueExtractor
         return '' !== $string && self::VARIABLE_START_CHARACTER === $string[0];
     }
 
-    public function extract(string $string): string
+    public function extract(string $string): ?string
     {
         if ('' === $string) {
-            return '';
+            return null;
         }
 
         if (self::VARIABLE_START_CHARACTER !== $string[0]) {
-            return '';
+            return null;
         }
 
         $defaultValueDelimiter = '|';

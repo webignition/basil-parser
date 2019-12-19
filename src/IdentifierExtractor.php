@@ -46,7 +46,7 @@ class IdentifierExtractor
         }
 
         $identifier = $this->variableValueExtractor->extract($string);
-        if ('' !== $identifier) {
+        if (null !== $identifier) {
             return $identifier;
         }
 
