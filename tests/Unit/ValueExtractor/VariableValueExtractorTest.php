@@ -26,19 +26,6 @@ class VariableValueExtractorTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider unhandledStringsDataProvider
      */
-    public function testHandlesReturnsFalse(string $string)
-    {
-        $this->assertFalse($this->extractor->handles($string));
-    }
-
-    public function testHandlesReturnsTrue()
-    {
-        $this->assertTrue($this->extractor->handles('$elements.name'));
-    }
-
-    /**
-     * @dataProvider unhandledStringsDataProvider
-     */
     public function testExtractReturnsEmptyValue(string $string)
     {
         $this->assertSame('', $this->extractor->extract($string));

@@ -12,19 +12,6 @@ class PageElementIdentifierExtractor
     private const POSITION_FIRST = 'first';
     private const POSITION_LAST = 'last';
 
-    public function handles(string $string): bool
-    {
-        $expectedPrefix = self::VARIABLE_START_CHARACTER . self::LOCATOR_DELIMITER;
-        $expectedPrefixLength = strlen($expectedPrefix);
-        $length = mb_strlen($string);
-
-        if ($length < $expectedPrefixLength) {
-            return false;
-        }
-
-        return substr($string, 0, $expectedPrefixLength) === $expectedPrefix;
-    }
-
     public function extract(string $string): string
     {
         if (!$this->handles($string)) {
@@ -62,6 +49,19 @@ class PageElementIdentifierExtractor
         }
 
         return self::VARIABLE_START_CHARACTER . $identifierString;
+    }
+
+    private function handles(string $string): bool
+    {
+        $expectedPrefix = self::VARIABLE_START_CHARACTER . self::LOCATOR_DELIMITER;
+        $expectedPrefixLength = strlen($expectedPrefix);
+        $length = mb_strlen($string);
+
+        if ($length < $expectedPrefixLength) {
+            return false;
+        }
+
+        return substr($string, 0, $expectedPrefixLength) === $expectedPrefix;
     }
 
     private function findEndingQuotePosition(string $string): int

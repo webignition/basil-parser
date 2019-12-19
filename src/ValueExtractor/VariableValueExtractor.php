@@ -13,7 +13,11 @@ class VariableValueExtractor
 
     public function extract(string $string): string
     {
-        if (!$this->handles($string)) {
+        if ('' === $string) {
+            return '';
+        }
+
+        if (self::VARIABLE_START_CHARACTER !== $string[0]) {
             return '';
         }
 

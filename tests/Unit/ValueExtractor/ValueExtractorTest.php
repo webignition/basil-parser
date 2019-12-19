@@ -32,37 +32,6 @@ class ValueExtractorTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider unhandledStringsDataProvider
      */
-    public function testHandlesReturnsFalse(string $string)
-    {
-        $this->assertFalse($this->extractor->handles($string));
-    }
-
-    /**
-     * @dataProvider handledStringsDataProvider
-     */
-    public function testHandlesReturnsTrue(string $string)
-    {
-        $this->assertTrue($this->extractor->handles($string));
-    }
-
-    public function handledStringsDataProvider(): array
-    {
-        return [
-            'page element identifier' => [
-                'string' => '$".selector"',
-            ],
-            'quoted value' => [
-                'string' => '"value"',
-            ],
-            'variable value' => [
-                'string' => '$data.key',
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider unhandledStringsDataProvider
-     */
     public function testExtractReturnsEmptyValue(string $string)
     {
         $this->assertSame('', $this->extractor->extract($string));

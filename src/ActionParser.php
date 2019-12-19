@@ -118,8 +118,9 @@ class ActionParser
             $valueString = $toKeywordAndValue;
         }
 
-        if ($this->valueExtractor->handles($valueString)) {
-            return $this->valueExtractor->extract($valueString);
+        $value = $this->valueExtractor->extract($valueString);
+        if ('' !== $value) {
+            return $value;
         }
 
         return null;

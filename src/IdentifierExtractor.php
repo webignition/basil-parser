@@ -35,16 +35,19 @@ class IdentifierExtractor
 
     public function extract(string $string): string
     {
-        if ($this->descendantPageElementIdentifierExtractor->handles($string)) {
-            return $this->descendantPageElementIdentifierExtractor->extract($string);
+        $identifier = $this->descendantPageElementIdentifierExtractor->extract($string);
+        if ('' !== $identifier) {
+            return $identifier;
         }
 
-        if ($this->pageElementIdentifierExtractor->handles($string)) {
-            return $this->pageElementIdentifierExtractor->extract($string);
+        $identifier = $this->pageElementIdentifierExtractor->extract($string);
+        if ('' !== $identifier) {
+            return $identifier;
         }
 
-        if ($this->variableValueExtractor->handles($string)) {
-            return $this->variableValueExtractor->extract($string);
+        $identifier = $this->variableValueExtractor->extract($string);
+        if ('' !== $identifier) {
+            return $identifier;
         }
 
         return '';

@@ -24,46 +24,6 @@ class DescendantPageElementIdentifierExtractorTest extends \PHPUnit\Framework\Te
     }
 
     /**
-     * @dataProvider unhandledStringsDataProvider
-     */
-    public function testHandlesReturnsFalse(string $string)
-    {
-        $this->assertFalse($this->extractor->handles($string));
-    }
-
-    public function unhandledStringsDataProvider(): array
-    {
-        return [
-            'empty' => [
-                'string' => '',
-            ],
-            'variable value' => [
-                'string' => '$elements.element_name',
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider handlesDataProvider
-     */
-    public function testHandles(string $string, bool $expectedHandles)
-    {
-        $this->assertSame($expectedHandles, $this->extractor->handles($string));
-    }
-
-    public function handlesDataProvider(): array
-    {
-        return [
-            'valid descendant identifier' => [
-                'string' => '{{ $".parent" }} $".child"',
-                'expectedHandles' => true,
-            ],
-        ];
-    }
-
-
-    /**
-     * @dataProvider unhandledStringsDataProvider
      * @dataProvider returnsEmptyValueDataProvider
      */
     public function testExtractReturnsEmptyValue(string $string)
@@ -74,6 +34,12 @@ class DescendantPageElementIdentifierExtractorTest extends \PHPUnit\Framework\Te
     public function returnsEmptyValueDataProvider(): array
     {
         return [
+            'empty' => [
+                'string' => '',
+            ],
+            'variable value' => [
+                'string' => '$elements.element_name',
+            ],
             'invalid parent identifier' => [
                 'string' => '{{ .parent }} $".child"',
             ],
