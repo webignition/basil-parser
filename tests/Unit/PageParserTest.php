@@ -58,11 +58,24 @@ class PageParserTest extends TestCase
                 'importName' => '',
                 'pageData' => [
                     'elements' => [
-                        'heading' => 'page_import_name.elements.heading',
+                        'heading' => '$".heading"',
                     ],
                 ],
                 'expectedPage' => new Page('', '', [
-                    'heading' => 'page_import_name.elements.heading',
+                    'heading' => '$".heading"',
+                ]),
+            ],
+            'valid elements with parent references' => [
+                'importName' => '',
+                'pageData' => [
+                    'elements' => [
+                        'form' => '$".form"',
+                        'form_input' => '$"{{ form }} .input"',
+                    ],
+                ],
+                'expectedPage' => new Page('', '', [
+                    'form' => '$".form"',
+                    'form_input' => '$"{{ form }} .input"',
                 ]),
             ],
         ];
