@@ -13,12 +13,30 @@ use webignition\BasilModels\Test\Configuration;
 use webignition\BasilModels\Test\Imports;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
+use webignition\BasilParser\Exception\EmptyActionException;
+use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
+use webignition\BasilParser\Exception\EmptyAssertionException;
+use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
+use webignition\BasilParser\Exception\EmptyAssertionValueException;
+use webignition\BasilParser\Exception\EmptyInputActionValueException;
 use webignition\BasilParser\Test\TestParser;
 
 class TestParserTest extends TestCase
 {
     /**
      * @dataProvider parseDataProvider
+     *
+     * @param string $basePath
+     * @param string $name
+     * @param array<mixed> $testData
+     * @param TestInterface $expectedTest
+     *
+     * @throws EmptyActionException
+     * @throws EmptyAssertionComparisonException
+     * @throws EmptyAssertionException
+     * @throws EmptyAssertionIdentifierException
+     * @throws EmptyAssertionValueException
+     * @throws EmptyInputActionValueException
      */
     public function testParse(string $basePath, string $name, array $testData, TestInterface $expectedTest)
     {
