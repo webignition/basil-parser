@@ -17,6 +17,11 @@ class ConfigurationParser
         return new ConfigurationParser();
     }
 
+    /**
+     * @param array<string, mixed> $configurationData
+     *
+     * @return ConfigurationInterface
+     */
     public function parse(array $configurationData): ConfigurationInterface
     {
         $browser = $configurationData[self::KEY_BROWSER] ?? '';

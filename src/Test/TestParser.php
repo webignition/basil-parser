@@ -47,7 +47,7 @@ class TestParser
     /**
      * @param string $basePath
      * @param string $name
-     * @param array $testData
+     * @param array<mixed> $testData
      *
      * @return TestInterface
      *
@@ -62,18 +62,16 @@ class TestParser
     {
         $imports = $this->importsParser->parse($basePath, $testData[self::KEY_IMPORTS] ?? []);
 
-        $test = new Test(
+        return new Test(
             $name,
             $this->configurationParser->parse($testData[self::KEY_CONFIGURATION] ?? []),
             $this->getSteps($testData),
             $imports
         );
-
-        return $test;
     }
 
     /**
-     * @param array $testData
+     * @param array<mixed> $testData
      *
      * @return StepInterface[]
      *
