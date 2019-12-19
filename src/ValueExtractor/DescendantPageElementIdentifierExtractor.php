@@ -43,7 +43,7 @@ class DescendantPageElementIdentifierExtractor
         $childReferencePart = mb_substr($string, mb_strlen($parentReference) + 1);
         $childReference = $this->pageElementIdentifierExtractor->extract($childReferencePart);
 
-        if ('' === $childReference) {
+        if (null === $childReference) {
             return null;
         }
 
@@ -56,7 +56,7 @@ class DescendantPageElementIdentifierExtractor
             return true;
         }
 
-        if ('' !== $this->pageElementIdentifierExtractor->extract($string)) {
+        if (null !== $this->pageElementIdentifierExtractor->extract($string)) {
             return true;
         }
 
