@@ -33,7 +33,7 @@ class IdentifierExtractor
         );
     }
 
-    public function extract(string $string): string
+    public function extract(string $string): ?string
     {
         $identifier = $this->descendantPageElementIdentifierExtractor->extract($string);
         if (null !== $identifier) {
@@ -50,6 +50,6 @@ class IdentifierExtractor
             return $identifier;
         }
 
-        return '';
+        return null;
     }
 }

@@ -23,10 +23,10 @@ class ValueExtractor
         );
     }
 
-    public function extract(string $string): string
+    public function extract(string $string): ?string
     {
         $value = $this->identifierExtractor->extract($string);
-        if ('' !== $value) {
+        if (null !== $value) {
             return $value;
         }
 
@@ -35,6 +35,6 @@ class ValueExtractor
             return $value;
         }
 
-        return '';
+        return null;
     }
 }

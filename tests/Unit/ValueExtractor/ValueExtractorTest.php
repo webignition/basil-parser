@@ -34,7 +34,7 @@ class ValueExtractorTest extends \PHPUnit\Framework\TestCase
      */
     public function testExtractReturnsEmptyValue(string $string)
     {
-        $this->assertSame('', $this->extractor->extract($string));
+        $this->assertNull($this->extractor->extract($string));
     }
 
     public function unhandledStringsDataProvider(): array
