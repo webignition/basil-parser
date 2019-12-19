@@ -12,10 +12,10 @@ class PageElementIdentifierExtractor
     private const POSITION_FIRST = 'first';
     private const POSITION_LAST = 'last';
 
-    public function extract(string $string): string
+    public function extract(string $string): ?string
     {
         if (!$this->handles($string)) {
-            return '';
+            return null;
         }
 
         $string = ltrim($string, self::VARIABLE_START_CHARACTER);

@@ -23,18 +23,18 @@ class ValueExtractor
         );
     }
 
-    public function extract(string $string): string
+    public function extract(string $string): ?string
     {
         $value = $this->identifierExtractor->extract($string);
-        if ('' !== $value) {
+        if (null !== $value) {
             return $value;
         }
 
         $value = $this->quotedValueExtractor->extract($string);
-        if ('' !== $value) {
+        if (null !== $value) {
             return $value;
         }
 
-        return '';
+        return null;
     }
 }

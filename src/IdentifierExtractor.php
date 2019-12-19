@@ -33,23 +33,23 @@ class IdentifierExtractor
         );
     }
 
-    public function extract(string $string): string
+    public function extract(string $string): ?string
     {
         $identifier = $this->descendantPageElementIdentifierExtractor->extract($string);
-        if ('' !== $identifier) {
+        if (null !== $identifier) {
             return $identifier;
         }
 
         $identifier = $this->pageElementIdentifierExtractor->extract($string);
-        if ('' !== $identifier) {
+        if (null !== $identifier) {
             return $identifier;
         }
 
         $identifier = $this->variableValueExtractor->extract($string);
-        if ('' !== $identifier) {
+        if (null !== $identifier) {
             return $identifier;
         }
 
-        return '';
+        return null;
     }
 }

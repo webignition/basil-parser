@@ -7,10 +7,6 @@ trait QuotedValueDataProviderTrait
     public function quotedValueDataProvider(): array
     {
         return [
-            'quoted value: empty' => [
-                'valueString' => '',
-                'expectedValue' => '',
-            ],
             'quoted value: quoted string' => [
                 'valueString' => '"value"',
                 'expectedValue' => '"value"',

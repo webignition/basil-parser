@@ -57,7 +57,7 @@ class AssertionParser
         }
 
         $identifier = $this->valueExtractor->extract($source);
-        if ('' === $identifier) {
+        if (null === $identifier) {
             throw new EmptyAssertionIdentifierException($source);
         }
 
