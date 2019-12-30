@@ -2,23 +2,25 @@
 
 namespace webignition\BasilParser\ValueExtractor;
 
+use webignition\BasilDomIdentifierFactory\Extractor\ElementIdentifierExtractor;
+
 class DescendantPageElementIdentifierExtractor
 {
     private const PARENT_PREFIX = '{{ ';
     private const PARENT_SUFFIX = ' }}';
     private const PARENT_MATCH_LENGTH = 3;
 
-    private $pageElementIdentifierExtractor;
+    private $elementIdentifierExtractor;
 
-    public function __construct(PageElementIdentifierExtractor $pageElementIdentifierExtractor)
+    public function __construct(ElementIdentifierExtractor $pageElementIdentifierExtractor)
     {
-        $this->pageElementIdentifierExtractor = $pageElementIdentifierExtractor;
+        $this->elementIdentifierExtractor = $pageElementIdentifierExtractor;
     }
 
     public static function createExtractor(): DescendantPageElementIdentifierExtractor
     {
         return new DescendantPageElementIdentifierExtractor(
-            new PageElementIdentifierExtractor()
+            ElementIdentifierExtractor::createExtractor()
         );
     }
 
@@ -41,7 +43,7 @@ class DescendantPageElementIdentifierExtractor
         }
 
         $childReferencePart = mb_substr($string, mb_strlen($parentReference) + 1);
-        $childReference = $this->pageElementIdentifierExtractor->extract($childReferencePart);
+        $childReference = $this->elementIdentifierExtractor->extractIdentifier($childReferencePart);
 
         if (null === $childReference) {
             return null;
@@ -56,7 +58,7 @@ class DescendantPageElementIdentifierExtractor
             return true;
         }
 
-        if (null !== $this->pageElementIdentifierExtractor->extract($string)) {
+        if (null !== $this->elementIdentifierExtractor->extractIdentifier($string)) {
             return true;
         }
 

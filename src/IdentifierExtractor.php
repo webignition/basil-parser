@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser;
 
+use webignition\BasilDomIdentifierFactory\Extractor\ElementIdentifierExtractor;
 use webignition\BasilParser\ValueExtractor\DescendantPageElementIdentifierExtractor;
-use webignition\BasilParser\ValueExtractor\PageElementIdentifierExtractor;
 use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 
 class IdentifierExtractor
@@ -15,7 +15,7 @@ class IdentifierExtractor
     private $descendantPageElementIdentifierExtractor;
 
     public function __construct(
-        PageElementIdentifierExtractor $pageElementIdentifierExtractor,
+        ElementIdentifierExtractor $pageElementIdentifierExtractor,
         VariableValueExtractor $variableValueExtractor,
         DescendantPageElementIdentifierExtractor $descendantPageElementIdentifierExtractor
     ) {
@@ -27,7 +27,7 @@ class IdentifierExtractor
     public static function create(): IdentifierExtractor
     {
         return new IdentifierExtractor(
-            new PageElementIdentifierExtractor(),
+            ElementIdentifierExtractor::createExtractor(),
             new VariableValueExtractor(),
             DescendantPageElementIdentifierExtractor::createExtractor()
         );
@@ -40,7 +40,7 @@ class IdentifierExtractor
             return $identifier;
         }
 
-        $identifier = $this->pageElementIdentifierExtractor->extract($string);
+        $identifier = $this->pageElementIdentifierExtractor->extractIdentifier($string);
         if (null !== $identifier) {
             return $identifier;
         }
