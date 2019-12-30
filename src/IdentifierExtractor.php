@@ -4,43 +4,43 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser;
 
-use webignition\BasilParser\ValueExtractor\DescendantPageElementIdentifierExtractor;
-use webignition\BasilParser\ValueExtractor\PageElementIdentifierExtractor;
+use webignition\BasilDomIdentifierFactory\Extractor\DescendantIdentifierExtractor;
+use webignition\BasilDomIdentifierFactory\Extractor\ElementIdentifierExtractor;
 use webignition\BasilParser\ValueExtractor\VariableValueExtractor;
 
 class IdentifierExtractor
 {
-    private $pageElementIdentifierExtractor;
+    private $elementIdentifierExtractor;
     private $variableValueExtractor;
-    private $descendantPageElementIdentifierExtractor;
+    private $descendantIdentifierExtractor;
 
     public function __construct(
-        PageElementIdentifierExtractor $pageElementIdentifierExtractor,
+        ElementIdentifierExtractor $elementIdentifierExtractor,
         VariableValueExtractor $variableValueExtractor,
-        DescendantPageElementIdentifierExtractor $descendantPageElementIdentifierExtractor
+        DescendantIdentifierExtractor $descendantIdentifierExtractor
     ) {
-        $this->pageElementIdentifierExtractor = $pageElementIdentifierExtractor;
+        $this->elementIdentifierExtractor = $elementIdentifierExtractor;
         $this->variableValueExtractor = $variableValueExtractor;
-        $this->descendantPageElementIdentifierExtractor = $descendantPageElementIdentifierExtractor;
+        $this->descendantIdentifierExtractor = $descendantIdentifierExtractor;
     }
 
     public static function create(): IdentifierExtractor
     {
         return new IdentifierExtractor(
-            new PageElementIdentifierExtractor(),
+            ElementIdentifierExtractor::createExtractor(),
             new VariableValueExtractor(),
-            DescendantPageElementIdentifierExtractor::createExtractor()
+            DescendantIdentifierExtractor::createExtractor()
         );
     }
 
     public function extract(string $string): ?string
     {
-        $identifier = $this->descendantPageElementIdentifierExtractor->extract($string);
+        $identifier = $this->descendantIdentifierExtractor->extractIdentifier($string);
         if (null !== $identifier) {
             return $identifier;
         }
 
-        $identifier = $this->pageElementIdentifierExtractor->extract($string);
+        $identifier = $this->elementIdentifierExtractor->extractIdentifier($string);
         if (null !== $identifier) {
             return $identifier;
         }
