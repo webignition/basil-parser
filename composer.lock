@@ -4,70 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9cc97a7104ab095d08715995605fd43",
+    "content-hash": "8e21cd09536b80a786dbb2330e5cec12",
     "packages": [
         {
-            "name": "webignition/basil-dom-identifier",
-            "version": "0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webignition/php-dom-identifier.git",
-                "reference": "27ff1fbf980074bb1ac4dd4f81c050a41dff7eb2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webignition/php-dom-identifier/zipball/27ff1fbf980074bb1ac4dd4f81c050a41dff7eb2",
-                "reference": "27ff1fbf980074bb1ac4dd4f81c050a41dff7eb2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2",
-                "webignition/php-dom-element-locator": ">=0.2,<1"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "~8.0",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "webignition\\BasilDomIdentifier\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Cram",
-                    "email": "webignition@gmail.com"
-                }
-            ],
-            "homepage": "https://github.com/webignition/basil-dom-identifier",
-            "time": "2019-12-29T18:46:42+00:00"
-        },
-        {
             "name": "webignition/basil-dom-identifier-factory",
-            "version": "0.3",
+            "version": "0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-dom-identifier-factory.git",
-                "reference": "36a4dcb547321ae641c3b1a7d6eb4360e6dd2ffc"
+                "reference": "171dbe2b61b3e8bc232cceed33022855d8584dc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-dom-identifier-factory/zipball/36a4dcb547321ae641c3b1a7d6eb4360e6dd2ffc",
-                "reference": "36a4dcb547321ae641c3b1a7d6eb4360e6dd2ffc",
+                "url": "https://api.github.com/repos/webignition/basil-dom-identifier-factory/zipball/171dbe2b61b3e8bc232cceed33022855d8584dc6",
+                "reference": "171dbe2b61b3e8bc232cceed33022855d8584dc6",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": ">=7.2",
-                "webignition/basil-dom-identifier": ">=0.2,<1",
                 "webignition/basil-identifier-analyser": ">=0.2,<1",
-                "webignition/php-dom-element-identifier": ">=0.4,<1",
+                "webignition/php-dom-element-identifier": ">=0.6,<1",
                 "webignition/quoted-string-value-extractor": ">=0.1,<1"
             },
             "require-dev": {
@@ -92,7 +49,7 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-dom-identifier-factory",
-            "time": "2019-12-30T08:24:46+00:00"
+            "time": "2019-12-31T17:48:08+00:00"
         },
         {
             "name": "webignition/basil-identifier-analyser",
@@ -137,23 +94,23 @@
         },
         {
             "name": "webignition/basil-models",
-            "version": "0.19",
+            "version": "0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-models.git",
-                "reference": "8c3f2ced0613c028127d59d1c3aaee705fa97f56"
+                "reference": "ba651c93928294b9a0569f2b3cbd6b9a9c4a9ef0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-models/zipball/8c3f2ced0613c028127d59d1c3aaee705fa97f56",
-                "reference": "8c3f2ced0613c028127d59d1c3aaee705fa97f56",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/ba651c93928294b9a0569f2b3cbd6b9a9c4a9ef0",
+                "reference": "ba651c93928294b9a0569f2b3cbd6b9a9c4a9ef0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.11.5",
+                "phpstan/phpstan": "^0.12",
                 "phpunit/phpunit": "~8.0",
                 "squizlabs/php_codesniffer": "3.*"
             },
@@ -174,23 +131,24 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-models",
-            "time": "2019-12-06T11:43:22+00:00"
+            "time": "2019-12-19T15:51:58+00:00"
         },
         {
             "name": "webignition/php-dom-element-identifier",
-            "version": "0.4",
+            "version": "0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/php-dom-element-identifier.git",
-                "reference": "de79797da971007086c5b64fd5018297661dd6e8"
+                "reference": "fcb502c1fc4377a50172d108c63444db86eca188"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/php-dom-element-identifier/zipball/de79797da971007086c5b64fd5018297661dd6e8",
-                "reference": "de79797da971007086c5b64fd5018297661dd6e8",
+                "url": "https://api.github.com/repos/webignition/php-dom-element-identifier/zipball/fcb502c1fc4377a50172d108c63444db86eca188",
+                "reference": "fcb502c1fc4377a50172d108c63444db86eca188",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": ">=7.2",
                 "webignition/php-dom-element-locator": ">=0.2,<1"
             },
@@ -216,7 +174,7 @@
                 }
             ],
             "homepage": "https://github.com/webignition/php-dom-element-identifier",
-            "time": "2019-12-29T19:40:26+00:00"
+            "time": "2019-12-31T08:39:47+00:00"
         },
         {
             "name": "webignition/php-dom-element-locator",
