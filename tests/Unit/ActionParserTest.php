@@ -52,22 +52,22 @@ class ActionParserTest extends TestCase
                     '$".selector"'
                 ),
             ],
-            'click identifier contains parent reference' => [
-                'actionString' => 'click {{ $".parent" }} $".child"',
+            'click: parent > child' => [
+                'actionString' => 'click $"{{ $".parent" }} .child"',
                 'expectedAction' => new InteractionAction(
-                    'click {{ $".parent" }} $".child"',
+                    'click $"{{ $".parent" }} .child"',
                     'click',
-                    '{{ $".parent" }} $".child"',
-                    '{{ $".parent" }} $".child"'
+                    '$"{{ $".parent" }} .child"',
+                    '$"{{ $".parent" }} .child"'
                 ),
             ],
-            'click identifier contains nested parent reference' => [
-                'actionString' => 'click {{ {{ $".inner-parent" }} $".inner-child }} $".child"',
+            'click: grandparent > parent > child' => [
+                'actionString' => 'click $"{{ $"{{ $".grandparent" }} .parent" }} .child"',
                 'expectedAction' => new InteractionAction(
-                    'click {{ {{ $".inner-parent" }} $".inner-child }} $".child"',
+                    'click $"{{ $"{{ $".grandparent" }} .parent" }} .child"',
                     'click',
-                    '{{ {{ $".inner-parent" }} $".inner-child }} $".child"',
-                    '{{ {{ $".inner-parent" }} $".inner-child }} $".child"'
+                    '$"{{ $"{{ $".grandparent" }} .parent" }} .child"',
+                    '$"{{ $"{{ $".grandparent" }} .parent" }} .child"'
                 ),
             ],
             'submit' => [
@@ -159,12 +159,12 @@ class ActionParserTest extends TestCase
                 ),
             ],
             'set to variable value, dom identifier value (4)' => [
-                'actionString' => 'set {{ $".parent1" }} $".child1" to {{ $".parent2" }} $".child2"',
+                'actionString' => 'set $"{{ $".parent1" }} .child1" to $"{{ $".parent2" }} .child2"',
                 'expectedAction' => new InputAction(
-                    'set {{ $".parent1" }} $".child1" to {{ $".parent2" }} $".child2"',
-                    '{{ $".parent1" }} $".child1" to {{ $".parent2" }} $".child2"',
-                    '{{ $".parent1" }} $".child1"',
-                    '{{ $".parent2" }} $".child2"'
+                    'set $"{{ $".parent1" }} .child1" to $"{{ $".parent2" }} .child2"',
+                    '$"{{ $".parent1" }} .child1" to $"{{ $".parent2" }} .child2"',
+                    '$"{{ $".parent1" }} .child1"',
+                    '$"{{ $".parent2" }} .child2"'
                 ),
             ],
         ];
