@@ -11,6 +11,7 @@ use webignition\BasilModels\Action\InteractionAction;
 use webignition\BasilModels\Action\WaitAction;
 use webignition\BasilParser\Exception\EmptyActionException;
 use webignition\BasilParser\Exception\EmptyInputActionValueException;
+use webignition\BasilParser\Exception\InvalidActionIdentifierException;
 use webignition\BasilParser\ValueExtractor\ValueExtractor;
 
 class ActionParser
@@ -53,6 +54,7 @@ class ActionParser
      *
      * @throws EmptyActionException
      * @throws EmptyInputActionValueException
+     * @throws InvalidActionIdentifierException
      */
     public function parse(string $source): ActionInterface
     {
@@ -75,6 +77,10 @@ class ActionParser
 
         if ($isInteractionType || $isInputType) {
             $identifier = $this->identifierExtractor->extract($arguments);
+
+            if (null === $identifier) {
+                throw new InvalidActionIdentifierException($source);
+            }
 
             if ($isInteractionType) {
                 return new InteractionAction($source, $type, $arguments, $identifier);

@@ -13,6 +13,7 @@ use webignition\BasilModels\Action\WaitAction;
 use webignition\BasilParser\ActionParser;
 use webignition\BasilParser\Exception\EmptyActionException;
 use webignition\BasilParser\Exception\EmptyInputActionValueException;
+use webignition\BasilParser\Exception\InvalidActionIdentifierException;
 
 class ActionParserTest extends TestCase
 {
@@ -197,6 +198,30 @@ class ActionParserTest extends TestCase
             'set lacking "to" keyword, lacking value' => [
                 'actionString' => 'set $".selector"',
                 'expectedException' => new EmptyInputActionValueException('set $".selector"'),
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider parseActionWithInvalidIdentifierDataProvider
+     */
+    public function testParseActionWithInvalidIdentifier(string $action, \Exception $expectedException)
+    {
+        $this->expectExceptionObject($expectedException);
+
+        $this->parser->parse($action);
+    }
+
+    public function parseActionWithInvalidIdentifierDataProvider(): array
+    {
+        return [
+            'click action with non-dollar-prefixed selector' => [
+                'action' => 'click "selector"',
+                'expectedException' => new InvalidActionIdentifierException('click "selector"'),
+            ],
+            'set action with non-dollar-prefixed selector' => [
+                'action' => 'set "selector" to "value"',
+                'expectedException' => new InvalidActionIdentifierException('set "selector" to "value"'),
             ],
         ];
     }
