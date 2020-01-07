@@ -15,6 +15,7 @@ use webignition\BasilParser\Exception\EmptyAssertionException;
 use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
 use webignition\BasilParser\Exception\EmptyAssertionValueException;
 use webignition\BasilParser\Exception\EmptyInputActionValueException;
+use webignition\BasilParser\Exception\InvalidActionIdentifierException;
 
 class StepParser
 {
@@ -52,6 +53,7 @@ class StepParser
      * @throws EmptyAssertionIdentifierException
      * @throws EmptyInputActionValueException
      * @throws EmptyAssertionValueException
+     * @throws InvalidActionIdentifierException
      */
     public function parse(array $stepData): StepInterface
     {
@@ -74,6 +76,7 @@ class StepParser
      *
      * @throws EmptyActionException
      * @throws EmptyInputActionValueException
+     * @throws InvalidActionIdentifierException
      */
     private function parseActions(array $actionsData): array
     {

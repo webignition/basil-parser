@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Test;
 
-use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
@@ -14,6 +13,7 @@ use webignition\BasilParser\Exception\EmptyAssertionException;
 use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
 use webignition\BasilParser\Exception\EmptyAssertionValueException;
 use webignition\BasilParser\Exception\EmptyInputActionValueException;
+use webignition\BasilParser\Exception\InvalidActionIdentifierException;
 use webignition\BasilParser\StepParser;
 
 class TestParser
@@ -57,6 +57,7 @@ class TestParser
      * @throws EmptyAssertionIdentifierException
      * @throws EmptyInputActionValueException
      * @throws EmptyAssertionValueException
+     * @throws InvalidActionIdentifierException
      */
     public function parse(string $basePath, string $name, array $testData): TestInterface
     {
@@ -81,6 +82,7 @@ class TestParser
      * @throws EmptyAssertionIdentifierException
      * @throws EmptyInputActionValueException
      * @throws EmptyAssertionValueException
+     * @throws InvalidActionIdentifierException
      */
     private function getSteps(array $testData): array
     {
