@@ -10,7 +10,6 @@ use webignition\BasilModels\Assertion\ComparisonAssertion;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Test\Configuration;
-use webignition\BasilModels\Test\Imports;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
 use webignition\BasilParser\Exception\UnparseableActionException;
@@ -35,32 +34,25 @@ class TestParserTest extends TestCase
     /**
      * @dataProvider parseDataProvider
      *
-     * @param string $basePath
-     * @param string $name
      * @param array<mixed> $testData
      * @param TestInterface $expectedTest
      */
-    public function testParse(string $basePath, string $name, array $testData, TestInterface $expectedTest)
+    public function testParse(array $testData, TestInterface $expectedTest)
     {
-        $this->assertEquals($expectedTest, $this->parser->parse($basePath, $name, $testData));
+        $this->assertEquals($expectedTest, $this->parser->parse($testData));
     }
 
     public function parseDataProvider(): array
     {
         return [
             'empty' => [
-                'basePath' => '/basil/',
-                'name' => 'empty-test.yml',
                 'testData' => [],
                 'expectedTest' => new Test(
-                    'empty-test.yml',
                     new Configuration('', ''),
                     []
                 ),
             ],
             'non-empty' => [
-                'basePath' => '/basil/',
-                'name' => 'non-empty-test.yml',
                 'testData' => [
                     'config' => [
                         'browser' => 'chrome',
@@ -96,7 +88,6 @@ class TestParserTest extends TestCase
                     ],
                 ],
                 'expectedTest' => new Test(
-                    'non-empty-test.yml',
                     new Configuration('chrome', 'http://example.com/'),
                     [
                         'step one' => (new Step([], []))
@@ -124,17 +115,7 @@ class TestParserTest extends TestCase
                                 )
                             ]
                         ))->withDataImportName('data_provider_import_name'),
-                    ],
-                    (new Imports())
-                        ->withStepPaths([
-                            'step_import_name' => '/basil/step/one.yml',
-                        ])
-                        ->withDataProviderPaths([
-                            'data_provider_import_name' => '/basil/data/data.yml',
-                        ])
-                        ->withPagePaths([
-                            'page_import_name' => '/basil/page/page.yml',
-                        ])
+                    ]
                 ),
             ],
         ];
@@ -142,8 +123,6 @@ class TestParserTest extends TestCase
 
     public function testParseTestWithStepWithEmptyAction()
     {
-        $basePath = '/base';
-        $name = '/test.yml';
         $testData = [
             'step name' => [
                 'actions' => [
@@ -153,12 +132,10 @@ class TestParserTest extends TestCase
         ];
 
         try {
-            $this->parser->parse($basePath, $name, $testData);
+            $this->parser->parse($testData);
 
             $this->fail('UnparseableTestException not thrown');
         } catch (UnparseableTestException $unparseableTestException) {
-            $this->assertSame($basePath, $unparseableTestException->getBasePath());
-            $this->assertSame($name, $unparseableTestException->getName());
             $this->assertSame($testData, $unparseableTestException->getTestData());
 
             $expectedUnparseableStepException = UnparseableStepException::createForUnparseableActionException(

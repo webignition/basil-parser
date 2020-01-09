@@ -17,16 +17,11 @@ class TestParser
     private const KEY_IMPORTS = 'imports';
 
     private $configurationParser;
-    private $importsParser;
     private $stepParser;
 
-    public function __construct(
-        ConfigurationParser $configurationParser,
-        ImportsParser $importsParser,
-        StepParser $stepParser
-    ) {
+    public function __construct(ConfigurationParser $configurationParser, StepParser $stepParser)
+    {
         $this->configurationParser = $configurationParser;
-        $this->importsParser = $importsParser;
         $this->stepParser = $stepParser;
     }
 
@@ -34,33 +29,28 @@ class TestParser
     {
         return new TestParser(
             ConfigurationParser::create(),
-            ImportsParser::create(),
             StepParser::create()
         );
     }
 
     /**
-     * @param string $basePath
-     * @param string $name
      * @param array<mixed> $testData
      *
      * @return TestInterface
      *
      * @throws UnparseableTestException
      */
-    public function parse(string $basePath, string $name, array $testData): TestInterface
+    public function parse(array $testData): TestInterface
     {
-        $imports = $this->importsParser->parse($basePath, $testData[self::KEY_IMPORTS] ?? []);
-
         $configuration = $this->configurationParser->parse($testData[self::KEY_CONFIGURATION] ?? []);
 
         try {
             $steps = $this->getSteps($testData);
         } catch (UnparseableStepException $unparseableStepException) {
-            throw new UnparseableTestException($basePath, $name, $testData, $unparseableStepException);
+            throw new UnparseableTestException($testData, $unparseableStepException);
         }
 
-        return new Test($name, $configuration, $steps, $imports);
+        return new Test($configuration, $steps);
     }
 
     /**
