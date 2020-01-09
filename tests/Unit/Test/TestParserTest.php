@@ -13,10 +13,25 @@ use webignition\BasilModels\Test\Configuration;
 use webignition\BasilModels\Test\Imports;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
+use webignition\BasilParser\Exception\UnparseableActionException;
+use webignition\BasilParser\Exception\UnparseableStepException;
+use webignition\BasilParser\Exception\UnparseableTestException;
 use webignition\BasilParser\Test\TestParser;
 
 class TestParserTest extends TestCase
 {
+    /**
+     * @var TestParser
+     */
+    private $parser;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->parser = TestParser::create();
+    }
+
     /**
      * @dataProvider parseDataProvider
      *
@@ -27,9 +42,7 @@ class TestParserTest extends TestCase
      */
     public function testParse(string $basePath, string $name, array $testData, TestInterface $expectedTest)
     {
-        $parser = TestParser::create();
-
-        $this->assertEquals($expectedTest, $parser->parse($basePath, $name, $testData));
+        $this->assertEquals($expectedTest, $this->parser->parse($basePath, $name, $testData));
     }
 
     public function parseDataProvider(): array
@@ -125,5 +138,42 @@ class TestParserTest extends TestCase
                 ),
             ],
         ];
+    }
+
+    public function testParseTestWithStepWithEmptyAction()
+    {
+        $basePath = '/base';
+        $name = '/test.yml';
+        $testData = [
+            'step name' => [
+                'actions' => [
+                    '',
+                ],
+            ],
+        ];
+
+        try {
+            $this->parser->parse($basePath, $name, $testData);
+
+            $this->fail('UnparseableTestException not thrown');
+        } catch (UnparseableTestException $unparseableTestException) {
+            $this->assertSame($basePath, $unparseableTestException->getBasePath());
+            $this->assertSame($name, $unparseableTestException->getName());
+            $this->assertSame($testData, $unparseableTestException->getTestData());
+
+            $expectedUnparseableStepException = UnparseableStepException::createForUnparseableActionException(
+                [
+                    'actions' => [
+                        '',
+                    ],
+                ],
+                UnparseableActionException::createEmptyActionException()
+            );
+
+            $this->assertEquals(
+                $expectedUnparseableStepException,
+                $unparseableTestException->getUnparseableStepException()
+            );
+        }
     }
 }

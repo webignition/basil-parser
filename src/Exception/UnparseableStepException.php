@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Exception;
 
-use webignition\BasilModels\Step\StepInterface;
-
 class UnparseableStepException extends \Exception
 {
     public const CODE_UNPARSEABLE_ACTION = 1;
@@ -19,7 +17,7 @@ class UnparseableStepException extends \Exception
      * @param int $code
      * @param UnparseableStatementException $unparseableStatementException
      */
-    public function __construct(
+    private function __construct(
         array $stepData,
         int $code,
         UnparseableStatementException $unparseableStatementException
