@@ -9,11 +9,8 @@ use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
-use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
-use webignition\BasilParser\Exception\EmptyAssertionException;
-use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
-use webignition\BasilParser\Exception\EmptyAssertionValueException;
 use webignition\BasilParser\Exception\UnparseableActionException;
+use webignition\BasilParser\Exception\UnparseableAssertionException;
 
 class StepParser
 {
@@ -45,11 +42,8 @@ class StepParser
      *
      * @return StepInterface
      *
-     * @throws EmptyAssertionComparisonException
-     * @throws EmptyAssertionException
-     * @throws EmptyAssertionIdentifierException
-     * @throws EmptyAssertionValueException
      * @throws UnparseableActionException
+     * @throws UnparseableAssertionException
      */
     public function parse(array $stepData): StepInterface
     {
@@ -90,10 +84,7 @@ class StepParser
      *
      * @return AssertionInterface[]
      *
-     * @throws EmptyAssertionComparisonException
-     * @throws EmptyAssertionException
-     * @throws EmptyAssertionIdentifierException
-     * @throws EmptyAssertionValueException
+     * @throws UnparseableAssertionException
      */
     private function parseAssertions(array $assertionsData): array
     {
