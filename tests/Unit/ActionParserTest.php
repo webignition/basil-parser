@@ -11,9 +11,7 @@ use webignition\BasilModels\Action\InputAction;
 use webignition\BasilModels\Action\InteractionAction;
 use webignition\BasilModels\Action\WaitAction;
 use webignition\BasilParser\ActionParser;
-use webignition\BasilParser\Exception\EmptyActionException;
-use webignition\BasilParser\Exception\EmptyInputActionValueException;
-use webignition\BasilParser\Exception\InvalidActionIdentifierException;
+use webignition\BasilParser\Exception\UnparseableActionException;
 
 class ActionParserTest extends TestCase
 {
@@ -173,7 +171,7 @@ class ActionParserTest extends TestCase
 
     public function testParseEmptyAction()
     {
-        $this->expectExceptionObject(new EmptyActionException());
+        $this->expectExceptionObject(UnparseableActionException::createEmptyActionException());
 
         $this->parser->parse('');
     }
@@ -181,7 +179,7 @@ class ActionParserTest extends TestCase
     /**
      * @dataProvider parseInputActionEmptyValueDataProvider
      */
-    public function testParseInputActionEmptyValue(string $action, EmptyInputActionValueException $expectedException)
+    public function testParseInputActionEmptyValue(string $action, UnparseableActionException $expectedException)
     {
         $this->expectExceptionObject($expectedException);
 
@@ -193,11 +191,15 @@ class ActionParserTest extends TestCase
         return [
             'set with "to" keyword lacking value' => [
                 'actionString' => 'set $".selector" to',
-                'expectedException' => new EmptyInputActionValueException('set $".selector" to'),
+                'expectedException' => UnparseableActionException::createEmptyInputActionValueException(
+                    'set $".selector" to'
+                ),
             ],
             'set lacking "to" keyword, lacking value' => [
                 'actionString' => 'set $".selector"',
-                'expectedException' => new EmptyInputActionValueException('set $".selector"'),
+                'expectedException' => UnparseableActionException::createEmptyInputActionValueException(
+                    'set $".selector"'
+                ),
             ],
         ];
     }
@@ -217,11 +219,13 @@ class ActionParserTest extends TestCase
         return [
             'click action with non-dollar-prefixed selector' => [
                 'action' => 'click "selector"',
-                'expectedException' => new InvalidActionIdentifierException('click "selector"'),
+                'expectedException' => UnparseableActionException::createInvalidIdentifierException('click "selector"'),
             ],
             'set action with non-dollar-prefixed selector' => [
                 'action' => 'set "selector" to "value"',
-                'expectedException' => new InvalidActionIdentifierException('set "selector" to "value"'),
+                'expectedException' => UnparseableActionException::createInvalidIdentifierException(
+                    'set "selector" to "value"'
+                ),
             ],
         ];
     }
