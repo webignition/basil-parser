@@ -7,11 +7,12 @@ namespace webignition\BasilParser\Test;
 use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
+use webignition\BasilParser\DataParserInterface;
 use webignition\BasilParser\Exception\UnparseableStepException;
 use webignition\BasilParser\Exception\UnparseableTestException;
 use webignition\BasilParser\StepParser;
 
-class TestParser
+class TestParser implements DataParserInterface
 {
     private const KEY_CONFIGURATION = 'config';
     private const KEY_IMPORTS = 'imports';
