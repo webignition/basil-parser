@@ -8,6 +8,7 @@ use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
 use webignition\BasilParser\Exception\UnparseableStepException;
+use webignition\BasilParser\Exception\UnparseableTestException;
 use webignition\BasilParser\StepParser;
 
 class TestParser
@@ -45,18 +46,21 @@ class TestParser
      *
      * @return TestInterface
      *
-     * @throws UnparseableStepException
+     * @throws UnparseableTestException
      */
     public function parse(string $basePath, string $name, array $testData): TestInterface
     {
         $imports = $this->importsParser->parse($basePath, $testData[self::KEY_IMPORTS] ?? []);
 
-        return new Test(
-            $name,
-            $this->configurationParser->parse($testData[self::KEY_CONFIGURATION] ?? []),
-            $this->getSteps($testData),
-            $imports
-        );
+        $configuration = $this->configurationParser->parse($testData[self::KEY_CONFIGURATION] ?? []);
+
+        try {
+            $steps = $this->getSteps($testData);
+        } catch (UnparseableStepException $unparseableStepException) {
+            throw new UnparseableTestException($basePath, $name, $testData, $unparseableStepException);
+        }
+
+        return new Test($name, $configuration, $steps, $imports);
     }
 
     /**
