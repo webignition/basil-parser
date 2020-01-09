@@ -12,7 +12,7 @@ class UnparseableActionException extends \Exception
 
     private $actionString;
 
-    private function __construct(string $actionString, $code)
+    private function __construct(string $actionString, int $code)
     {
         parent::__construct(sprintf('Unparseable action "%s"', $actionString), $code);
 

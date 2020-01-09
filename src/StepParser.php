@@ -9,13 +9,11 @@ use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
-use webignition\BasilParser\Exception\EmptyActionException;
 use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
 use webignition\BasilParser\Exception\EmptyAssertionException;
 use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
 use webignition\BasilParser\Exception\EmptyAssertionValueException;
-use webignition\BasilParser\Exception\EmptyInputActionValueException;
-use webignition\BasilParser\Exception\InvalidActionIdentifierException;
+use webignition\BasilParser\Exception\UnparseableActionException;
 
 class StepParser
 {
@@ -47,13 +45,11 @@ class StepParser
      *
      * @return StepInterface
      *
-     * @throws EmptyActionException
      * @throws EmptyAssertionComparisonException
      * @throws EmptyAssertionException
      * @throws EmptyAssertionIdentifierException
-     * @throws EmptyInputActionValueException
      * @throws EmptyAssertionValueException
-     * @throws InvalidActionIdentifierException
+     * @throws UnparseableActionException
      */
     public function parse(array $stepData): StepInterface
     {
@@ -74,9 +70,7 @@ class StepParser
      *
      * @return ActionInterface[]
      *
-     * @throws EmptyActionException
-     * @throws EmptyInputActionValueException
-     * @throws InvalidActionIdentifierException
+     * @throws UnparseableActionException
      */
     private function parseActions(array $actionsData): array
     {

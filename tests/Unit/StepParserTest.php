@@ -10,12 +10,6 @@ use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
-use webignition\BasilParser\Exception\EmptyActionException;
-use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
-use webignition\BasilParser\Exception\EmptyAssertionException;
-use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
-use webignition\BasilParser\Exception\EmptyAssertionValueException;
-use webignition\BasilParser\Exception\EmptyInputActionValueException;
 use webignition\BasilParser\StepParser;
 
 class StepParserTest extends TestCase
@@ -25,13 +19,6 @@ class StepParserTest extends TestCase
      *
      * @param array<mixed> $stepData
      * @param StepInterface $expectedStep
-     *
-     * @throws EmptyActionException
-     * @throws EmptyAssertionComparisonException
-     * @throws EmptyAssertionException
-     * @throws EmptyAssertionIdentifierException
-     * @throws EmptyAssertionValueException
-     * @throws EmptyInputActionValueException
      */
     public function testParse(array $stepData, StepInterface $expectedStep)
     {
