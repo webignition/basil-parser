@@ -9,10 +9,7 @@ use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ComparisonAssertion;
 use webignition\BasilParser\AssertionParser;
-use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
-use webignition\BasilParser\Exception\EmptyAssertionException;
-use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
-use webignition\BasilParser\Exception\EmptyAssertionValueException;
+use webignition\BasilParser\Exception\UnparseableAssertionException;
 
 class AssertionParserTest extends TestCase
 {
@@ -196,7 +193,7 @@ class AssertionParserTest extends TestCase
 
     public function testParseEmptyAssertion()
     {
-        $this->expectExceptionObject(new EmptyAssertionException());
+        $this->expectExceptionObject(UnparseableAssertionException::createEmptyAssertionException());
 
         $this->parser->parse('');
     }
@@ -205,7 +202,7 @@ class AssertionParserTest extends TestCase
     {
         $source = 'foo';
 
-        $this->expectExceptionObject(new EmptyAssertionIdentifierException($source));
+        $this->expectExceptionObject(UnparseableAssertionException::createEmptyIdentifierException($source));
 
         $this->parser->parse($source);
     }
@@ -214,16 +211,16 @@ class AssertionParserTest extends TestCase
     {
         $source = '$page.title';
 
-        $this->expectExceptionObject(new EmptyAssertionComparisonException($source));
+        $this->expectExceptionObject(UnparseableAssertionException::createEmptyComparisonException($source));
 
         $this->parser->parse($source);
     }
 
-    public function testParseEmptyComparisonValue()
+    public function testParseEmptyValue()
     {
         $source = '$page.title is';
 
-        $this->expectExceptionObject(new EmptyAssertionValueException($source));
+        $this->expectExceptionObject(UnparseableAssertionException::createEmptyValueException($source));
 
         $this->parser->parse($source);
     }
