@@ -7,10 +7,7 @@ namespace webignition\BasilParser;
 use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ComparisonAssertion;
-use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
-use webignition\BasilParser\Exception\EmptyAssertionException;
-use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
-use webignition\BasilParser\Exception\EmptyAssertionValueException;
+use webignition\BasilParser\Exception\UnparseableAssertionException;
 use webignition\BasilParser\ValueExtractor\ValueExtractor;
 
 class AssertionParser
@@ -44,21 +41,18 @@ class AssertionParser
      *
      * @return AssertionInterface
      *
-     * @throws EmptyAssertionComparisonException
-     * @throws EmptyAssertionException
-     * @throws EmptyAssertionIdentifierException
-     * @throws EmptyAssertionValueException
+     * @throws UnparseableAssertionException
      */
     public function parse(string $source): AssertionInterface
     {
         $source = trim($source);
         if ('' === $source) {
-            throw new EmptyAssertionException();
+            throw UnparseableAssertionException::createEmptyAssertionException();
         }
 
         $identifier = $this->valueExtractor->extract($source);
         if (null === $identifier) {
-            throw new EmptyAssertionIdentifierException($source);
+            throw UnparseableAssertionException::createEmptyIdentifierException($source);
         }
 
         $identifierLength = mb_strlen($identifier);
@@ -66,7 +60,7 @@ class AssertionParser
 
         $comparison = $this->findComparison($comparisonAndValue);
         if (null === $comparison) {
-            throw new EmptyAssertionComparisonException($source);
+            throw UnparseableAssertionException::createEmptyComparisonException($source);
         }
 
         if (!in_array($comparison, self::COMPARISON_ASSERTIONS)) {
@@ -77,7 +71,7 @@ class AssertionParser
         $valueString = trim(mb_substr($comparisonAndValue, $comparisonLength));
 
         if ('' === $valueString) {
-            throw new EmptyAssertionValueException($source);
+            throw UnparseableAssertionException::createEmptyValueException($source);
         }
 
         $value = $this->valueExtractor->extract($valueString);

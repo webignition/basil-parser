@@ -9,13 +9,9 @@ use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
-use webignition\BasilParser\Exception\EmptyActionException;
-use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
-use webignition\BasilParser\Exception\EmptyAssertionException;
-use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
-use webignition\BasilParser\Exception\EmptyAssertionValueException;
-use webignition\BasilParser\Exception\EmptyInputActionValueException;
-use webignition\BasilParser\Exception\InvalidActionIdentifierException;
+use webignition\BasilParser\Exception\UnparseableActionException;
+use webignition\BasilParser\Exception\UnparseableAssertionException;
+use webignition\BasilParser\Exception\UnparseableStepException;
 
 class StepParser
 {
@@ -47,18 +43,24 @@ class StepParser
      *
      * @return StepInterface
      *
-     * @throws EmptyActionException
-     * @throws EmptyAssertionComparisonException
-     * @throws EmptyAssertionException
-     * @throws EmptyAssertionIdentifierException
-     * @throws EmptyInputActionValueException
-     * @throws EmptyAssertionValueException
-     * @throws InvalidActionIdentifierException
+     * @throws UnparseableStepException
      */
     public function parse(array $stepData): StepInterface
     {
-        $actions = $this->parseActions($stepData[self::KEY_ACTIONS] ?? []);
-        $assertions = $this->parseAssertions($stepData[self::KEY_ASSERTIONS] ?? []);
+        try {
+            $actions = $this->parseActions($stepData[self::KEY_ACTIONS] ?? []);
+        } catch (UnparseableActionException $unparseableActionException) {
+            throw UnparseableStepException::createForUnparseableActionException($stepData, $unparseableActionException);
+        }
+
+        try {
+            $assertions = $this->parseAssertions($stepData[self::KEY_ASSERTIONS] ?? []);
+        } catch (UnparseableAssertionException $unparseableAssertionException) {
+            throw UnparseableStepException::createForUnparseableAssertionException(
+                $stepData,
+                $unparseableAssertionException
+            );
+        }
 
         $step = new Step($actions, $assertions);
         $step = $this->setImportName($step, $stepData[self::KEY_IMPORT_NAME] ?? null);
@@ -74,9 +76,7 @@ class StepParser
      *
      * @return ActionInterface[]
      *
-     * @throws EmptyActionException
-     * @throws EmptyInputActionValueException
-     * @throws InvalidActionIdentifierException
+     * @throws UnparseableActionException
      */
     private function parseActions(array $actionsData): array
     {
@@ -96,10 +96,7 @@ class StepParser
      *
      * @return AssertionInterface[]
      *
-     * @throws EmptyAssertionComparisonException
-     * @throws EmptyAssertionException
-     * @throws EmptyAssertionIdentifierException
-     * @throws EmptyAssertionValueException
+     * @throws UnparseableAssertionException
      */
     private function parseAssertions(array $assertionsData): array
     {
