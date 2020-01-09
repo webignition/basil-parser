@@ -7,8 +7,7 @@ namespace webignition\BasilParser\Test;
 use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
-use webignition\BasilParser\Exception\UnparseableActionException;
-use webignition\BasilParser\Exception\UnparseableAssertionException;
+use webignition\BasilParser\Exception\UnparseableStepException;
 use webignition\BasilParser\StepParser;
 
 class TestParser
@@ -46,8 +45,7 @@ class TestParser
      *
      * @return TestInterface
      *
-     * @throws UnparseableActionException
-     * @throws UnparseableAssertionException
+     * @throws UnparseableStepException
      */
     public function parse(string $basePath, string $name, array $testData): TestInterface
     {
@@ -66,8 +64,7 @@ class TestParser
      *
      * @return StepInterface[]
      *
-     * @throws UnparseableActionException
-     * @throws UnparseableAssertionException
+     * @throws UnparseableStepException
      */
     private function getSteps(array $testData): array
     {
