@@ -6,9 +6,6 @@ namespace webignition\BasilParser\Exception;
 
 class UnparseableTestException extends \Exception
 {
-    private $basePath;
-    private $name;
-
     /**
      * @var array<mixed>
      */
@@ -16,14 +13,10 @@ class UnparseableTestException extends \Exception
     private $unparseableStepException;
 
     /**
-     * @param string $basePath
-     * @param string $name
      * @param array<mixed> $testData
      * @param UnparseableStepException $unparseableStepException
      */
     public function __construct(
-        string $basePath,
-        string $name,
         array $testData,
         UnparseableStepException $unparseableStepException
     ) {
@@ -33,20 +26,8 @@ class UnparseableTestException extends \Exception
             $unparseableStepException
         );
 
-        $this->basePath = $basePath;
-        $this->name = $name;
         $this->testData = $testData;
         $this->unparseableStepException = $unparseableStepException;
-    }
-
-    public function getBasePath(): string
-    {
-        return $this->basePath;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**
