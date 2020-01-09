@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Exception;
 
-class UnparseableStepException extends \Exception
+class UnparseableStepException extends UnparseableDataException
 {
     public const CODE_UNPARSEABLE_ACTION = 1;
     public const CODE_UNPARSEABLE_ASSERTION = 2;
 
-    private $stepData;
     private $unparseableStatementException;
 
     /**
@@ -22,9 +21,8 @@ class UnparseableStepException extends \Exception
         int $code,
         UnparseableStatementException $unparseableStatementException
     ) {
-        parent::__construct('Unparseable step', $code, $unparseableStatementException);
+        parent::__construct($stepData, 'Unparseable step', $code, $unparseableStatementException);
 
-        $this->stepData = $stepData;
         $this->unparseableStatementException = $unparseableStatementException;
     }
 
@@ -56,14 +54,6 @@ class UnparseableStepException extends \Exception
             self::CODE_UNPARSEABLE_ASSERTION,
             $unparseableAssertionException
         );
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function getStepData(): array
-    {
-        return $this->stepData;
     }
 
     public function getUnparseableStatementException(): UnparseableStatementException

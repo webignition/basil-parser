@@ -152,7 +152,7 @@ class StepParserTest extends TestCase
                         '',
                     ],
                 ],
-                $unparseableStepException->getStepData()
+                $unparseableStepException->getData()
             );
 
             $this->assertEquals(
@@ -179,7 +179,7 @@ class StepParserTest extends TestCase
                         '',
                     ],
                 ],
-                $unparseableStepException->getStepData()
+                $unparseableStepException->getData()
             );
 
             $this->assertEquals(
