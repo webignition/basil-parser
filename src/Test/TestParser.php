@@ -7,13 +7,11 @@ namespace webignition\BasilParser\Test;
 use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
-use webignition\BasilParser\Exception\EmptyActionException;
 use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
 use webignition\BasilParser\Exception\EmptyAssertionException;
 use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
 use webignition\BasilParser\Exception\EmptyAssertionValueException;
-use webignition\BasilParser\Exception\EmptyInputActionValueException;
-use webignition\BasilParser\Exception\InvalidActionIdentifierException;
+use webignition\BasilParser\Exception\UnparseableActionException;
 use webignition\BasilParser\StepParser;
 
 class TestParser
@@ -51,13 +49,11 @@ class TestParser
      *
      * @return TestInterface
      *
-     * @throws EmptyActionException
      * @throws EmptyAssertionComparisonException
      * @throws EmptyAssertionException
      * @throws EmptyAssertionIdentifierException
-     * @throws EmptyInputActionValueException
      * @throws EmptyAssertionValueException
-     * @throws InvalidActionIdentifierException
+     * @throws UnparseableActionException
      */
     public function parse(string $basePath, string $name, array $testData): TestInterface
     {
@@ -76,13 +72,11 @@ class TestParser
      *
      * @return StepInterface[]
      *
-     * @throws EmptyActionException
      * @throws EmptyAssertionComparisonException
      * @throws EmptyAssertionException
      * @throws EmptyAssertionIdentifierException
-     * @throws EmptyInputActionValueException
      * @throws EmptyAssertionValueException
-     * @throws InvalidActionIdentifierException
+     * @throws UnparseableActionException
      */
     private function getSteps(array $testData): array
     {
