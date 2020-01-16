@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Test;
 
-use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
 use webignition\BasilParser\DataParserInterface;
@@ -45,36 +44,27 @@ class TestParser implements DataParserInterface
     {
         $configuration = $this->configurationParser->parse($testData[self::KEY_CONFIGURATION] ?? []);
 
+        $stepName = null;
+
         try {
-            $steps = $this->getSteps($testData);
+            $stepNames = array_diff(array_keys($testData), [self::KEY_CONFIGURATION, self::KEY_IMPORTS]);
+            $steps = [];
+
+            foreach ($stepNames as $stepName) {
+                $stepData = $testData[$stepName] ?? [];
+
+                if (is_array($stepData)) {
+                    $steps[$stepName] = $this->stepParser->parse($stepData);
+                }
+            }
         } catch (UnparseableStepException $unparseableStepException) {
+            if (is_string($stepName)) {
+                $unparseableStepException->setStepName($stepName);
+            }
+
             throw new UnparseableTestException($testData, $unparseableStepException);
         }
 
         return new Test($configuration, $steps);
-    }
-
-    /**
-     * @param array<mixed> $testData
-     *
-     * @return StepInterface[]
-     *
-     * @throws UnparseableStepException
-     */
-    private function getSteps(array $testData): array
-    {
-        $stepNames = array_diff(array_keys($testData), [self::KEY_CONFIGURATION, self::KEY_IMPORTS]);
-
-        $steps = [];
-
-        foreach ($stepNames as $stepName) {
-            $stepData = $testData[$stepName] ?? [];
-
-            if (is_array($stepData)) {
-                $steps[$stepName] = $this->stepParser->parse($stepData);
-            }
-        }
-
-        return $steps;
     }
 }

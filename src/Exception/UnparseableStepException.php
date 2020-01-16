@@ -12,6 +12,11 @@ class UnparseableStepException extends UnparseableDataException
     private $unparseableStatementException;
 
     /**
+     * @var string|null
+     */
+    private $stepName;
+
+    /**
      * @param array<mixed> $stepData
      * @param int $code
      * @param UnparseableStatementException $unparseableStatementException
@@ -69,5 +74,15 @@ class UnparseableStepException extends UnparseableDataException
     public function isForUnparseableAssertionException(): bool
     {
         return self::CODE_UNPARSEABLE_ASSERTION === $this->code;
+    }
+
+    public function getStepName(): ?string
+    {
+        return $this->stepName;
+    }
+
+    public function setStepName(string $stepName): void
+    {
+        $this->stepName = $stepName;
     }
 }

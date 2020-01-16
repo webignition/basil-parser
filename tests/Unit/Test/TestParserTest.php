@@ -147,6 +147,8 @@ class TestParserTest extends TestCase
                 UnparseableActionException::createEmptyActionException()
             );
 
+            $expectedUnparseableStepException->setStepName('step name');
+
             $this->assertEquals(
                 $expectedUnparseableStepException,
                 $unparseableTestException->getUnparseableStepException()
