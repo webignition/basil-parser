@@ -224,4 +224,13 @@ class AssertionParserTest extends TestCase
 
         $this->parser->parse($source);
     }
+
+    public function testParseInvalidValueFormat()
+    {
+        $source = '$page.title is value';
+
+        $this->expectExceptionObject(UnparseableAssertionException::createInvalidValueFormatException($source));
+
+        $this->parser->parse($source);
+    }
 }
