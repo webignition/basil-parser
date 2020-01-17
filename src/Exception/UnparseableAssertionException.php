@@ -10,6 +10,7 @@ class UnparseableAssertionException extends UnparseableStatementException
     public const CODE_EMPTY_COMPARISON = 2;
     public const CODE_EMPTY_IDENTIFIER = 3;
     public const CODE_EMPTY_VALUE = 4;
+    public const CODE_INVALID_VALUE_FORMAT = 5;
 
     private function __construct(string $assertionString, int $code)
     {
@@ -34,6 +35,11 @@ class UnparseableAssertionException extends UnparseableStatementException
     public static function createEmptyValueException(string $assertionString): UnparseableAssertionException
     {
         return new UnparseableAssertionException($assertionString, self::CODE_EMPTY_VALUE);
+    }
+
+    public static function createInvalidValueFormatException(string $assertionString): UnparseableAssertionException
+    {
+        return new UnparseableAssertionException($assertionString, self::CODE_INVALID_VALUE_FORMAT);
     }
 
     public function isEmptyAssertionException(): bool

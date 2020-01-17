@@ -76,6 +76,10 @@ class AssertionParser
 
         $value = $this->valueExtractor->extract($valueString);
 
+        if (null === $value) {
+            throw UnparseableAssertionException::createInvalidValueFormatException($source);
+        }
+
         return new ComparisonAssertion($source, $identifier, $comparison, $value);
     }
 
