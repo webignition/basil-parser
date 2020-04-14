@@ -52,21 +52,21 @@ class ActionParserTest extends TestCase
                 ),
             ],
             'click: parent > child' => [
-                'actionString' => 'click $"{{ $".parent" }} .child"',
+                'actionString' => 'click $".parent" >> $".child"',
                 'expectedAction' => new InteractionAction(
-                    'click $"{{ $".parent" }} .child"',
+                    'click $".parent" >> $".child"',
                     'click',
-                    '$"{{ $".parent" }} .child"',
-                    '$"{{ $".parent" }} .child"'
+                    '$".parent" >> $".child"',
+                    '$".parent" >> $".child"'
                 ),
             ],
             'click: grandparent > parent > child' => [
-                'actionString' => 'click $"{{ $"{{ $".grandparent" }} .parent" }} .child"',
+                'actionString' => 'click $".grandparent" >> $".parent" >> $".child"',
                 'expectedAction' => new InteractionAction(
-                    'click $"{{ $"{{ $".grandparent" }} .parent" }} .child"',
+                    'click $".grandparent" >> $".parent" >> $".child"',
                     'click',
-                    '$"{{ $"{{ $".grandparent" }} .parent" }} .child"',
-                    '$"{{ $"{{ $".grandparent" }} .parent" }} .child"'
+                    '$".grandparent" >> $".parent" >> $".child"',
+                    '$".grandparent" >> $".parent" >> $".child"'
                 ),
             ],
             'submit' => [
@@ -158,12 +158,12 @@ class ActionParserTest extends TestCase
                 ),
             ],
             'set to variable value, dom identifier value (4)' => [
-                'actionString' => 'set $"{{ $".parent1" }} .child1" to $"{{ $".parent2" }} .child2"',
+                'actionString' => 'set $".parent1" >> $".child1" to $".parent2" >> $".child2"',
                 'expectedAction' => new InputAction(
-                    'set $"{{ $".parent1" }} .child1" to $"{{ $".parent2" }} .child2"',
-                    '$"{{ $".parent1" }} .child1" to $"{{ $".parent2" }} .child2"',
-                    '$"{{ $".parent1" }} .child1"',
-                    '$"{{ $".parent2" }} .child2"'
+                    'set $".parent1" >> $".child1" to $".parent2" >> $".child2"',
+                    '$".parent1" >> $".child1" to $".parent2" >> $".child2"',
+                    '$".parent1" >> $".child1"',
+                    '$".parent2" >> $".child2"'
                 ),
             ],
         ];

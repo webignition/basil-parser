@@ -48,19 +48,19 @@ class AssertionParserTest extends TestCase
                 ),
             ],
             'css parent > child element selector, is, scalar value' => [
-                'assertionString' => '$"{{ $".parent" }} .child" is "value"',
+                'assertionString' => '$".parent" >> $".child" is "value"',
                 'expectedAssertion' => new ComparisonAssertion(
-                    '$"{{ $".parent" }} .child" is "value"',
-                    '$"{{ $".parent" }} .child"',
+                    '$".parent" >> $".child" is "value"',
+                    '$".parent" >> $".child"',
                     'is',
                     '"value"'
                 ),
             ],
             'css grandparent > parent > child element selector, is, scalar value' => [
-                'assertionString' => '$"{{ $"{{ $".grandparent" }} .parent" }} .child" is "value"',
+                'assertionString' => '$".grandparent" >> $".parent" >> $".child" is "value"',
                 'expectedAssertion' => new ComparisonAssertion(
-                    '$"{{ $"{{ $".grandparent" }} .parent" }} .child" is "value"',
-                    '$"{{ $"{{ $".grandparent" }} .parent" }} .child"',
+                    '$".grandparent" >> $".parent" >> $".child" is "value"',
+                    '$".grandparent" >> $".parent" >> $".child"',
                     'is',
                     '"value"'
                 ),
@@ -92,15 +92,6 @@ class AssertionParserTest extends TestCase
                     '"value"'
                 ),
             ],
-            'css element selector with element reference, is, scalar value' => [
-                'assertionString' => '$"{{ reference }} .selector" is "value"',
-                'expectedAssertion' => new ComparisonAssertion(
-                    '$"{{ reference }} .selector" is "value"',
-                    '$"{{ reference }} .selector"',
-                    'is',
-                    '"value"'
-                ),
-            ],
             'scalar value, is, scalar value' => [
                 'assertionString' => '"value" is "value"',
                 'expectedAssertion' => new ComparisonAssertion(
@@ -120,21 +111,21 @@ class AssertionParserTest extends TestCase
                 ),
             ],
             'css element selector, is, descendant dom identifier value' => [
-                'assertionString' => '$".selector1" is $"{{ $".parent" }} .child"',
+                'assertionString' => '$".selector1" is $".parent" >> $".child"',
                 'expectedAssertion' => new ComparisonAssertion(
-                    '$".selector1" is $"{{ $".parent" }} .child"',
+                    '$".selector1" is $".parent" >> $".child"',
                     '$".selector1"',
                     'is',
-                    '$"{{ $".parent" }} .child"'
+                    '$".parent" >> $".child"'
                 ),
             ],
             'css element selector, is, nested descendant dom identifier value' => [
-                'assertionString' => '$".selector1" is $"{{ $"{{ $".grandparent" }} .parent" }} .child"',
+                'assertionString' => '$".selector1" is $".grandparent" >> $".parent" >> $".child"',
                 'expectedAssertion' => new ComparisonAssertion(
-                    '$".selector1" is $"{{ $"{{ $".grandparent" }} .parent" }} .child"',
+                    '$".selector1" is $".grandparent" >> $".parent" >> $".child"',
                     '$".selector1"',
                     'is',
-                    '$"{{ $"{{ $".grandparent" }} .parent" }} .child"'
+                    '$".grandparent" >> $".parent" >> $".child"'
                 ),
             ],
             'css element selector, exists, no value' => [
