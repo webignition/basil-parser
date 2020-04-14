@@ -10,7 +10,8 @@ use webignition\BasilModels\Action\InputAction;
 use webignition\BasilModels\Action\InteractionAction;
 use webignition\BasilModels\Action\WaitAction;
 use webignition\BasilParser\Exception\UnparseableActionException;
-use webignition\BasilParser\ValueExtractor\ValueExtractor;
+use webignition\BasilValueExtractor\IdentifierExtractor;
+use webignition\BasilValueExtractor\ValueExtractor;
 
 class ActionParser
 {
@@ -40,8 +41,8 @@ class ActionParser
     public static function create(): ActionParser
     {
         return new ActionParser(
-            IdentifierExtractor::create(),
-            ValueExtractor::create()
+            IdentifierExtractor::createExtractor(),
+            ValueExtractor::createExtractor()
         );
     }
 
