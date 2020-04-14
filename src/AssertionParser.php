@@ -8,7 +8,7 @@ use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ComparisonAssertion;
 use webignition\BasilParser\Exception\UnparseableAssertionException;
-use webignition\BasilParser\ValueExtractor\ValueExtractor;
+use webignition\BasilValueExtractor\ValueExtractor;
 
 class AssertionParser
 {
@@ -32,7 +32,7 @@ class AssertionParser
     public static function create(): AssertionParser
     {
         return new AssertionParser(
-            ValueExtractor::create()
+            ValueExtractor::createExtractor()
         );
     }
 
