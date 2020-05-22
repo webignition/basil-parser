@@ -7,9 +7,6 @@ namespace webignition\BasilParser\Tests\Unit;
 use PHPUnit\Framework\TestCase;
 use webignition\BasilModels\Action\Action;
 use webignition\BasilModels\Action\ActionInterface;
-use webignition\BasilModels\Action\InputAction;
-use webignition\BasilModels\Action\InteractionAction;
-use webignition\BasilModels\Action\WaitAction;
 use webignition\BasilParser\ActionParser;
 use webignition\BasilParser\Exception\UnparseableActionException;
 
@@ -41,7 +38,7 @@ class ActionParserTest extends TestCase
             ],
             'click' => [
                 'actionString' => 'click $".selector"',
-                'expectedAction' => new InteractionAction(
+                'expectedAction' => new Action(
                     'click $".selector"',
                     'click',
                     '$".selector"',
@@ -50,7 +47,7 @@ class ActionParserTest extends TestCase
             ],
             'click: parent > child' => [
                 'actionString' => 'click $".parent" >> $".child"',
-                'expectedAction' => new InteractionAction(
+                'expectedAction' => new Action(
                     'click $".parent" >> $".child"',
                     'click',
                     '$".parent" >> $".child"',
@@ -59,7 +56,7 @@ class ActionParserTest extends TestCase
             ],
             'click: grandparent > parent > child' => [
                 'actionString' => 'click $".grandparent" >> $".parent" >> $".child"',
-                'expectedAction' => new InteractionAction(
+                'expectedAction' => new Action(
                     'click $".grandparent" >> $".parent" >> $".child"',
                     'click',
                     '$".grandparent" >> $".parent" >> $".child"',
@@ -68,7 +65,7 @@ class ActionParserTest extends TestCase
             ],
             'submit' => [
                 'actionString' => 'submit $".selector"',
-                'expectedAction' => new InteractionAction(
+                'expectedAction' => new Action(
                     'submit $".selector"',
                     'submit',
                     '$".selector"',
@@ -77,11 +74,11 @@ class ActionParserTest extends TestCase
             ],
             'wait' => [
                 'actionString' => 'wait 1',
-                'expectedAction' => new WaitAction('wait 1', '1'),
+                'expectedAction' => new Action('wait 1', 'wait', '1', null, '1'),
             ],
             'wait-for' => [
                 'actionString' => 'wait-for $".selector"',
-                'expectedAction' => new InteractionAction(
+                'expectedAction' => new Action(
                     'wait-for $".selector"',
                     'wait-for',
                     '$".selector"',
@@ -90,20 +87,21 @@ class ActionParserTest extends TestCase
             ],
             'reload' => [
                 'actionString' => 'reload',
-                'expectedAction' => new Action('reload', 'reload', ''),
+                'expectedAction' => new Action('reload', 'reload'),
             ],
             'back' => [
                 'actionString' => 'back',
-                'expectedAction' => new Action('back', 'back', ''),
+                'expectedAction' => new Action('back', 'back'),
             ],
             'forward' => [
                 'actionString' => 'forward',
-                'expectedAction' => new Action('forward', 'forward', ''),
+                'expectedAction' => new Action('forward', 'forward'),
             ],
             'set to literal value, non-empty' => [
                 'actionString' => 'set $".selector" to "value"',
-                'expectedAction' => new InputAction(
+                'expectedAction' => new Action(
                     'set $".selector" to "value"',
+                    'set',
                     '$".selector" to "value"',
                     '$".selector"',
                     '"value"'
@@ -111,8 +109,9 @@ class ActionParserTest extends TestCase
             ],
             'set to literal value, empty' => [
                 'actionString' => 'set $".selector" to ""',
-                'expectedAction' => new InputAction(
+                'expectedAction' => new Action(
                     'set $".selector" to ""',
+                    'set',
                     '$".selector" to ""',
                     '$".selector"',
                     '""'
@@ -120,8 +119,9 @@ class ActionParserTest extends TestCase
             ],
             'set to variable value, data parameter' => [
                 'actionString' => 'set $".selector" to $data.value',
-                'expectedAction' => new InputAction(
+                'expectedAction' => new Action(
                     'set $".selector" to $data.value',
+                    'set',
                     '$".selector" to $data.value',
                     '$".selector"',
                     '$data.value'
@@ -129,8 +129,9 @@ class ActionParserTest extends TestCase
             ],
             'set to variable value, dom identifier value (1)' => [
                 'actionString' => 'set $".selector1" to $".selector2"',
-                'expectedAction' => new InputAction(
+                'expectedAction' => new Action(
                     'set $".selector1" to $".selector2"',
+                    'set',
                     '$".selector1" to $".selector2"',
                     '$".selector1"',
                     '$".selector2"'
@@ -138,8 +139,9 @@ class ActionParserTest extends TestCase
             ],
             'set to variable value, dom identifier value (2)' => [
                 'actionString' => 'set $".selector1":1 to $".selector2":1',
-                'expectedAction' => new InputAction(
+                'expectedAction' => new Action(
                     'set $".selector1":1 to $".selector2":1',
+                    'set',
                     '$".selector1":1 to $".selector2":1',
                     '$".selector1":1',
                     '$".selector2":1'
@@ -147,8 +149,9 @@ class ActionParserTest extends TestCase
             ],
             'set to variable value, dom identifier value (3)' => [
                 'actionString' => 'set $".parent1 .child1" to $".parent2 .child2"',
-                'expectedAction' => new InputAction(
+                'expectedAction' => new Action(
                     'set $".parent1 .child1" to $".parent2 .child2"',
+                    'set',
                     '$".parent1 .child1" to $".parent2 .child2"',
                     '$".parent1 .child1"',
                     '$".parent2 .child2"'
@@ -156,8 +159,9 @@ class ActionParserTest extends TestCase
             ],
             'set to variable value, dom identifier value (4)' => [
                 'actionString' => 'set $".parent1" >> $".child1" to $".parent2" >> $".child2"',
-                'expectedAction' => new InputAction(
+                'expectedAction' => new Action(
                     'set $".parent1" >> $".child1" to $".parent2" >> $".child2"',
+                    'set',
                     '$".parent1" >> $".child1" to $".parent2" >> $".child2"',
                     '$".parent1" >> $".child1"',
                     '$".parent2" >> $".child2"'

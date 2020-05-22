@@ -6,29 +6,12 @@ namespace webignition\BasilParser;
 
 use webignition\BasilModels\Action\Action;
 use webignition\BasilModels\Action\ActionInterface;
-use webignition\BasilModels\Action\InputAction;
-use webignition\BasilModels\Action\InteractionAction;
-use webignition\BasilModels\Action\WaitAction;
 use webignition\BasilParser\Exception\UnparseableActionException;
 use webignition\BasilValueExtractor\IdentifierExtractor;
 use webignition\BasilValueExtractor\ValueExtractor;
 
 class ActionParser
 {
-    private const INPUT_TYPES = [
-        'set',
-    ];
-
-    private const INTERACTION_TYPES = [
-        'click',
-        'submit',
-        'wait-for',
-    ];
-
-    private const WAIT_TYPES = [
-        'wait',
-    ];
-
     private IdentifierExtractor $identifierExtractor;
     private ValueExtractor $valueExtractor;
 
@@ -64,13 +47,12 @@ class ActionParser
         $type = $this->findType($source);
         $arguments = trim(mb_substr($source, strlen($type)));
 
-        $isWaitType = in_array($type, self::WAIT_TYPES);
-        if ($isWaitType) {
-            return new WaitAction($source, $arguments);
+        if ('wait' === $type) {
+            return new Action($source, $type, $arguments, null, $arguments);
         }
 
-        $isInteractionType = in_array($type, self::INTERACTION_TYPES);
-        $isInputType = in_array($type, self::INPUT_TYPES);
+        $isInteractionType = in_array($type, ['click', 'submit', 'wait-for']);
+        $isInputType = 'set' === $type;
 
         if ($isInteractionType || $isInputType) {
             $identifier = $this->identifierExtractor->extract($arguments);
@@ -80,7 +62,7 @@ class ActionParser
             }
 
             if ($isInteractionType) {
-                return new InteractionAction($source, $type, $arguments, $identifier);
+                return new Action($source, $type, $arguments, $identifier);
             }
 
             $value = $this->findInputValue($identifier, $arguments);
@@ -89,7 +71,7 @@ class ActionParser
                 throw UnparseableActionException::createEmptyInputActionValueException($source);
             }
 
-            return new InputAction($source, $arguments, $identifier, $value);
+            return new Action($source, $type, $arguments, $identifier, $value);
         }
 
         return new Action($source, $type, $arguments);
