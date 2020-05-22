@@ -13,10 +13,7 @@ use webignition\BasilParser\Exception\UnparseableAssertionException;
 
 class AssertionParserTest extends TestCase
 {
-    /**
-     * @var AssertionParser
-     */
-    private $parser;
+    private AssertionParser $parser;
 
     protected function setUp(): void
     {

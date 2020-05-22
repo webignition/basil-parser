@@ -9,12 +9,8 @@ class UnparseableStepException extends UnparseableDataException
     public const CODE_UNPARSEABLE_ACTION = 1;
     public const CODE_UNPARSEABLE_ASSERTION = 2;
 
-    private $unparseableStatementException;
-
-    /**
-     * @var string|null
-     */
-    private $stepName;
+    private UnparseableStatementException $unparseableStatementException;
+    private ?string $stepName;
 
     /**
      * @param array<mixed> $stepData

@@ -22,7 +22,7 @@ class AssertionParser
         'matches',
     ];
 
-    private $valueExtractor;
+    private ValueExtractor $valueExtractor;
 
     public function __construct(ValueExtractor $valueExtractor)
     {

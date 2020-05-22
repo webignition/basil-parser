@@ -17,10 +17,7 @@ use webignition\BasilParser\StepParser;
 
 class StepParserTest extends TestCase
 {
-    /**
-     * @var StepParser
-     */
-    private $parser;
+    private StepParser $parser;
 
     protected function setUp(): void
     {

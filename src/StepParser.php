@@ -21,8 +21,8 @@ class StepParser implements DataParserInterface
     private const KEY_DATA = 'data';
     private const KEY_ELEMENTS = 'elements';
 
-    private $actionParser;
-    private $assertionParser;
+    private ActionParser $actionParser;
+    private AssertionParser $assertionParser;
 
     public function __construct(ActionParser $actionParser, AssertionParser $assertionParser)
     {
