@@ -54,7 +54,7 @@ class AssertionParser
             throw UnparseableAssertionException::createEmptyComparisonException($source);
         }
 
-        if (!in_array($operator, ['excludes', 'includes', 'is-not', 'is', 'matches',])) {
+        if (false === Assertion::isComparisonOperator($operator)) {
             return new Assertion($source, $identifier, $operator);
         }
 
