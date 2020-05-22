@@ -47,12 +47,12 @@ class ActionParser
         $type = $this->findType($source);
         $arguments = trim(mb_substr($source, strlen($type)));
 
-        if ('wait' === $type) {
+        if (Action::isWaitType($type)) {
             return new Action($source, $type, $arguments, null, $arguments);
         }
 
-        $isInteractionType = in_array($type, ['click', 'submit', 'wait-for']);
-        $isInputType = 'set' === $type;
+        $isInteractionType = Action::isInteractionType($type);
+        $isInputType = Action::isInputType($type);
 
         if ($isInteractionType || $isInputType) {
             $identifier = $this->identifierExtractor->extract($arguments);
