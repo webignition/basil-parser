@@ -7,7 +7,6 @@ namespace webignition\BasilParser\Tests\Unit;
 use PHPUnit\Framework\TestCase;
 use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\Assertion\AssertionInterface;
-use webignition\BasilModels\Assertion\ComparisonAssertion;
 use webignition\BasilParser\AssertionParser;
 use webignition\BasilParser\Exception\UnparseableAssertionException;
 
@@ -37,7 +36,7 @@ class AssertionParserTest extends TestCase
         return [
             'css element selector, is, scalar value' => [
                 'assertionString' => '$".selector" is "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".selector" is "value"',
                     '$".selector"',
                     'is',
@@ -46,7 +45,7 @@ class AssertionParserTest extends TestCase
             ],
             'css parent > child element selector, is, scalar value' => [
                 'assertionString' => '$".parent" >> $".child" is "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".parent" >> $".child" is "value"',
                     '$".parent" >> $".child"',
                     'is',
@@ -55,7 +54,7 @@ class AssertionParserTest extends TestCase
             ],
             'css grandparent > parent > child element selector, is, scalar value' => [
                 'assertionString' => '$".grandparent" >> $".parent" >> $".child" is "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".grandparent" >> $".parent" >> $".child" is "value"',
                     '$".grandparent" >> $".parent" >> $".child"',
                     'is',
@@ -64,7 +63,7 @@ class AssertionParserTest extends TestCase
             ],
             'css element selector containing whitespace, is, scalar value' => [
                 'assertionString' => '$".parent .child" is "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".parent .child" is "value"',
                     '$".parent .child"',
                     'is',
@@ -73,7 +72,7 @@ class AssertionParserTest extends TestCase
             ],
             'css element selector, is-not, scalar value' => [
                 'assertionString' => '$".selector" is-not "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".selector" is-not "value"',
                     '$".selector"',
                     'is-not',
@@ -82,7 +81,7 @@ class AssertionParserTest extends TestCase
             ],
             'css attribute selector, is, scalar value' => [
                 'assertionString' => '$".selector".attribute_name is "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".selector".attribute_name is "value"',
                     '$".selector".attribute_name',
                     'is',
@@ -91,7 +90,7 @@ class AssertionParserTest extends TestCase
             ],
             'scalar value, is, scalar value' => [
                 'assertionString' => '"value" is "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '"value" is "value"',
                     '"value"',
                     'is',
@@ -100,7 +99,7 @@ class AssertionParserTest extends TestCase
             ],
             'css element selector, is, dom identifier value' => [
                 'assertionString' => '$".selector1" is $".selector2"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".selector1" is $".selector2"',
                     '$".selector1"',
                     'is',
@@ -109,7 +108,7 @@ class AssertionParserTest extends TestCase
             ],
             'css element selector, is, descendant dom identifier value' => [
                 'assertionString' => '$".selector1" is $".parent" >> $".child"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".selector1" is $".parent" >> $".child"',
                     '$".selector1"',
                     'is',
@@ -118,7 +117,7 @@ class AssertionParserTest extends TestCase
             ],
             'css element selector, is, nested descendant dom identifier value' => [
                 'assertionString' => '$".selector1" is $".grandparent" >> $".parent" >> $".child"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".selector1" is $".grandparent" >> $".parent" >> $".child"',
                     '$".selector1"',
                     'is',
@@ -151,7 +150,7 @@ class AssertionParserTest extends TestCase
             ],
             'css selector, includes, scalar value' => [
                 'assertionString' => '$".selector" includes "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".selector" includes "value"',
                     '$".selector"',
                     'includes',
@@ -160,7 +159,7 @@ class AssertionParserTest extends TestCase
             ],
             'css selector, excludes, scalar value' => [
                 'assertionString' => '$".selector" excludes "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".selector" excludes "value"',
                     '$".selector"',
                     'excludes',
@@ -169,7 +168,7 @@ class AssertionParserTest extends TestCase
             ],
             'css selector, matches, scalar value' => [
                 'assertionString' => '$".selector" matches "value"',
-                'expectedAssertion' => new ComparisonAssertion(
+                'expectedAssertion' => new Assertion(
                     '$".selector" matches "value"',
                     '$".selector"',
                     'matches',

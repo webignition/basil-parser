@@ -6,21 +6,12 @@ namespace webignition\BasilParser;
 
 use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\Assertion\AssertionInterface;
-use webignition\BasilModels\Assertion\ComparisonAssertion;
 use webignition\BasilParser\Exception\UnparseableAssertionException;
 use webignition\BasilValueExtractor\ValueExtractor;
 
 class AssertionParser
 {
-    private const COMPARISON_REGEX = '/^[a-z\-]+ ?/';
-
-    private const COMPARISON_ASSERTIONS = [
-        'excludes',
-        'includes',
-        'is-not',
-        'is',
-        'matches',
-    ];
+    private const OPERATOR_REGEX = '/^[a-z\-]+ ?/';
 
     private ValueExtractor $valueExtractor;
 
@@ -56,19 +47,19 @@ class AssertionParser
         }
 
         $identifierLength = mb_strlen($identifier);
-        $comparisonAndValue = trim(mb_substr($source, $identifierLength));
+        $operatorAndValue = trim(mb_substr($source, $identifierLength));
 
-        $comparison = $this->findComparison($comparisonAndValue);
-        if (null === $comparison) {
+        $operator = $this->findOperator($operatorAndValue);
+        if (null === $operator) {
             throw UnparseableAssertionException::createEmptyComparisonException($source);
         }
 
-        if (!in_array($comparison, self::COMPARISON_ASSERTIONS)) {
-            return new Assertion($source, $identifier, $comparison);
+        if (!in_array($operator, ['excludes', 'includes', 'is-not', 'is', 'matches',])) {
+            return new Assertion($source, $identifier, $operator);
         }
 
-        $comparisonLength = strlen($comparison);
-        $valueString = trim(mb_substr($comparisonAndValue, $comparisonLength));
+        $operatorLength = strlen($operator);
+        $valueString = trim(mb_substr($operatorAndValue, $operatorLength));
 
         if ('' === $valueString) {
             throw UnparseableAssertionException::createEmptyValueException($source);
@@ -80,18 +71,18 @@ class AssertionParser
             throw UnparseableAssertionException::createInvalidValueFormatException($source);
         }
 
-        return new ComparisonAssertion($source, $identifier, $comparison, $value);
+        return new Assertion($source, $identifier, $operator, $value);
     }
 
-    private function findComparison(string $sourceAndValue): ?string
+    private function findOperator(string $sourceAndValue): ?string
     {
-        $comparisonMatches = [];
-        preg_match(self::COMPARISON_REGEX, $sourceAndValue, $comparisonMatches);
+        $operatorMatches = [];
+        preg_match(self::OPERATOR_REGEX, $sourceAndValue, $operatorMatches);
 
-        if (0 === count($comparisonMatches)) {
+        if (0 === count($operatorMatches)) {
             return null;
         }
 
-        return trim($comparisonMatches[0]);
+        return trim($operatorMatches[0]);
     }
 }
