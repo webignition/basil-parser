@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilModels\Action\InteractionAction;
+use webignition\BasilModels\Action\Action;
 use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
@@ -52,7 +52,7 @@ class StepParserTest extends TestCase
                 ],
                 'expectedStep' => new Step(
                     [
-                        new InteractionAction(
+                        new Action(
                             'click $".selector"',
                             'click',
                             '$".selector"',
