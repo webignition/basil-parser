@@ -6,7 +6,7 @@ namespace webignition\BasilParser\Exception;
 
 class UnparseableTestException extends UnparseableDataException
 {
-    private $unparseableStepException;
+    private UnparseableStepException $unparseableStepException;
 
     /**
      * @param array<mixed> $testData

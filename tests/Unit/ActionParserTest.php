@@ -15,10 +15,7 @@ use webignition\BasilParser\Exception\UnparseableActionException;
 
 class ActionParserTest extends TestCase
 {
-    /**
-     * @var ActionParser
-     */
-    private $parser;
+    private ActionParser $parser;
 
     protected function setUp(): void
     {

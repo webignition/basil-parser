@@ -29,8 +29,8 @@ class ActionParser
         'wait',
     ];
 
-    private $identifierExtractor;
-    private $valueExtractor;
+    private IdentifierExtractor $identifierExtractor;
+    private ValueExtractor $valueExtractor;
 
     public function __construct(IdentifierExtractor $identifierExtractor, ValueExtractor $valueExtractor)
     {

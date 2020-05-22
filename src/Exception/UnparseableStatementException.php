@@ -6,7 +6,7 @@ namespace webignition\BasilParser\Exception;
 
 class UnparseableStatementException extends \Exception
 {
-    private $statement;
+    private string $statement;
 
     protected function __construct(string $statement, string $message, int $code)
     {

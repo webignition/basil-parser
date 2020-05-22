@@ -16,8 +16,8 @@ class TestParser implements DataParserInterface
     private const KEY_CONFIGURATION = 'config';
     private const KEY_IMPORTS = 'imports';
 
-    private $configurationParser;
-    private $stepParser;
+    private ConfigurationParser $configurationParser;
+    private StepParser $stepParser;
 
     public function __construct(ConfigurationParser $configurationParser, StepParser $stepParser)
     {

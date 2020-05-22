@@ -9,7 +9,7 @@ class UnparseableDataException extends \Exception implements UnparseableDataExce
     /**
      * @var array<mixed>
      */
-    private $data;
+    private array $data;
 
     /**
      * @param array<mixed> $data

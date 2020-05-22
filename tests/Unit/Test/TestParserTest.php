@@ -19,10 +19,7 @@ use webignition\BasilParser\Test\TestParser;
 
 class TestParserTest extends TestCase
 {
-    /**
-     * @var TestParser
-     */
-    private $parser;
+    private TestParser $parser;
 
     protected function setUp(): void
     {
