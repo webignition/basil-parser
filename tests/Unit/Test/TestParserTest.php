@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit\Test;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilModels\Action\InteractionAction;
-use webignition\BasilModels\Assertion\ComparisonAssertion;
+use webignition\BasilModels\Action\Action;
+use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Test\Configuration;
@@ -96,7 +96,7 @@ class TestParserTest extends TestCase
                             ])),
                         'step two' => (new Step(
                             [
-                                new InteractionAction(
+                                new Action(
                                     'click $page_import_name.elements.button',
                                     'click',
                                     '$page_import_name.elements.button',
@@ -104,7 +104,7 @@ class TestParserTest extends TestCase
                                 )
                             ],
                             [
-                                new ComparisonAssertion(
+                                new Assertion(
                                     '$page.title is $data.expected_title',
                                     '$page.title',
                                     'is',
