@@ -205,4 +205,24 @@ class StepParserTest extends TestCase
             $this->assertNull($unparseableStepException->getUnparseableStatementException());
         }
     }
+
+    public function testParseStepWithInvalidAssertionsData()
+    {
+        try {
+            $this->parser->parse([
+                'assertions' => 'not an array',
+            ]);
+
+            $this->fail('UnparseableStepException not thrown');
+        } catch (UnparseableStepException $unparseableStepException) {
+            $this->assertSame(
+                [
+                    'assertions' => 'not an array',
+                ],
+                $unparseableStepException->getData()
+            );
+
+            $this->assertNull($unparseableStepException->getUnparseableStatementException());
+        }
+    }
 }
