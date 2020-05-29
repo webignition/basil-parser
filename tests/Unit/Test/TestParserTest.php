@@ -135,7 +135,7 @@ class TestParserTest extends TestCase
         } catch (UnparseableTestException $unparseableTestException) {
             $this->assertSame($testData, $unparseableTestException->getData());
 
-            $expectedUnparseableStepException = UnparseableStepException::createForUnparseableActionException(
+            $expectedUnparseableStepException = UnparseableStepException::createForUnparseableAction(
                 [
                     'actions' => [
                         '',

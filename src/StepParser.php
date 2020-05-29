@@ -47,16 +47,26 @@ class StepParser implements DataParserInterface
      */
     public function parse(array $data): StepInterface
     {
-        try {
-            $actions = $this->parseActions($data[self::KEY_ACTIONS] ?? []);
-        } catch (UnparseableActionException $unparseableActionException) {
-            throw UnparseableStepException::createForUnparseableActionException($data, $unparseableActionException);
+        $actionsData = $data[self::KEY_ACTIONS] ?? [];
+        if (!is_array($actionsData)) {
+            throw UnparseableStepException::createForInvalidActionsData($data);
         }
 
         try {
-            $assertions = $this->parseAssertions($data[self::KEY_ASSERTIONS] ?? []);
+            $actions = $this->parseActions($actionsData);
+        } catch (UnparseableActionException $unparseableActionException) {
+            throw UnparseableStepException::createForUnparseableAction($data, $unparseableActionException);
+        }
+
+        $assertionsData = $data[self::KEY_ASSERTIONS] ?? [];
+        if (!is_array($assertionsData)) {
+            throw UnparseableStepException::createForInvalidAssertionsData($data);
+        }
+
+        try {
+            $assertions = $this->parseAssertions($assertionsData);
         } catch (UnparseableAssertionException $unparseableAssertionException) {
-            throw UnparseableStepException::createForUnparseableAssertionException(
+            throw UnparseableStepException::createForUnparseableAssertion(
                 $data,
                 $unparseableAssertionException
             );

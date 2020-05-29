@@ -12,6 +12,7 @@ use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilParser\Exception\UnparseableActionException;
 use webignition\BasilParser\Exception\UnparseableAssertionException;
+use webignition\BasilParser\Exception\UnparseableStatementException;
 use webignition\BasilParser\Exception\UnparseableStepException;
 use webignition\BasilParser\StepParser;
 
@@ -132,57 +133,60 @@ class StepParserTest extends TestCase
         ];
     }
 
-    public function testParseStepWithEmptyAction()
-    {
+    /**
+     * @dataProvider throwsUnparseableStepExceptionDataProvider
+     *
+     * @param array<mixed> $stepData
+     * @param UnparseableStatementException|null $expectedStatementException
+     */
+    public function testThrowsUnparseableStepException(
+        array $stepData,
+        ?UnparseableStatementException $expectedStatementException
+    ) {
         try {
-            $this->parser->parse([
-                'actions' => [
-                    '',
-                ],
-            ]);
+            $this->parser->parse($stepData);
 
             $this->fail('UnparseableStepException not thrown');
         } catch (UnparseableStepException $unparseableStepException) {
-            $this->assertSame(
-                [
-                    'actions' => [
-                        '',
-                    ],
-                ],
-                $unparseableStepException->getData()
-            );
-
+            $this->assertSame($stepData, $unparseableStepException->getData());
             $this->assertEquals(
-                UnparseableActionException::createEmptyActionException(),
+                $expectedStatementException,
                 $unparseableStepException->getUnparseableStatementException()
             );
         }
     }
 
-    public function testParseStepWithEmptyAssertion()
+    public function throwsUnparseableStepExceptionDataProvider(): array
     {
-        try {
-            $this->parser->parse([
-                'assertions' => [
-                    '',
+        return [
+            'empty action' => [
+                'stepData' => [
+                    'actions' => [
+                        '',
+                    ],
                 ],
-            ]);
-
-            $this->fail('UnparseableStepException not thrown');
-        } catch (UnparseableStepException $unparseableStepException) {
-            $this->assertSame(
-                [
+                'expectedStatementException' => UnparseableActionException::createEmptyActionException(),
+            ],
+            'empty assertion' => [
+                'stepData' => [
                     'assertions' => [
                         '',
                     ],
                 ],
-                $unparseableStepException->getData()
-            );
-
-            $this->assertEquals(
-                UnparseableAssertionException::createEmptyAssertionException(),
-                $unparseableStepException->getUnparseableStatementException()
-            );
-        }
+                'expectedStatementException' => UnparseableAssertionException::createEmptyAssertionException(),
+            ],
+            'invalid actions data' => [
+                'stepData' => [
+                    'actions' => 'not an array',
+                ],
+                'expectedStatementException' => null,
+            ],
+            'invalid assertions data' => [
+                'stepData' => [
+                    'assertions' => 'not an array',
+                ],
+                'expectedStatementException' => null,
+            ],
+        ];
     }
 }
