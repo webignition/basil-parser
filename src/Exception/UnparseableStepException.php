@@ -35,7 +35,7 @@ class UnparseableStepException extends UnparseableDataException
      *
      * @return UnparseableStepException
      */
-    public static function createForUnparseableActionException(
+    public static function createForUnparseableAction(
         array $stepData,
         UnparseableActionException $unparseableActionException
     ): UnparseableStepException {
@@ -48,7 +48,7 @@ class UnparseableStepException extends UnparseableDataException
      *
      * @return UnparseableStepException
      */
-    public static function createForUnparseableAssertionException(
+    public static function createForUnparseableAssertion(
         array $stepData,
         UnparseableAssertionException $unparseableAssertionException
     ): UnparseableStepException {

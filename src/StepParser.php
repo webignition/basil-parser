@@ -55,7 +55,7 @@ class StepParser implements DataParserInterface
         try {
             $actions = $this->parseActions($actionsData);
         } catch (UnparseableActionException $unparseableActionException) {
-            throw UnparseableStepException::createForUnparseableActionException($data, $unparseableActionException);
+            throw UnparseableStepException::createForUnparseableAction($data, $unparseableActionException);
         }
 
         $assertionsData = $data[self::KEY_ASSERTIONS] ?? [];
@@ -66,7 +66,7 @@ class StepParser implements DataParserInterface
         try {
             $assertions = $this->parseAssertions($assertionsData);
         } catch (UnparseableAssertionException $unparseableAssertionException) {
-            throw UnparseableStepException::createForUnparseableAssertionException(
+            throw UnparseableStepException::createForUnparseableAssertion(
                 $data,
                 $unparseableAssertionException
             );
