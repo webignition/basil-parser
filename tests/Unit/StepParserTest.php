@@ -185,4 +185,24 @@ class StepParserTest extends TestCase
             );
         }
     }
+
+    public function testParseStepWithInvalidActionsData()
+    {
+        try {
+            $this->parser->parse([
+                'actions' => 'not an array',
+            ]);
+
+            $this->fail('UnparseableStepException not thrown');
+        } catch (UnparseableStepException $unparseableStepException) {
+            $this->assertSame(
+                [
+                    'actions' => 'not an array',
+                ],
+                $unparseableStepException->getData()
+            );
+
+            $this->assertNull($unparseableStepException->getUnparseableStatementException());
+        }
+    }
 }
