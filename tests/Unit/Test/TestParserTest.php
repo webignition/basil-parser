@@ -9,6 +9,7 @@ use webignition\BasilModels\Action\Action;
 use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
+use webignition\BasilModels\Step\StepCollection;
 use webignition\BasilModels\Test\Configuration;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
@@ -46,7 +47,7 @@ class TestParserTest extends TestCase
                 'testData' => [],
                 'expectedTest' => new Test(
                     new Configuration('', ''),
-                    []
+                    new StepCollection([])
                 ),
             ],
             'non-empty' => [
@@ -86,7 +87,7 @@ class TestParserTest extends TestCase
                 ],
                 'expectedTest' => new Test(
                     new Configuration('chrome', 'http://example.com/'),
-                    [
+                    new StepCollection([
                         'step one' => (new Step([], []))
                             ->withImportName('step_import_name')
                             ->withData(new DataSetCollection([
@@ -112,7 +113,7 @@ class TestParserTest extends TestCase
                                 )
                             ]
                         ))->withDataImportName('data_provider_import_name'),
-                    ]
+                    ])
                 ),
             ],
         ];

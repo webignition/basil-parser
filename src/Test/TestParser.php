@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Test;
 
+use webignition\BasilModels\Step\StepCollection;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
 use webignition\BasilParser\DataParserInterface;
@@ -65,6 +66,6 @@ class TestParser implements DataParserInterface
             throw new UnparseableTestException($testData, $unparseableStepException);
         }
 
-        return new Test($configuration, $steps);
+        return new Test($configuration, new StepCollection($steps));
     }
 }
