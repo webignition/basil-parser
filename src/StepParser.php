@@ -75,10 +75,7 @@ class StepParser implements DataParserInterface
         $step = new Step($actions, $assertions);
         $step = $this->setImportName($step, $data[self::KEY_IMPORT_NAME] ?? null);
         $step = $this->setData($step, $data[self::KEY_DATA] ?? null);
-        $step = $this->setIdentifiers($step, $data[self::KEY_ELEMENTS] ?? null);
-
-
-        return $step;
+        return $this->setIdentifiers($step, $data[self::KEY_ELEMENTS] ?? null);
     }
 
     /**
