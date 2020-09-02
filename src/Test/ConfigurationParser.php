@@ -9,7 +9,7 @@ use webignition\BasilModels\Test\ConfigurationInterface;
 
 class ConfigurationParser
 {
-    private const KEY_BROWSERS = 'browsers';
+    private const KEY_BROWSER = 'browser';
     private const KEY_URL = 'url';
 
     public static function create(): ConfigurationParser
@@ -24,12 +24,12 @@ class ConfigurationParser
      */
     public function parse(array $configurationData): ConfigurationInterface
     {
-        $browsers = $configurationData[self::KEY_BROWSERS] ?? [];
-        $browsers = is_array($browsers) ? $browsers : [];
+        $browser = $configurationData[self::KEY_BROWSER] ?? '';
+        $browser = is_string($browser) ? $browser : '';
 
         $url = $configurationData[self::KEY_URL] ?? '';
         $url = is_string($url) ? $url : '';
 
-        return new Configuration($browsers, $url);
+        return new Configuration($browser, $url);
     }
 }

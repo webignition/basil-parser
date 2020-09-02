@@ -41,7 +41,7 @@
         "php": ">=7.4",
         "ext-mbstring": "*",
         "webignition/php-path-resolver": ">=0.2,<1",
-        "webignition/basil-models": ">=0.58,<1",
+        "webignition/basil-models": ">=0.53,<1",
         "webignition/basil-dom-identifier-factory": ">=0.13,<1",
         "webignition/basil-value-extractor": ">=0.4,<1"
     },
