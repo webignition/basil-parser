@@ -46,14 +46,14 @@ class TestParserTest extends TestCase
             'empty' => [
                 'testData' => [],
                 'expectedTest' => new Test(
-                    new Configuration([], ''),
+                    new Configuration('', ''),
                     new StepCollection([])
                 ),
             ],
             'non-empty' => [
                 'testData' => [
                     'config' => [
-                        'browsers' => ['chrome'],
+                        'browser' => 'chrome',
                         'url' => 'http://example.com/',
                     ],
                     'imports' => [
@@ -86,7 +86,7 @@ class TestParserTest extends TestCase
                     ],
                 ],
                 'expectedTest' => new Test(
-                    new Configuration(['chrome'], 'http://example.com/'),
+                    new Configuration('chrome', 'http://example.com/'),
                     new StepCollection([
                         'step one' => (new Step([], []))
                             ->withImportName('step_import_name')

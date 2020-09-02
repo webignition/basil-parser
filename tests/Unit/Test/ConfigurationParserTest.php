@@ -29,44 +29,38 @@ class ConfigurationParserTest extends TestCase
         return [
             'empty' => [
                 'configurationData' => [],
-                'expectedConfiguration' => new Configuration([], ''),
+                'expectedConfiguration' => new Configuration('', ''),
             ],
-            'invalid browser; not an array' => [
+            'invalid browser; not a string' => [
                 'configurationData' => [
-                    'browsers' => true,
+                    'browser' => true,
                 ],
-                'expectedConfiguration' => new Configuration([], ''),
+                'expectedConfiguration' => new Configuration('', ''),
             ],
-            'valid browser, singular' => [
+            'valid browser' => [
                 'configurationData' => [
-                    'browsers' => ['chrome'],
+                    'browser' => 'chrome',
                 ],
-                'expectedConfiguration' => new Configuration(['chrome'], ''),
-            ],
-            'valid browser, multiple' => [
-                'configurationData' => [
-                    'browsers' => ['chrome', 'firefox'],
-                ],
-                'expectedConfiguration' => new Configuration(['chrome', 'firefox'], ''),
+                'expectedConfiguration' => new Configuration('chrome', ''),
             ],
             'invalid url; not a string' => [
                 'configurationData' => [
                     'url' => true,
                 ],
-                'expectedConfiguration' => new Configuration([''], ''),
+                'expectedConfiguration' => new Configuration('', ''),
             ],
             'valid url' => [
                 'configurationData' => [
                     'url' => 'http://example.com/',
                 ],
-                'expectedConfiguration' => new Configuration([''], 'http://example.com/'),
+                'expectedConfiguration' => new Configuration('', 'http://example.com/'),
             ],
             'valid' => [
                 'configurationData' => [
-                    'browsers' => ['chrome'],
+                    'browser' => 'chrome',
                     'url' => 'http://example.com/',
                 ],
-                'expectedConfiguration' => new Configuration(['chrome'], 'http://example.com/'),
+                'expectedConfiguration' => new Configuration('chrome', 'http://example.com/'),
             ],
         ];
     }
