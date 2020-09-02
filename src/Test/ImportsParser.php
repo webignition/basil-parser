@@ -43,9 +43,7 @@ class ImportsParser
 
         $imports = $imports->withStepPaths($resolvedPathSets[self::KEY_STEPS]);
         $imports = $imports->withDataProviderPaths($resolvedPathSets[self::KEY_DATA_PROVIDERS]);
-        $imports = $imports->withPagePaths($resolvedPathSets[self::KEY_PAGES]);
-
-        return $imports;
+        return $imports->withPagePaths($resolvedPathSets[self::KEY_PAGES]);
     }
 
     /**
@@ -113,8 +111,6 @@ class ImportsParser
     private function filterPathSet(string $key, array $importsData): array
     {
         $importData = $importsData[$key] ?? [];
-        $importData = is_array($importData) ? $importData : [];
-
-        return $importData;
+        return is_array($importData) ? $importData : [];
     }
 }
