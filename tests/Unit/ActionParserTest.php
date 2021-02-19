@@ -24,11 +24,14 @@ class ActionParserTest extends TestCase
     /**
      * @dataProvider parseDataProvider
      */
-    public function testParse(string $actionString, ActionInterface $expectedAction)
+    public function testParse(string $actionString, ActionInterface $expectedAction): void
     {
         $this->assertEquals($expectedAction, $this->parser->parse($actionString));
     }
 
+    /**
+     * @return array[]
+     */
     public function parseDataProvider(): array
     {
         return [
@@ -170,7 +173,7 @@ class ActionParserTest extends TestCase
         ];
     }
 
-    public function testParseEmptyAction()
+    public function testParseEmptyAction(): void
     {
         $this->expectExceptionObject(UnparseableActionException::createEmptyActionException());
 
@@ -180,13 +183,16 @@ class ActionParserTest extends TestCase
     /**
      * @dataProvider parseInputActionEmptyValueDataProvider
      */
-    public function testParseInputActionEmptyValue(string $action, UnparseableActionException $expectedException)
+    public function testParseInputActionEmptyValue(string $action, UnparseableActionException $expectedException): void
     {
         $this->expectExceptionObject($expectedException);
 
         $this->parser->parse($action);
     }
 
+    /**
+     * @return array[]
+     */
     public function parseInputActionEmptyValueDataProvider(): array
     {
         return [
@@ -208,13 +214,16 @@ class ActionParserTest extends TestCase
     /**
      * @dataProvider parseActionWithInvalidIdentifierDataProvider
      */
-    public function testParseActionWithInvalidIdentifier(string $action, \Exception $expectedException)
+    public function testParseActionWithInvalidIdentifier(string $action, \Exception $expectedException): void
     {
         $this->expectExceptionObject($expectedException);
 
         $this->parser->parse($action);
     }
 
+    /**
+     * @return array[]
+     */
     public function parseActionWithInvalidIdentifierDataProvider(): array
     {
         return [

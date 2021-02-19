@@ -18,13 +18,16 @@ class ImportsParserTest extends TestCase
      * @param array<mixed> $importsData
      * @param ImportsInterface $expectedImports
      */
-    public function testParse(string $basePath, array $importsData, ImportsInterface $expectedImports)
+    public function testParse(string $basePath, array $importsData, ImportsInterface $expectedImports): void
     {
         $parser = ImportsParser::create();
 
         $this->assertEquals($expectedImports, $parser->parse($basePath, $importsData));
     }
 
+    /**
+     * @return array[]
+     */
     public function parseDataProvider(): array
     {
         return [
