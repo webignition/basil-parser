@@ -35,11 +35,14 @@ class TestParserTest extends TestCase
      * @param array<mixed> $testData
      * @param TestInterface $expectedTest
      */
-    public function testParse(array $testData, TestInterface $expectedTest)
+    public function testParse(array $testData, TestInterface $expectedTest): void
     {
         $this->assertEquals($expectedTest, $this->parser->parse($testData));
     }
 
+    /**
+     * @return array[]
+     */
     public function parseDataProvider(): array
     {
         return [
@@ -119,7 +122,7 @@ class TestParserTest extends TestCase
         ];
     }
 
-    public function testParseTestWithStepWithEmptyAction()
+    public function testParseTestWithStepWithEmptyAction(): void
     {
         $testData = [
             'step name' => [

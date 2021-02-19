@@ -18,13 +18,16 @@ class PageParserTest extends TestCase
      * @param array<mixed> $pageData
      * @param PageInterface $expectedPage
      */
-    public function testParse(string $importName, array $pageData, PageInterface $expectedPage)
+    public function testParse(string $importName, array $pageData, PageInterface $expectedPage): void
     {
         $parser = PageParser::create();
 
         $this->assertEquals($expectedPage, $parser->parse($importName, $pageData));
     }
 
+    /**
+     * @return array[]
+     */
     public function parseDataProvider(): array
     {
         return [

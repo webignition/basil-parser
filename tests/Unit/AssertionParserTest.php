@@ -24,13 +24,16 @@ class AssertionParserTest extends TestCase
     /**
      * @dataProvider parseDataProvider
      */
-    public function testParse(string $assertionString, AssertionInterface $expectedAssertion)
+    public function testParse(string $assertionString, AssertionInterface $expectedAssertion): void
     {
         $parser = AssertionParser::create();
 
         $this->assertEquals($expectedAssertion, $parser->parse($assertionString));
     }
 
+    /**
+     * @return array[]
+     */
     public function parseDataProvider(): array
     {
         return [
@@ -178,14 +181,14 @@ class AssertionParserTest extends TestCase
         ];
     }
 
-    public function testParseEmptyAssertion()
+    public function testParseEmptyAssertion(): void
     {
         $this->expectExceptionObject(UnparseableAssertionException::createEmptyAssertionException());
 
         $this->parser->parse('');
     }
 
-    public function testParseEmptyIdentifier()
+    public function testParseEmptyIdentifier(): void
     {
         $source = 'foo';
 
@@ -194,7 +197,7 @@ class AssertionParserTest extends TestCase
         $this->parser->parse($source);
     }
 
-    public function testParseEmptyComparison()
+    public function testParseEmptyComparison(): void
     {
         $source = '$page.title';
 
@@ -203,7 +206,7 @@ class AssertionParserTest extends TestCase
         $this->parser->parse($source);
     }
 
-    public function testParseEmptyValue()
+    public function testParseEmptyValue(): void
     {
         $source = '$page.title is';
 
@@ -212,7 +215,7 @@ class AssertionParserTest extends TestCase
         $this->parser->parse($source);
     }
 
-    public function testParseInvalidValueFormat()
+    public function testParseInvalidValueFormat(): void
     {
         $source = '$page.title is value';
 

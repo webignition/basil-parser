@@ -33,11 +33,14 @@ class StepParserTest extends TestCase
      * @param array<mixed> $stepData
      * @param StepInterface $expectedStep
      */
-    public function testParse(array $stepData, StepInterface $expectedStep)
+    public function testParse(array $stepData, StepInterface $expectedStep): void
     {
         $this->assertEquals($expectedStep, $this->parser->parse($stepData));
     }
 
+    /**
+     * @return array[]
+     */
     public function parseDataProvider(): array
     {
         return [
@@ -142,7 +145,7 @@ class StepParserTest extends TestCase
     public function testThrowsUnparseableStepException(
         array $stepData,
         ?UnparseableStatementException $expectedStatementException
-    ) {
+    ): void {
         try {
             $this->parser->parse($stepData);
 
@@ -156,6 +159,9 @@ class StepParserTest extends TestCase
         }
     }
 
+    /**
+     * @return array[]
+     */
     public function throwsUnparseableStepExceptionDataProvider(): array
     {
         return [

@@ -17,13 +17,16 @@ class ConfigurationParserTest extends TestCase
      * @param array<mixed> $configurationData
      * @param ConfigurationInterface $expectedConfiguration
      */
-    public function testParse(array $configurationData, ConfigurationInterface $expectedConfiguration)
+    public function testParse(array $configurationData, ConfigurationInterface $expectedConfiguration): void
     {
         $parser = ConfigurationParser::create();
 
         $this->assertEquals($expectedConfiguration, $parser->parse($configurationData));
     }
 
+    /**
+     * @return array[]
+     */
     public function parseDataProvider(): array
     {
         return [
