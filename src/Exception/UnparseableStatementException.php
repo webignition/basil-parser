@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Exception;
 
-class UnparseableStatementException extends \Exception
+class UnparseableStatementException extends AbstractParserException
 {
     private string $statement;
 
