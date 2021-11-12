@@ -19,8 +19,6 @@ class ConfigurationParser
 
     /**
      * @param array<string, mixed> $configurationData
-     *
-     * @return ConfigurationInterface
      */
     public function parse(array $configurationData): ConfigurationInterface
     {

@@ -14,9 +14,7 @@ class PageParserTest extends TestCase
     /**
      * @dataProvider parseDataProvider
      *
-     * @param string $importName
      * @param array<mixed> $pageData
-     * @param PageInterface $expectedPage
      */
     public function testParse(string $importName, array $pageData, PageInterface $expectedPage): void
     {

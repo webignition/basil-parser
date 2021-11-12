@@ -18,10 +18,7 @@ class PageParser
     }
 
     /**
-     * @param string $importName
      * @param array<string, mixed> $pageData
-     *
-     * @return PageInterface
      */
     public function parse(string $importName, array $pageData): PageInterface
     {

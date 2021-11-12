@@ -30,10 +30,6 @@ class ActionParser
     }
 
     /**
-     * @param string $source
-     *
-     * @return ActionInterface
-     *
      * @throws UnparseableActionException
      */
     public function parse(string $source): ActionInterface
