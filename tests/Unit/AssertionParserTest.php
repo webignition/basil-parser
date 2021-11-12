@@ -32,7 +32,7 @@ class AssertionParserTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function parseDataProvider(): array
     {

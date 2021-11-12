@@ -30,7 +30,7 @@ class ActionParserTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function parseDataProvider(): array
     {
@@ -191,7 +191,7 @@ class ActionParserTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function parseInputActionEmptyValueDataProvider(): array
     {
@@ -222,7 +222,7 @@ class ActionParserTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function parseActionWithInvalidIdentifierDataProvider(): array
     {

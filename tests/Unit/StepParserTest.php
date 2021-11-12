@@ -39,7 +39,7 @@ class StepParserTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function parseDataProvider(): array
     {
@@ -160,7 +160,7 @@ class StepParserTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function throwsUnparseableStepExceptionDataProvider(): array
     {
