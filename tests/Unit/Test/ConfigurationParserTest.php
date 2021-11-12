@@ -15,7 +15,6 @@ class ConfigurationParserTest extends TestCase
      * @dataProvider parseDataProvider
      *
      * @param array<mixed> $configurationData
-     * @param ConfigurationInterface $expectedConfiguration
      */
     public function testParse(array $configurationData, ConfigurationInterface $expectedConfiguration): void
     {

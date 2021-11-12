@@ -15,8 +15,7 @@ class UnparseableStepException extends UnparseableDataException
     private ?string $stepName;
 
     /**
-     * @param array<mixed> $stepData
-     * @param int $code
+     * @param array<mixed>                  $stepData
      * @param UnparseableStatementException $unparseableStatementException
      */
     private function __construct(
@@ -31,9 +30,6 @@ class UnparseableStepException extends UnparseableDataException
 
     /**
      * @param array<mixed> $stepData
-     * @param UnparseableActionException $unparseableActionException
-     *
-     * @return UnparseableStepException
      */
     public static function createForUnparseableAction(
         array $stepData,
@@ -44,9 +40,6 @@ class UnparseableStepException extends UnparseableDataException
 
     /**
      * @param array<mixed> $stepData
-     * @param UnparseableAssertionException $unparseableAssertionException
-     *
-     * @return UnparseableStepException
      */
     public static function createForUnparseableAssertion(
         array $stepData,

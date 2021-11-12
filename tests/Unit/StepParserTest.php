@@ -31,7 +31,6 @@ class StepParserTest extends TestCase
      * @dataProvider parseDataProvider
      *
      * @param array<mixed> $stepData
-     * @param StepInterface $expectedStep
      */
     public function testParse(array $stepData, StepInterface $expectedStep): void
     {
@@ -140,7 +139,6 @@ class StepParserTest extends TestCase
      * @dataProvider throwsUnparseableStepExceptionDataProvider
      *
      * @param array<mixed> $stepData
-     * @param UnparseableStatementException|null $expectedStatementException
      */
     public function testThrowsUnparseableStepException(
         array $stepData,

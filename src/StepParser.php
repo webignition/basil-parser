@@ -41,8 +41,6 @@ class StepParser implements DataParserInterface
     /**
      * @param array<mixed> $data
      *
-     * @return StepInterface
-     *
      * @throws UnparseableStepException
      */
     public function parse(array $data): StepInterface
@@ -75,15 +73,16 @@ class StepParser implements DataParserInterface
         $step = new Step($actions, $assertions);
         $step = $this->setImportName($step, $data[self::KEY_IMPORT_NAME] ?? null);
         $step = $this->setData($step, $data[self::KEY_DATA] ?? null);
+
         return $this->setIdentifiers($step, $data[self::KEY_ELEMENTS] ?? null);
     }
 
     /**
      * @param array<mixed> $actionsData
      *
-     * @return ActionInterface[]
-     *
      * @throws UnparseableActionException
+     *
+     * @return ActionInterface[]
      */
     private function parseActions(array $actionsData): array
     {
@@ -101,9 +100,9 @@ class StepParser implements DataParserInterface
     /**
      * @param array<mixed> $assertionsData
      *
-     * @return AssertionInterface[]
-     *
      * @throws UnparseableAssertionException
+     *
+     * @return AssertionInterface[]
      */
     private function parseAssertions(array $assertionsData): array
     {
@@ -119,10 +118,7 @@ class StepParser implements DataParserInterface
     }
 
     /**
-     * @param StepInterface $step
      * @param mixed $importName
-     *
-     * @return StepInterface
      */
     private function setImportName(StepInterface $step, $importName): StepInterface
     {
@@ -138,10 +134,7 @@ class StepParser implements DataParserInterface
     }
 
     /**
-     * @param StepInterface $step
      * @param mixed $data
-     *
-     * @return StepInterface
      */
     private function setData(StepInterface $step, $data): StepInterface
     {
@@ -157,10 +150,7 @@ class StepParser implements DataParserInterface
     }
 
     /**
-     * @param StepInterface $step
      * @param mixed $identifiers
-     *
-     * @return StepInterface
      */
     private function setIdentifiers(StepInterface $step, $identifiers): StepInterface
     {

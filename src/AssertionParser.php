@@ -28,10 +28,6 @@ class AssertionParser
     }
 
     /**
-     * @param string $source
-     *
-     * @return AssertionInterface
-     *
      * @throws UnparseableAssertionException
      */
     public function parse(string $source): AssertionInterface

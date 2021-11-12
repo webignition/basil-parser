@@ -29,10 +29,7 @@ class ImportsParser
     }
 
     /**
-     * @param string $basePath
      * @param array<string, mixed> $importsData
-     *
-     * @return ImportsInterface
      */
     public function parse(string $basePath, array $importsData): ImportsInterface
     {
@@ -43,11 +40,11 @@ class ImportsParser
 
         $imports = $imports->withStepPaths($resolvedPathSets[self::KEY_STEPS]);
         $imports = $imports->withDataProviderPaths($resolvedPathSets[self::KEY_DATA_PROVIDERS]);
+
         return $imports->withPagePaths($resolvedPathSets[self::KEY_PAGES]);
     }
 
     /**
-     * @param string $basePath
      * @param array<string, array<string, string>> $pathSets
      *
      * @return array<string, array<string, string>>
@@ -62,7 +59,6 @@ class ImportsParser
     }
 
     /**
-     * @param string $basePath
      * @param array<string, string> $paths
      *
      * @return array<string, string>
@@ -103,7 +99,6 @@ class ImportsParser
     }
 
     /**
-     * @param string $key
      * @param array<string, mixed> $importsData
      *
      * @return array<string, string>
@@ -111,6 +106,7 @@ class ImportsParser
     private function filterPathSet(string $key, array $importsData): array
     {
         $importData = $importsData[$key] ?? [];
+
         return is_array($importData) ? $importData : [];
     }
 }

@@ -13,9 +13,6 @@ class UnparseableDataException extends \Exception implements UnparseableDataExce
 
     /**
      * @param array<mixed> $data
-     * @param string $message
-     * @param int $code
-     * @param \Throwable|null $previous
      */
     public function __construct(array $data, string $message, int $code, \Throwable $previous = null)
     {

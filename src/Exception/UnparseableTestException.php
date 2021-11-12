@@ -10,7 +10,6 @@ class UnparseableTestException extends UnparseableDataException
 
     /**
      * @param array<mixed> $testData
-     * @param UnparseableStepException $unparseableStepException
      */
     public function __construct(
         array $testData,

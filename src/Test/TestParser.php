@@ -37,8 +37,6 @@ class TestParser implements DataParserInterface
     /**
      * @param array<mixed> $testData
      *
-     * @return TestInterface
-     *
      * @throws UnparseableTestException
      */
     public function parse(array $testData): TestInterface

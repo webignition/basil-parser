@@ -33,7 +33,6 @@ class TestParserTest extends TestCase
      * @dataProvider parseDataProvider
      *
      * @param array<mixed> $testData
-     * @param TestInterface $expectedTest
      */
     public function testParse(array $testData, TestInterface $expectedTest): void
     {
