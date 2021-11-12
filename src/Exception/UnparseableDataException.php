@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Exception;
 
-class UnparseableDataException extends \Exception implements UnparseableDataExceptionInterface
+class UnparseableDataException extends AbstractParserException implements UnparseableDataExceptionInterface
 {
     /**
      * @var array<mixed>
