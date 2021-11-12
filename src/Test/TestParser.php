@@ -35,22 +35,25 @@ class TestParser implements DataParserInterface
     }
 
     /**
-     * @param array<mixed> $testData
+     * @param array<mixed> $data
      *
      * @throws UnparseableTestException
      */
-    public function parse(array $testData): TestInterface
+    public function parse(array $data): TestInterface
     {
-        $configuration = $this->configurationParser->parse($testData[self::KEY_CONFIGURATION] ?? []);
+        $configurationData = $data[self::KEY_CONFIGURATION] ?? [];
+        $configurationData = is_array($configurationData) ? $configurationData : [];
+
+        $configuration = $this->configurationParser->parse($configurationData);
 
         $stepName = null;
 
         try {
-            $stepNames = array_diff(array_keys($testData), [self::KEY_CONFIGURATION, self::KEY_IMPORTS]);
+            $stepNames = array_diff(array_keys($data), [self::KEY_CONFIGURATION, self::KEY_IMPORTS]);
             $steps = [];
 
             foreach ($stepNames as $stepName) {
-                $stepData = $testData[$stepName] ?? [];
+                $stepData = $data[$stepName] ?? [];
 
                 if (is_array($stepData)) {
                     $steps[$stepName] = $this->stepParser->parse($stepData);
@@ -61,7 +64,7 @@ class TestParser implements DataParserInterface
                 $unparseableStepException->setStepName($stepName);
             }
 
-            throw new UnparseableTestException($testData, $unparseableStepException);
+            throw new UnparseableTestException($data, $unparseableStepException);
         }
 
         return new Test($configuration, new StepCollection($steps));
