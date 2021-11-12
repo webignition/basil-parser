@@ -12,8 +12,6 @@ interface DataParserInterface
      * @param array<mixed> $data
      *
      * @throws UnparseableDataExceptionInterface
-     *
-     * @return mixed
      */
-    public function parse(array $data);
+    public function parse(array $data): mixed;
 }
