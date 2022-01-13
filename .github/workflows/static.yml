@@ -8,11 +8,11 @@ on:
 
 jobs:
   phpstan:
-    name: PHPStan - PHP ${{ matrix.php }}
+    name: PHPStan - PHP ${{ matrix.php }} ${{ matrix.operating-system }}
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php: ['8.0']
+        php: ['8.0', '8.1']
     runs-on: ${{ matrix.operating-system }}
 
     steps:
@@ -24,10 +24,10 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - name: PHPStan
-        uses: docker://oskarstark/phpstan-ga
-        env:
-          REQUIRE_DEV: true
-          CHECK_PLATFORM_REQUIREMENTS: false
+      - name: Download dependencies
+        uses: php-actions/composer@v6
         with:
-          args: analyse --no-progress
+          php_version: ${{ matrix.php }}
+
+      - name: PHPStan
+        run: composer static-analysis
