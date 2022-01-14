@@ -14,11 +14,9 @@ class ImportsParser
     private const KEY_DATA_PROVIDERS = 'data_providers';
     private const KEY_PAGES = 'pages';
 
-    private PathResolver $pathResolver;
-
-    public function __construct(PathResolver $pathResolver)
-    {
-        $this->pathResolver = $pathResolver;
+    public function __construct(
+        private PathResolver $pathResolver
+    ) {
     }
 
     public static function create(): ImportsParser

@@ -11,21 +11,17 @@ class UnparseableStepException extends UnparseableDataException
     public const CODE_INVALID_ACTIONS_DATA = 3;
     public const CODE_INVALID_ASSERTIONS_DATA = 4;
 
-    private ?UnparseableStatementException $unparseableStatementException = null;
     private ?string $stepName;
 
     /**
-     * @param array<mixed>                  $stepData
-     * @param UnparseableStatementException $unparseableStatementException
+     * @param array<mixed> $stepData
      */
     private function __construct(
         array $stepData,
         int $code,
-        ?UnparseableStatementException $unparseableStatementException = null
+        private ?UnparseableStatementException $unparseableStatementException = null
     ) {
         parent::__construct($stepData, 'Unparseable step', $code, $unparseableStatementException);
-
-        $this->unparseableStatementException = $unparseableStatementException;
     }
 
     /**

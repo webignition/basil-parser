@@ -7,22 +7,19 @@ namespace webignition\BasilParser\Exception;
 class UnparseableDataException extends AbstractParserException implements UnparseableDataExceptionInterface
 {
     /**
-     * @var array<mixed>
-     */
-    private array $data;
-
-    /**
      * @param array<mixed> $data
      */
-    public function __construct(array $data, string $message, int $code, \Throwable $previous = null)
-    {
+    public function __construct(
+        private array $data,
+        string $message,
+        int $code,
+        \Throwable $previous = null
+    ) {
         parent::__construct(
             $message,
             $code,
             $previous
         );
-
-        $this->data = $data;
     }
 
     public function getData(): array

@@ -12,13 +12,10 @@ use webignition\BasilValueExtractor\ValueExtractor;
 
 class ActionParser
 {
-    private IdentifierExtractor $identifierExtractor;
-    private ValueExtractor $valueExtractor;
-
-    public function __construct(IdentifierExtractor $identifierExtractor, ValueExtractor $valueExtractor)
-    {
-        $this->identifierExtractor = $identifierExtractor;
-        $this->valueExtractor = $valueExtractor;
+    public function __construct(
+        private IdentifierExtractor $identifierExtractor,
+        private ValueExtractor $valueExtractor
+    ) {
     }
 
     public static function create(): ActionParser

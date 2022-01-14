@@ -6,13 +6,12 @@ namespace webignition\BasilParser\Exception;
 
 class UnparseableStatementException extends AbstractParserException
 {
-    private string $statement;
-
-    protected function __construct(string $statement, string $message, int $code)
-    {
+    protected function __construct(
+        private string $statement,
+        string $message,
+        int $code
+    ) {
         parent::__construct($message, $code);
-
-        $this->statement = $statement;
     }
 
     public function getStatement(): string
