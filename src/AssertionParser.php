@@ -13,11 +13,9 @@ class AssertionParser
 {
     private const OPERATOR_REGEX = '/^[a-z\-]+ ?/';
 
-    private ValueExtractor $valueExtractor;
-
-    public function __construct(ValueExtractor $valueExtractor)
-    {
-        $this->valueExtractor = $valueExtractor;
+    public function __construct(
+        private ValueExtractor $valueExtractor
+    ) {
     }
 
     public static function create(): AssertionParser

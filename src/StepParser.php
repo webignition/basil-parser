@@ -21,13 +21,10 @@ class StepParser implements DataParserInterface
     private const KEY_DATA = 'data';
     private const KEY_ELEMENTS = 'elements';
 
-    private ActionParser $actionParser;
-    private AssertionParser $assertionParser;
-
-    public function __construct(ActionParser $actionParser, AssertionParser $assertionParser)
-    {
-        $this->actionParser = $actionParser;
-        $this->assertionParser = $assertionParser;
+    public function __construct(
+        private ActionParser $actionParser,
+        private AssertionParser $assertionParser
+    ) {
     }
 
     public static function create(): StepParser

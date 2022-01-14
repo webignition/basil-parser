@@ -6,14 +6,12 @@ namespace webignition\BasilParser\Exception;
 
 class UnparseableTestException extends UnparseableDataException
 {
-    private UnparseableStepException $unparseableStepException;
-
     /**
      * @param array<mixed> $testData
      */
     public function __construct(
         array $testData,
-        UnparseableStepException $unparseableStepException
+        private UnparseableStepException $unparseableStepException
     ) {
         parent::__construct(
             $testData,
@@ -21,8 +19,6 @@ class UnparseableTestException extends UnparseableDataException
             0,
             $unparseableStepException
         );
-
-        $this->unparseableStepException = $unparseableStepException;
     }
 
     public function getUnparseableStepException(): UnparseableStepException
