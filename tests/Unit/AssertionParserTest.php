@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilModels\Assertion\Assertion;
-use webignition\BasilModels\Assertion\AssertionInterface;
+use webignition\BasilModels\Model\Assertion\Assertion;
+use webignition\BasilModels\Model\Assertion\AssertionInterface;
 use webignition\BasilParser\AssertionParser;
 use webignition\BasilParser\Exception\UnparseableAssertionException;
 

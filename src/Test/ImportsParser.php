@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Test;
 
-use webignition\BasilModels\Test\Imports;
-use webignition\BasilModels\Test\ImportsInterface;
+use webignition\BasilModels\Model\Test\Imports;
+use webignition\BasilModels\Model\Test\ImportsInterface;
 use webignition\PathResolver\PathResolver;
 
 class ImportsParser

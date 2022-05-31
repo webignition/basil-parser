@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilModels\Page\Page;
-use webignition\BasilModels\Page\PageInterface;
+use webignition\BasilModels\Model\Page\Page;
+use webignition\BasilModels\Model\Page\PageInterface;
 use webignition\BasilParser\PageParser;
 
 class PageParserTest extends TestCase

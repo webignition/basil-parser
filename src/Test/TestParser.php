@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Test;
 
-use webignition\BasilModels\Step\StepCollection;
-use webignition\BasilModels\Test\Test;
-use webignition\BasilModels\Test\TestInterface;
+use webignition\BasilModels\Model\Step\StepCollection;
+use webignition\BasilModels\Model\Test\Test;
+use webignition\BasilModels\Model\Test\TestInterface;
 use webignition\BasilParser\DataParserInterface;
 use webignition\BasilParser\Exception\UnparseableStepException;
 use webignition\BasilParser\Exception\UnparseableTestException;
