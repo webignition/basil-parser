@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit\Test;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilModels\Test\Configuration;
-use webignition\BasilModels\Test\ConfigurationInterface;
+use webignition\BasilModels\Model\Test\Configuration;
+use webignition\BasilModels\Model\Test\ConfigurationInterface;
 use webignition\BasilParser\Test\ConfigurationParser;
 
 class ConfigurationParserTest extends TestCase

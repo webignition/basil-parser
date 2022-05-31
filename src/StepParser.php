@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser;
 
-use webignition\BasilModels\Action\ActionInterface;
-use webignition\BasilModels\Assertion\AssertionInterface;
-use webignition\BasilModels\DataSet\DataSetCollection;
-use webignition\BasilModels\Step\Step;
-use webignition\BasilModels\Step\StepInterface;
+use webignition\BasilModels\Model\Action\ActionInterface;
+use webignition\BasilModels\Model\Assertion\AssertionInterface;
+use webignition\BasilModels\Model\DataSet\DataSetCollection;
+use webignition\BasilModels\Model\Step\Step;
+use webignition\BasilModels\Model\Step\StepInterface;
 use webignition\BasilParser\Exception\UnparseableActionException;
 use webignition\BasilParser\Exception\UnparseableAssertionException;
 use webignition\BasilParser\Exception\UnparseableStepException;

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit\Test;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilModels\Test\Imports;
-use webignition\BasilModels\Test\ImportsInterface;
+use webignition\BasilModels\Model\Test\Imports;
+use webignition\BasilModels\Model\Test\ImportsInterface;
 use webignition\BasilParser\Test\ImportsParser;
 
 class ImportsParserTest extends TestCase

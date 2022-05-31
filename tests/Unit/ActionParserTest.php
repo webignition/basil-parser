@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilModels\Action\Action;
-use webignition\BasilModels\Action\ActionInterface;
+use webignition\BasilModels\Model\Action\Action;
+use webignition\BasilModels\Model\Action\ActionInterface;
 use webignition\BasilParser\ActionParser;
 use webignition\BasilParser\Exception\UnparseableActionException;
 

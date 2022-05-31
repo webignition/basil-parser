@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace webignition\BasilParser\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilModels\Action\Action;
-use webignition\BasilModels\Assertion\Assertion;
-use webignition\BasilModels\DataSet\DataSetCollection;
-use webignition\BasilModels\Step\Step;
-use webignition\BasilModels\Step\StepInterface;
+use webignition\BasilModels\Model\Action\Action;
+use webignition\BasilModels\Model\Assertion\Assertion;
+use webignition\BasilModels\Model\DataSet\DataSetCollection;
+use webignition\BasilModels\Model\Step\Step;
+use webignition\BasilModels\Model\Step\StepInterface;
 use webignition\BasilParser\Exception\UnparseableActionException;
 use webignition\BasilParser\Exception\UnparseableAssertionException;
 use webignition\BasilParser\Exception\UnparseableStatementException;

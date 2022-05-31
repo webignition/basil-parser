@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser;
 
-use webignition\BasilModels\Page\Page;
-use webignition\BasilModels\Page\PageInterface;
+use webignition\BasilModels\Model\Page\Page;
+use webignition\BasilModels\Model\Page\PageInterface;
 
 class PageParser
 {

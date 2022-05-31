@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilParser\Test;
 
-use webignition\BasilModels\Test\Configuration;
-use webignition\BasilModels\Test\ConfigurationInterface;
+use webignition\BasilModels\Model\Test\Configuration;
+use webignition\BasilModels\Model\Test\ConfigurationInterface;
 
 class ConfigurationParser
 {
