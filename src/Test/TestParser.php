@@ -15,10 +15,11 @@ use webignition\BasilParser\StepParser;
 class TestParser implements DataParserInterface
 {
     private const KEY_CONFIGURATION = 'config';
+    private const KEY_BROWSER = 'browser';
+    private const KEY_URL = 'url';
     private const KEY_IMPORTS = 'imports';
 
     public function __construct(
-        private ConfigurationParser $configurationParser,
         private StepParser $stepParser
     ) {
     }
@@ -26,7 +27,6 @@ class TestParser implements DataParserInterface
     public static function create(): TestParser
     {
         return new TestParser(
-            ConfigurationParser::create(),
             StepParser::create()
         );
     }
@@ -41,7 +41,11 @@ class TestParser implements DataParserInterface
         $configurationData = $data[self::KEY_CONFIGURATION] ?? [];
         $configurationData = is_array($configurationData) ? $configurationData : [];
 
-        $configuration = $this->configurationParser->parse($configurationData);
+        $browser = $configurationData[self::KEY_BROWSER] ?? '';
+        $browser = is_string($browser) ? $browser : '';
+
+        $url = $configurationData[self::KEY_URL] ?? '';
+        $url = is_string($url) ? $url : '';
 
         $stepName = null;
 
@@ -64,6 +68,6 @@ class TestParser implements DataParserInterface
             throw new UnparseableTestException($data, $unparseableStepException);
         }
 
-        return new Test($configuration, new StepCollection($steps));
+        return new Test($browser, $url, new StepCollection($steps));
     }
 }
